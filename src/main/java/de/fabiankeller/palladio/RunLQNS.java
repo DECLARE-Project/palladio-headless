@@ -33,6 +33,7 @@ import org.palladiosimulator.pcm.subsystem.util.SubsystemResourceFactoryImpl;
 import org.palladiosimulator.pcm.system.util.SystemResourceFactoryImpl;
 import org.palladiosimulator.pcm.usagemodel.util.UsagemodelResourceFactoryImpl;
 import org.palladiosimulator.pcm.util.PcmResourceFactoryImpl;
+import org.palladiosimulator.solver.lqn.util.LqnResourceFactoryImpl;
 import org.palladiosimulator.solver.models.PCMInstance;
 import org.palladiosimulator.solver.runconfig.PCMSolverConfigurationBasedConfigBuilder;
 import org.palladiosimulator.solver.runconfig.PCMSolverWorkflowRunConfiguration;
@@ -214,6 +215,7 @@ public class RunLQNS implements Runnable {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("resourceenvironment", new ResourceenvironmentResourceFactoryImpl());
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("allocation", new AllocationResourceFactoryImpl());
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("subsystem", new SubsystemResourceFactoryImpl());
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("lqxo", new LqnResourceFactoryImpl());
         log.info("Initialized resource factories");
     }
 
