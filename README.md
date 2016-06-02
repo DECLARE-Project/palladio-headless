@@ -15,3 +15,12 @@ Run Palladio LQNS headless and integrate it into your application.
 The `de.fabiankeller.palladio.RunLQNS` class offers a main method that reads the `config.properties` file and invokes the PCM2LQN solver.
 
 The actual output of the tool will appear upon successful completion in your defined `Output_Path`.
+
+## ToDo
+
+- Design a nice API to call LQNS. Currently the project only provides a `main(...)` method within `de.fabiankeller.palladio.RunLQNS`.
+- Extract LQNS results. Ideally, results are mapped to the PCM model. Maybe this is already part of Palladio?
+
+## Wiki
+
+For more information [check out the wiki](https://github.com/SQuAT-Team/palladio-lqns-headless/wiki) of this project. It contains behind the scenes information how the headless approach works.
