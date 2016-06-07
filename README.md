@@ -1,8 +1,8 @@
 # Palladio LQNS Headless
 
-Run Palladio LQNS headless and integrate it into your application.
+Run Palladio LQNS headless (i.e. without Eclipse) and integrate it into your application.
 
-> **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime.
+> **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime. For recent changes refer to the change log.
 
 ## Installation
 
@@ -18,9 +18,20 @@ The actual output of the tool will appear upon successful completion in your def
 
 ## ToDo
 
-- Design a nice API to call LQNS. Currently the project only provides a `main(...)` method within `de.fabiankeller.palladio.RunLQNS`.
+- ~~Design a nice API to call LQNS. Currently the project only provides a `main(...)` method within `de.fabiankeller.palladio.RunLQNS`.~~
 - Extract LQNS results. Ideally, results are mapped to the PCM model. Maybe this is already part of Palladio?
+- Provide a builder API to construct PCM models.
 
 ## Wiki
 
 For more information [check out the wiki](https://github.com/SQuAT-Team/palladio-lqns-headless/wiki) of this project. It contains behind the scenes information how the headless approach works.
+
+
+## [Change Log](CHANGELOG.md)
+
+See all changes made to this project in the [change log](CHANGELOG.md). This project follows [semantic versioning](http://semver.org/).
+
+
+## [License](LICENSE)
+
+This project is licensed under the terms of the [MIT license](LICENSE).
