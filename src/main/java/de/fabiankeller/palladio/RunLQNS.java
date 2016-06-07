@@ -1,5 +1,7 @@
 package de.fabiankeller.palladio;
 
+import de.fabiankeller.palladio.config.EnvironmentConfig;
+import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowConfigurationBuilder;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -7,33 +9,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.*;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl;
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
 import org.palladiosimulator.analyzer.workflow.configurations.AbstractPCMWorkflowRunConfiguration;
 import org.palladiosimulator.analyzer.workflow.configurations.PCMWorkflowConfigurationBuilder;
-import org.palladiosimulator.pcm.allocation.util.AllocationResourceFactoryImpl;
-import org.palladiosimulator.pcm.core.composition.util.CompositionResourceFactoryImpl;
-import org.palladiosimulator.pcm.core.entity.util.EntityResourceFactoryImpl;
-import org.palladiosimulator.pcm.core.util.CoreResourceFactoryImpl;
-import org.palladiosimulator.pcm.parameter.util.ParameterResourceFactoryImpl;
-import org.palladiosimulator.pcm.protocol.util.ProtocolResourceFactoryImpl;
-import org.palladiosimulator.pcm.qosannotations.qos_performance.util.QosPerformanceResourceFactoryImpl;
-import org.palladiosimulator.pcm.qosannotations.qos_reliability.util.QosReliabilityResourceFactoryImpl;
-import org.palladiosimulator.pcm.qosannotations.util.QosannotationsResourceFactoryImpl;
-import org.palladiosimulator.pcm.reliability.util.ReliabilityResourceFactoryImpl;
-import org.palladiosimulator.pcm.repository.util.RepositoryResourceFactoryImpl;
-import org.palladiosimulator.pcm.resourceenvironment.util.ResourceenvironmentResourceFactoryImpl;
-import org.palladiosimulator.pcm.resourcetype.util.ResourcetypeResourceFactoryImpl;
-import org.palladiosimulator.pcm.seff.seff_performance.util.SeffPerformanceResourceFactoryImpl;
-import org.palladiosimulator.pcm.seff.seff_reliability.util.SeffReliabilityResourceFactoryImpl;
-import org.palladiosimulator.pcm.seff.util.SeffResourceFactoryImpl;
-import org.palladiosimulator.pcm.subsystem.util.SubsystemResourceFactoryImpl;
-import org.palladiosimulator.pcm.system.util.SystemResourceFactoryImpl;
-import org.palladiosimulator.pcm.usagemodel.util.UsagemodelResourceFactoryImpl;
-import org.palladiosimulator.pcm.util.PcmResourceFactoryImpl;
-import org.palladiosimulator.solver.lqn.util.LqnResourceFactoryImpl;
 import org.palladiosimulator.solver.models.PCMInstance;
 import org.palladiosimulator.solver.runconfig.PCMSolverConfigurationBasedConfigBuilder;
 import org.palladiosimulator.solver.runconfig.PCMSolverWorkflowRunConfiguration;
@@ -42,8 +20,6 @@ import org.palladiosimulator.solver.transformations.pcm2lqn.Pcm2LqnStrategy;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -60,7 +36,6 @@ public class RunLQNS implements Runnable {
     private static final String PROPERTY_ALLOCATION_MODEL = "Filename_AllocationModel";
     private static final String PROPERTY_OUTPUT_PATH = "Output_Path";
 
-    public static final String PCM_MODELS = "PCM_Models";
 
     private static final Logger log = Logger.getLogger(RunLQNS.class.getName());
 
@@ -99,42 +74,10 @@ public class RunLQNS implements Runnable {
      */
     public void run() {
         log.info("Launching LQNS headless");
-        initEmfFactories();
+        PalladioEclipseEnvironment.INSTANCE.setup(new EnvironmentConfig(this.runnerConfig));
 
         PCMResourceSetPartition resourceSetPartition = new PCMResourceSetPartition();
-        resourceSetPartition.getResourceSet().setURIConverter(new ExtensibleURIConverterImpl() {
-            @Override
-            public org.eclipse.emf.common.util.URI normalize(org.eclipse.emf.common.util.URI uri) {
-                org.eclipse.emf.common.util.URI normalized = doNormalize(uri);
-                log.info(String.format("Normalize uri '%s' to '%s'", uri, normalized));
-                return normalized;
-            }
-
-            private org.eclipse.emf.common.util.URI doNormalize(org.eclipse.emf.common.util.URI uri) {
-                if (uri.toString().startsWith("pathmap://")) {
-                    String unPrefixed = uri.toString().replace("pathmap://", "");
-                    if (unPrefixed.startsWith("PCM_MODELS/")) {
-                        org.eclipse.emf.common.util.URI converted = org.eclipse.emf.common.util.URI.createURI(unPrefixed.replace("PCM_MODELS/", runnerConfig.getProperty(PCM_MODELS)));
-                        if (!new java.io.File(converted.toString()).exists()) {
-                            log.warning("Normalized URI is not a file: " + converted);
-                        }
-                        return converted;
-                    }
-                    throw new RuntimeException("Unknown pathmap: " + uri);
-                }
-                return super.normalize(uri);
-            }
-        });
-        try {
-            Field field = ExtensibleURIConverterImpl.class.getField("INSTANCE");
-            field.setAccessible(true);
-            Field modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-            field.set(null, resourceSetPartition.getResourceSet().getURIConverter());
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        resourceSetPartition.getResourceSet().setURIConverter(PalladioEclipseEnvironment.INSTANCE.getUriConverter());
 
         ArrayList<String> fileList = new ArrayList<String>();
         fileList.add(runnerConfig.getProperty("Filename_UsageModel"));
@@ -182,41 +125,6 @@ public class RunLQNS implements Runnable {
         }
 
         return solverConfiguration;
-    }
-
-
-    /**
-     * Manually register factories for EMF.
-     */
-    private static void initEmfFactories() {
-        for (final EPackage ePackage : AbstractPCMWorkflowRunConfiguration.PCM_EPACKAGES) {
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(ePackage.getNsURI(), ePackage);
-        }
-        log.info("Initialized EMF factories");
-
-        // register factories: http://wiki.eclipse.org/EMF/FAQ#How_do_I_use_EMF_in_standalone_applications_.28such_as_an_ordinary_main.29.3F
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("pcm", new PcmResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("core", new CoreResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("entity", new EntityResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("composition", new CompositionResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("usagemodel", new UsagemodelResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("repository", new RepositoryResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("resourcetype", new ResourcetypeResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("protocol", new ProtocolResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("parameter", new ParameterResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("reliability", new ReliabilityResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("seff", new SeffResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("seffperformance", new SeffPerformanceResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("seffreliability", new SeffReliabilityResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("qosannotations", new QosannotationsResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("qosperformance", new QosPerformanceResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("qosreliability", new QosReliabilityResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("system", new SystemResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("resourceenvironment", new ResourceenvironmentResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("allocation", new AllocationResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("subsystem", new SubsystemResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("lqxo", new LqnResourceFactoryImpl());
-        log.info("Initialized resource factories");
     }
 
 

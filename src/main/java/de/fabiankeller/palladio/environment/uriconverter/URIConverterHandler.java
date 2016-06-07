@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static de.fabiankeller.palladio.RunLQNS.PCM_MODELS;
-
 /**
  * Intercepts URIs to be converted by the Eclipse {@link URIConverter}.
  */
