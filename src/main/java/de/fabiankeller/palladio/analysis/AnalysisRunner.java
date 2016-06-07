@@ -11,5 +11,5 @@ public interface AnalysisRunner {
     /**
      * Executes an analysis for the given PCM instance.
      */
-    void run(PCMInstance pcmInstance);
+    void analyze(PCMInstance pcmInstance);
 }

@@ -5,26 +5,17 @@ import java.util.Properties;
 /**
  * Settings to tweak the Eclipse Palladio environment.
  */
-public class EnvironmentConfig {
-    
-    private Properties config;
+public class EnvironmentConfig  extends AbstractPropertiesConfig {
+
 
     private static final String PROPERTY_PCM_MODELS = "PCM_Models_Location";
 
     public EnvironmentConfig() {
-        this(new Properties());
+        super();
     }
 
     public EnvironmentConfig(Properties config) {
-        this.config = config;
-    }
-
-    private String getPropertyNotNull(String name) {
-        String value = config.getProperty(name);
-        if (value == null) {
-            throw new RuntimeException(String.format("Missing config key %s in EnvironmentConfig!", name));
-        }
-        return value;
+        super(config);
     }
 
     public String getPCMModelsLocation() {
@@ -32,6 +23,6 @@ public class EnvironmentConfig {
     }
 
     public void setPCMModelsLocation(String pcmModels) {
-        this.config.setProperty(PROPERTY_PCM_MODELS, pcmModels);
+        this.setProperty(PROPERTY_PCM_MODELS, pcmModels);
     }
 }

@@ -5,7 +5,7 @@ import org.palladiosimulator.solver.models.PCMInstance;
 /**
  * Provides a {@link PCMInstance}.
  */
-public interface PCMProvider {
+public interface PcmProvider {
 
     PCMInstance provide();
 }

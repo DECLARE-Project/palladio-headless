@@ -1,7 +1,7 @@
 package de.fabiankeller.palladio.analysis.provider;
 
-import de.fabiankeller.palladio.analysis.PCMProvider;
-import de.fabiankeller.palladio.config.LoadPcmFromFileSystemConfig;
+import de.fabiankeller.palladio.analysis.PcmProvider;
+import de.fabiankeller.palladio.config.PcmModelConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
 import org.palladiosimulator.analyzer.workflow.configurations.AbstractPCMWorkflowRunConfiguration;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 /**
  * Provides a PCM instance by deserializing the XML representation stored on the file system.
  */
-public class FileSystemProvider implements PCMProvider {
+public class FileSystemProvider implements PcmProvider {
 
-    private LoadPcmFromFileSystemConfig config;
+    private PcmModelConfig config;
 
-    public FileSystemProvider(LoadPcmFromFileSystemConfig config) {
+    public FileSystemProvider(PcmModelConfig config) {
         this.config = config;
     }
 
