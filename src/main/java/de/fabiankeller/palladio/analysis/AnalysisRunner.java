@@ -1,9 +1,10 @@
 package de.fabiankeller.palladio.analysis;
 
 import org.palladiosimulator.solver.models.PCMInstance;
+import org.palladiosimulator.solver.transformations.SolverStrategy;
 
 /**
- * Runs a Palladio analysis.
+ * Runs a Palladio analysis leveraging a certain {@link SolverStrategy}.
  */
 public interface AnalysisRunner {
 

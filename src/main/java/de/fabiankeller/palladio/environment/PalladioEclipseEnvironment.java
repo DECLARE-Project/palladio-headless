@@ -139,6 +139,7 @@ public enum PalladioEclipseEnvironment {
      * Returns the intercepted URI converter. You may add your own interceptors.
      */
     public URIConverterHandler getUriConverter() {
+        assert this.isSetup();
         return this.uriConverter;
     }
 
