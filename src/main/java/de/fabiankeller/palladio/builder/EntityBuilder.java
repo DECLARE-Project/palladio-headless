@@ -4,6 +4,9 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 /**
  * Used to build Palladio {@link Entity}s (model instances).
+ *
+ * @param <SELF> the child interface extending this interface. This is used to provide a proper fluent interface.
+ * @param <TYPE> The Palladio {@link Entity} class that is built by this builder
  */
 public interface EntityBuilder<
         SELF extends EntityBuilder<SELF, TYPE>,
