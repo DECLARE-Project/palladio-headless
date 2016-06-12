@@ -6,48 +6,65 @@ import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.ParameterType;
 import de.fabiankeller.palladio.builder.repository.RepositoryBuilder;
 import de.fabiankeller.palladio.builder.repository.impl.RepositoryBuilderImpl;
-import org.apache.felix.scr.Component;
+import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
+import de.fabiankeller.palladio.builder.system.SystemBuilder;
+import de.fabiankeller.palladio.builder.system.impl.SystemBuilderImpl;
 
 // fixme: include junit and turn it into a real test
 public class SimpleTacticsBuilderTest {
 
-    private RepositoryBuilder repo;
+    private final RepositoryBuilder repo = new RepositoryBuilderImpl();
+    private final SystemBuilder system = new SystemBuilderImpl();
 
     public void testSimpleTactics() {
+
+        // // // REPOSITORY // // //
+
         // create interfaces in repository
-        InterfaceBuilder i_businessTrip = repo.withInterface("IBusinessTrip")
+        final InterfaceBuilder i_businessTrip = this.repo.withInterface("IBusinessTrip")
                 .createOperation("plan")
                 .withParameter("isBook", ParameterType.BOOL)
                 .withParameter("isBank", ParameterType.BOOL)
                 .end();
 
-        InterfaceBuilder i_booking = repo.withInterface("IBooking")
+        final InterfaceBuilder i_booking = this.repo.withInterface("IBooking")
                 .createOperation("book")
                 .withParameter("isBank", ParameterType.BOOL)
                 .end();
 
-        InterfaceBuilder i_employeePayment = repo.withInterface("IEmployeePayment")
+        final InterfaceBuilder i_employeePayment = this.repo.withInterface("IEmployeePayment")
                 .createOperation("reimburse")
                 .end();
 
-        InterfaceBuilder i_externalPayment = repo.withInterface("IExternalPayment")
+        final InterfaceBuilder i_externalPayment = this.repo.withInterface("IExternalPayment")
                 .createOperation("pay")
                 .withParameter("isBank", ParameterType.BOOL)
                 .end();
 
         // create components in repository
-        ComponentBuilder c_businessTripMgmt = repo.withComponent("BusinessTripMgmt")
+        final ComponentBuilder c_businessTripMgmt = this.repo.withComponent("BusinessTripMgmt")
                 .provides(i_businessTrip)
                 .requires(i_booking)
                 .requires(i_employeePayment);
-        ComponentBuilder c_bookingSystem = repo.withComponent("BookingSystem")
+        final ComponentBuilder c_bookingSystem = this.repo.withComponent("BookingSystem")
                 .provides(i_booking)
                 .requires(i_externalPayment);
-        ComponentBuilder c_paymentSystem = repo.withComponent("PaymentSystem")
+        final ComponentBuilder c_paymentSystem = this.repo.withComponent("PaymentSystem")
                 .provides(i_employeePayment)
                 .provides(i_externalPayment);
-        ComponentBuilder c_quickBooking =repo.withComponent("QuickBooking")
+        final ComponentBuilder c_quickBooking = this.repo.withComponent("QuickBooking")
                 .provides(i_booking)
                 .requires(i_externalPayment);
+
+
+        // // // SYSTEM // // //
+        final AssemblyBuilder a_businessTripMgmt = this.system.assemble(c_businessTripMgmt);
+        final AssemblyBuilder a_bookingSystem = this.system.assemble(c_bookingSystem);
+        final AssemblyBuilder a_paymentSystem = this.system.assemble(c_paymentSystem);
+
+        a_businessTripMgmt.provideToSystem(i_businessTrip);
+        // todo connect: Connector Assembly_C1 <C1> -> Assembly_C2 <C2>
+        // todo connect: Connector Assembly_C1 <C1> -> Assembly_C3 <C3>
+        a_bookingSystem.connectRequiredRole(i_externalPayment, a_paymentSystem, i_employeePayment);
     }
 }
