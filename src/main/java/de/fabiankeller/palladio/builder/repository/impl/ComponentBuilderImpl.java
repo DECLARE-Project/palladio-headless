@@ -31,6 +31,7 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
     public ComponentBuilder provides(final InterfaceBuilder iface) {
         // create model
         final OperationProvidedRole provided = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
+        provided.setEntityName(String.format("%s_provides_%s", this.eModel.getEntityName(), iface.getReference().getEntityName()));
         provided.setProvidedInterface__OperationProvidedRole(iface.getReference());
 
         // link model
@@ -42,11 +43,12 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
     @Override
     public ComponentBuilder requires(final InterfaceBuilder iface) {
         // create model
-        final OperationRequiredRole provided = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
-        provided.setRequiredInterface__OperationRequiredRole(iface.getReference());
+        final OperationRequiredRole required = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
+        required.setEntityName(String.format("%s_requires_%s", this.eModel.getEntityName(), iface.getReference().getEntityName()));
+        required.setRequiredInterface__OperationRequiredRole(iface.getReference());
 
         // link model
-        this.eModel.getRequiredRoles_InterfaceRequiringEntity().add(provided);
+        this.eModel.getRequiredRoles_InterfaceRequiringEntity().add(required);
 
         return this;
     }
