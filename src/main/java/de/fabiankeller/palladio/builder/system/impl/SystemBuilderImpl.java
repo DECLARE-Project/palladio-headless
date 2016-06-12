@@ -3,6 +3,7 @@ package de.fabiankeller.palladio.builder.system.impl;
 import de.fabiankeller.palladio.builder.EntityViolationException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
+import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
 import de.fabiankeller.palladio.builder.system.SystemBuilder;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -20,8 +21,13 @@ public class SystemBuilderImpl implements SystemBuilder {
 
     @Override
     public AssemblyBuilder assemble(final ComponentBuilder component) {
-        // fixme: implement
-        return null;
+        // create model
+        final AssemblyBuilderImpl builder = new AssemblyBuilderImpl(this, component);
+
+        // link model
+        this.eSystem.getAssemblyContexts__ComposedStructure().add(builder.getReference());
+
+        return builder;
     }
 
     /**
