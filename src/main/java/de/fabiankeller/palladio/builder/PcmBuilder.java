@@ -27,20 +27,6 @@ public class PcmBuilder {
 
 
 
-    public IComponentBuilder addComponent() {
-        return new ComponentBuilder();
-    }
-
-    public interface IComponentBuilder {
-
-    }
-
-    public static class ComponentBuilder implements IComponentBuilder {
-
-    }
-
-
-
     public PCMInstance build() {
         // create repository
         Repository repository = RepositoryFactory.eINSTANCE.createRepository();
