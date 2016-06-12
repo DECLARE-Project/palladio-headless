@@ -35,6 +35,7 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
         provided.setProvidedInterface__OperationProvidedRole(iface.getReference());
 
         // link model
+        provided.setProvidingEntity_ProvidedRole(this.eModel);
         this.eModel.getProvidedRoles_InterfaceProvidingEntity().add(provided);
 
         return this;
@@ -48,6 +49,7 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
         required.setRequiredInterface__OperationRequiredRole(iface.getReference());
 
         // link model
+        required.setRequiringEntity_RequiredRole(this.eModel);
         this.eModel.getRequiredRoles_InterfaceRequiringEntity().add(required);
 
         return this;
