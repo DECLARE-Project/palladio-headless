@@ -10,13 +10,18 @@ public interface EntityBuilder<
         TYPE extends Entity
         > {
 
-
-    default SELF withEntityName(String name) {
+    /**
+     * Sets the name of the entity.
+     */
+    default SELF withEntityName(final String name) {
         this.getReference().setEntityName(name);
         return (SELF) this;
     }
 
-    default SELF withId(String id) {
+    /**
+     * Sets the id of the entity.
+     */
+    default SELF withId(final String id) {
         this.getReference().setId(id);
         return (SELF) this;
     }
