@@ -2,9 +2,11 @@ package de.fabiankeller.palladio.builder.repository.impl;
 
 
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public class ComponentBuilderTest {
 
@@ -24,17 +26,17 @@ public class ComponentBuilderTest {
 
     @Test
     public void testProvideInterface() {
-        Assert.assertEquals(0, this.booking.getReference().getProvidedRoles_InterfaceProvidingEntity().size());
+        assertEquals(0, this.booking.getReference().getProvidedRoles_InterfaceProvidingEntity().size());
         this.booking.provides(this.i_reservation);
-        Assert.assertEquals(1, this.booking.getReference().getProvidedRoles_InterfaceProvidingEntity().size());
-        Assert.assertSame(this.booking.getReference(), this.booking.getReference().getProvidedRoles_InterfaceProvidingEntity().get(0).getProvidingEntity_ProvidedRole());
+        assertEquals(1, this.booking.getReference().getProvidedRoles_InterfaceProvidingEntity().size());
+        assertSame(this.booking.getReference(), this.booking.getReference().getProvidedRoles_InterfaceProvidingEntity().get(0).getProvidingEntity_ProvidedRole());
     }
 
     @Test
     public void testRequireInterface() {
-        Assert.assertEquals(0, this.booking.getReference().getRequiredRoles_InterfaceRequiringEntity().size());
+        assertEquals(0, this.booking.getReference().getRequiredRoles_InterfaceRequiringEntity().size());
         this.booking.requires(this.i_payment);
-        Assert.assertEquals(1, this.booking.getReference().getRequiredRoles_InterfaceRequiringEntity().size());
-        Assert.assertSame(this.booking.getReference(), this.booking.getReference().getRequiredRoles_InterfaceRequiringEntity().get(0).getRequiringEntity_RequiredRole());
+        assertEquals(1, this.booking.getReference().getRequiredRoles_InterfaceRequiringEntity().size());
+        assertSame(this.booking.getReference(), this.booking.getReference().getRequiredRoles_InterfaceRequiringEntity().get(0).getRequiringEntity_RequiredRole());
     }
 }
