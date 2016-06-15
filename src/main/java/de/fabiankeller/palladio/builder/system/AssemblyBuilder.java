@@ -65,5 +65,5 @@ public interface AssemblyBuilder extends HierarchicalEntityBuilder<AssemblyBuild
     /**
      * The system requires the specified interface.
      */
-    AssemblyBuilder requiredBySystem(InterfaceBuilder requiredRole);
+    AssemblyBuilder requiredFromSystem(InterfaceBuilder requiredRole);
 }
