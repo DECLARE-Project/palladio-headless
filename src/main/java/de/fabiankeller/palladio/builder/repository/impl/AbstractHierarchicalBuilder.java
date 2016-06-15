@@ -1,6 +1,6 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
-import de.fabiankeller.palladio.builder.EntityViolationException;
+import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.HierarchicalEntityBuilder;
 import de.fabiankeller.palladio.builder.NamedBuilder;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -52,7 +52,7 @@ abstract public class AbstractHierarchicalBuilder<
     }
 
     @Override
-    public TYPE build() throws EntityViolationException {
+    public TYPE build() throws BuilderException {
         return this.getReference();
     }
 }

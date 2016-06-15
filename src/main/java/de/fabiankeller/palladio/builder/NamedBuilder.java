@@ -39,5 +39,5 @@ public interface NamedBuilder<
      *
      * @return the built instance.
      */
-    TYPE build() throws EntityViolationException;
+    TYPE build() throws BuilderException;
 }

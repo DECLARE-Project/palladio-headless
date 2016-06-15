@@ -1,6 +1,6 @@
 package de.fabiankeller.palladio.builder.system.impl;
 
-import de.fabiankeller.palladio.builder.EntityViolationException;
+import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
 import de.fabiankeller.palladio.builder.system.SystemBuilder;
@@ -32,7 +32,7 @@ public class SystemBuilderImpl implements SystemBuilder {
     }
 
     @Override
-    public System build() throws EntityViolationException {
+    public System build() throws BuilderException {
         return this.getReference();
     }
 
