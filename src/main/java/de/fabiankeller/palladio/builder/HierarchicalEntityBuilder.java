@@ -13,7 +13,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 public interface HierarchicalEntityBuilder<
         SELF extends HierarchicalEntityBuilder<SELF, TYPE, PARENT>,
         TYPE extends Entity,
-        PARENT extends EntityBuilder<PARENT, ?>
+        PARENT extends NamedBuilder<PARENT, ?>
         > extends EntityBuilder<SELF, TYPE> {
 
     /**
