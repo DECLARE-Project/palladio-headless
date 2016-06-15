@@ -1,5 +1,6 @@
 package de.fabiankeller.palladio.builder.system.impl;
 
+import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.impl.AbstractHierarchicalBuilder;
@@ -79,7 +80,7 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
                 return opr;
             }
         }
-        throw new RuntimeException(String.format("Could not find providing interface %s in component %s. Only found interfaces [%s].",
+        throw new BuilderException(this, String.format("Could not find providing interface %s in component %s. Only found interfaces [%s].",
                 iface.getReference().getEntityName(),
                 component.getEntityName(),
                 component.getProvidedRoles_InterfaceProvidingEntity()
@@ -101,7 +102,7 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
                 return orr;
             }
         }
-        throw new RuntimeException(String.format("Could not find requiring interface %s in component %s. Only found interfaces [%s].",
+        throw new BuilderException(this, String.format("Could not find requiring interface %s in component %s. Only found interfaces [%s].",
                 iface.getReference().getEntityName(),
                 component.getEntityName(),
                 component.getRequiredRoles_InterfaceRequiringEntity()

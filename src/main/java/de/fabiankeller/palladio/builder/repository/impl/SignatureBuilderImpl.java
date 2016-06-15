@@ -1,5 +1,6 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
+import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.ParameterType;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
@@ -66,7 +67,7 @@ public class SignatureBuilderImpl extends AbstractHierarchicalBuilder<SignatureB
                 transformed.setType(PrimitiveTypeEnum.STRING);
                 break;
             default:
-                throw new RuntimeException("Unknown parameter type: " + type);
+                throw new BuilderException(this, "Unknown parameter type: " + type);
         }
         return transformed;
     }

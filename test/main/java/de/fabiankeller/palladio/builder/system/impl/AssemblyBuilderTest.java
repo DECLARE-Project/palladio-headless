@@ -1,6 +1,7 @@
 package de.fabiankeller.palladio.builder.system.impl;
 
 
+import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.impl.RepositoryBuilderImpl;
@@ -62,22 +63,22 @@ public class AssemblyBuilderTest {
     }
 
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BuilderException.class)
     public void provideFor_withoutInterface_throwsException() {
         this.a_payment.provideFor(this.a_other, this.i_reservation);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BuilderException.class)
     public void provideFor_withoutTargetHavingInterface_throwsException() {
         this.a_payment.provideFor(this.a_other, this.i_payment);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BuilderException.class)
     public void requireFrom_withoutInterface_throwsException() {
         this.a_booking.requireFrom(this.a_other, this.i_reservation);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BuilderException.class)
     public void requireFrom_withoutTargetHavingInterface_throwsException() {
         this.a_booking.requireFrom(this.a_other, this.i_payment);
     }
@@ -108,7 +109,7 @@ public class AssemblyBuilderTest {
         Assert.assertEquals(2, this.system.getReference().getProvidedRoles_InterfaceProvidingEntity().size());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BuilderException.class)
     public void provideToSystem_withIncorrectInterface_throwsException() {
         this.a_payment.provideToSystem(this.i_reservation);
     }
@@ -124,7 +125,7 @@ public class AssemblyBuilderTest {
         Assert.assertEquals(1, this.system.getReference().getRequiredRoles_InterfaceRequiringEntity().size());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BuilderException.class)
     public void requireFromSystem_withIncorrectInterface_throwsException() {
         this.a_booking.requireFromSystem(this.i_reservation);
     }
