@@ -5,19 +5,17 @@ import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.impl.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
 import de.fabiankeller.palladio.builder.system.SystemBuilder;
+import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
+import org.palladiosimulator.pcm.repository.*;
+
+import java.util.stream.Collectors;
 
 public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBuilder, AssemblyContext, SystemBuilder> implements AssemblyBuilder {
 
-    /**
-     * component encapsulated in assembly context
-     */
-    private final ComponentBuilder component;
-
     public AssemblyBuilderImpl(final SystemBuilder belongsTo, final ComponentBuilder component) {
         super(belongsTo);
-        this.component = component;
         this.eModel.setEncapsulatedComponent__AssemblyContext(component.getReference());
     }
 
@@ -32,22 +30,96 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
     }
 
     @Override
-    public AssemblyBuilder connectRequiredRole(final InterfaceBuilder requiredRole, final AssemblyBuilder providedBy, final InterfaceBuilder to) {
+    public AssemblyBuilder connectToRequiredRole(final InterfaceBuilder requiredRole, final AssemblyBuilder providingAssembly, final InterfaceBuilder providedRole) {
+        // this context requires, other context provides
+        return this.connect(providingAssembly, providedRole, this, requiredRole);
+    }
+
+    @Override
+    public AssemblyBuilder connectToProvidedRole(final InterfaceBuilder providedRole, final AssemblyBuilder requiringAssembly, final InterfaceBuilder requiredRole) {
+        // this context provides, other context requires
+        return connect(this, providedRole, requiringAssembly, requiredRole);
+    }
+
+    /**
+     * Helper to actually connect provided->required operations of two assemblies.
+     */
+    private AssemblyBuilder connect(final AssemblyBuilder providingAssembly, final InterfaceBuilder providedRole,
+                                    final AssemblyBuilder requiringAssembly, final InterfaceBuilder requiredRole) {
+
+        final AssemblyConnector connector = CompositionFactory.eINSTANCE.createAssemblyConnector();
+        connector.setEntityName(String.format("Connector %s -> %s",
+                requiringAssembly.getReference().getEncapsulatedComponent__AssemblyContext().getEntityName(),
+                providingAssembly.getReference().getEncapsulatedComponent__AssemblyContext().getEntityName()));
+
+        // requiring connector side
+        connector.setRequiringAssemblyContext_AssemblyConnector(requiringAssembly.getReference());
+        final OperationRequiredRole operationRequiredRole = getRequiredRole(requiringAssembly.getReference().getEncapsulatedComponent__AssemblyContext(), requiredRole);
+        connector.setRequiredRole_AssemblyConnector(operationRequiredRole);
+
+        // providing connector side
+        connector.setProvidingAssemblyContext_AssemblyConnector(providingAssembly.getReference());
+        final OperationProvidedRole operationProvidedRole = getProvidedRole(providingAssembly.getReference().getEncapsulatedComponent__AssemblyContext(), providedRole);
+        connector.setProvidedRole_AssemblyConnector(operationProvidedRole);
+
+        // add connector to system
+        this.end().getReference().getConnectors__ComposedStructure().add(connector);
+
+        return this;
+    }
+
+    /**
+     * Locates the {@link OperationProvidedRole} object in the given component exposing the given interface.
+     */
+    private OperationProvidedRole getProvidedRole(final RepositoryComponent component, final InterfaceBuilder iface) {
+        for (final ProvidedRole role : component.getProvidedRoles_InterfaceProvidingEntity()) {
+            if (!(role instanceof OperationProvidedRole)) {
+                continue;
+            }
+            final OperationProvidedRole opr = (OperationProvidedRole) role;
+            if (opr.getProvidedInterface__OperationProvidedRole().equals(iface.getReference())) {
+                return opr;
+            }
+        }
+        throw new RuntimeException(String.format("Could not find providing interface %s in component %s. Only found interfaces [%s].",
+                iface.getReference().getEntityName(),
+                component.getEntityName(),
+                component.getProvidedRoles_InterfaceProvidingEntity()
+                        .stream()
+                        .map(Role::toString)
+                        .collect(Collectors.joining(", "))));
+    }
+
+    /**
+     * Locates the {@link OperationRequiredRole} object in the given component exposing the given interface.
+     */
+    private OperationRequiredRole getRequiredRole(final RepositoryComponent component, final InterfaceBuilder iface) {
+        for (final ProvidedRole role : component.getProvidedRoles_InterfaceProvidingEntity()) {
+            if (!(role instanceof OperationRequiredRole)) {
+                continue;
+            }
+            final OperationRequiredRole orr = (OperationRequiredRole) role;
+            if (orr.getRequiredInterface__OperationRequiredRole().equals(iface.getReference())) {
+                return orr;
+            }
+        }
+        throw new RuntimeException(String.format("Could not find requiring interface %s in component %s. Only found interfaces [%s].",
+                iface.getReference().getEntityName(),
+                component.getEntityName(),
+                component.getRequiredRoles_InterfaceRequiringEntity()
+                        .stream()
+                        .map(Role::toString)
+                        .collect(Collectors.joining(", "))));
+    }
+
+
+    @Override
+    public AssemblyBuilder provideToSystem(final InterfaceBuilder providedRole) {
         return null;
     }
 
     @Override
-    public AssemblyBuilder connectProvidedRole(final InterfaceBuilder providedRole, final AssemblyBuilder requiredBy, final InterfaceBuilder to) {
-        return null;
-    }
-
-    @Override
-    public AssemblyBuilder provideToSystem(final InterfaceBuilder provided) {
-        return null;
-    }
-
-    @Override
-    public AssemblyBuilder requiredBySystem(final InterfaceBuilder required) {
+    public AssemblyBuilder requiredBySystem(final InterfaceBuilder requiredRole) {
         return null;
     }
 }

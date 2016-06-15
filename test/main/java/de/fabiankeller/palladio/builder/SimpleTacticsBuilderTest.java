@@ -65,6 +65,6 @@ public class SimpleTacticsBuilderTest {
         a_businessTripMgmt.provideToSystem(i_businessTrip);
         // todo connect: Connector Assembly_C1 <C1> -> Assembly_C2 <C2>
         // todo connect: Connector Assembly_C1 <C1> -> Assembly_C3 <C3>
-        a_bookingSystem.connectRequiredRole(i_externalPayment, a_paymentSystem, i_employeePayment);
+        a_bookingSystem.connectToRequiredRole(i_externalPayment, a_paymentSystem, i_employeePayment);
     }
 }
