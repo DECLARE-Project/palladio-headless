@@ -63,8 +63,8 @@ public class SimpleTacticsBuilderTest {
         final AssemblyBuilder a_paymentSystem = this.system.assemble(c_paymentSystem);
 
         a_businessTripMgmt.provideToSystem(i_businessTrip);
-        // todo connect: Connector Assembly_C1 <C1> -> Assembly_C2 <C2>
-        // todo connect: Connector Assembly_C1 <C1> -> Assembly_C3 <C3>
-        a_bookingSystem.connectToRequiredRole(i_externalPayment, a_paymentSystem, i_employeePayment);
+        a_bookingSystem.connectToProvidedRole(i_booking, a_businessTripMgmt, i_booking);
+        a_paymentSystem.connectToProvidedRole(i_employeePayment, a_businessTripMgmt, i_employeePayment);
+        a_bookingSystem.connectToProvidedRole(i_externalPayment, a_paymentSystem, i_externalPayment);
     }
 }
