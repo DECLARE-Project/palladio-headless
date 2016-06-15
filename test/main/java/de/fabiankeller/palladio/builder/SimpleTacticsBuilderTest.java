@@ -63,8 +63,8 @@ public class SimpleTacticsBuilderTest {
         final AssemblyBuilder a_paymentSystem = this.system.assemble(c_paymentSystem);
 
         a_businessTripMgmt.provideToSystem(i_businessTrip);
-        a_bookingSystem.connectToProvidedRole(i_booking, a_businessTripMgmt, i_booking);
-        a_paymentSystem.connectToProvidedRole(i_employeePayment, a_businessTripMgmt, i_employeePayment);
-        a_bookingSystem.connectToProvidedRole(i_externalPayment, a_paymentSystem, i_externalPayment);
+        a_bookingSystem.provideFor(a_businessTripMgmt, i_booking);
+        a_paymentSystem.provideFor(a_businessTripMgmt, i_employeePayment);
+        a_bookingSystem.provideFor(a_paymentSystem, i_externalPayment);
     }
 }

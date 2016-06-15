@@ -28,13 +28,13 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
     }
 
     @Override
-    public AssemblyBuilder connectToRequiredRole(final InterfaceBuilder requiredRole, final AssemblyBuilder providingAssembly, final InterfaceBuilder providedRole) {
+    public AssemblyBuilder requireFrom(final InterfaceBuilder requiredRole, final AssemblyBuilder providingAssembly, final InterfaceBuilder providedRole) {
         // this context requires, other context provides
         return this.connect(providingAssembly, providedRole, this, requiredRole);
     }
 
     @Override
-    public AssemblyBuilder connectToProvidedRole(final InterfaceBuilder providedRole, final AssemblyBuilder requiringAssembly, final InterfaceBuilder requiredRole) {
+    public AssemblyBuilder provideFor(final InterfaceBuilder providedRole, final AssemblyBuilder requiringAssembly, final InterfaceBuilder requiredRole) {
         // this context provides, other context requires
         return connect(this, providedRole, requiringAssembly, requiredRole);
     }
