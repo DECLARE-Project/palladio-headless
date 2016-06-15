@@ -13,18 +13,22 @@ import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecifica
  */
 public interface ProcessingResourceBuilder {
 
+    ProcessingResourceBuilder withProcessingRate(double processingRate);
+
     ProcessingResourceBuilder withMTTF(double mttf);
 
     ProcessingResourceBuilder withMTTR(double mttr);
 
-    ProcessingResourceBuilder withNumberOfReplicas(long numberOfReplicas);
+    ProcessingResourceBuilder withNumberOfReplicas(int numberOfReplicas);
 
     ProcessingResourceBuilder withRequiredByContainer(boolean requiredByContainer);
 
     ProcessingResourceBuilder withSchedulingPolicy(/* todo: add policies */);
 
+    ProcessingResourceSpecification getReference();
+
     /**
-     * Finish specifying resource and return to parent.
+     * Finish specifying resource and return to container.
      */
     ContainerBuilder end();
 }

@@ -15,7 +15,7 @@ public interface ContainerBuilder extends HierarchicalEntityBuilder<ContainerBui
     /**
      * Specify the CPU of this {@link ResourceContainer}.
      */
-    ProcessingResourceBuilder withCpu();
+    ProcessingResourceBuilder withCpu(double processingRate);
 
     /**
      * Specify the HDD of this {@link ResourceContainer}.
