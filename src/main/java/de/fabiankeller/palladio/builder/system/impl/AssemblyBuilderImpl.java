@@ -5,9 +5,7 @@ import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.impl.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
 import de.fabiankeller.palladio.builder.system.SystemBuilder;
-import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.core.composition.CompositionFactory;
+import org.palladiosimulator.pcm.core.composition.*;
 import org.palladiosimulator.pcm.repository.*;
 
 import java.util.stream.Collectors;
@@ -62,7 +60,7 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
         final OperationProvidedRole operationProvidedRole = getProvidedRole(providingAssembly.getReference().getEncapsulatedComponent__AssemblyContext(), providedRole);
         connector.setProvidedRole_AssemblyConnector(operationProvidedRole);
 
-        // add connector to system
+        // link connector to system
         this.end().getReference().getConnectors__ComposedStructure().add(connector);
 
         return this;
@@ -115,11 +113,39 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
 
     @Override
     public AssemblyBuilder provideToSystem(final InterfaceBuilder providedRole) {
-        return null;
+        // create operation provided role
+        final OperationProvidedRole opr = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
+        opr.setProvidedInterface__OperationProvidedRole(providedRole.getReference());
+
+        // create delegation connector
+        final ProvidedDelegationConnector connector = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
+        connector.setAssemblyContext_ProvidedDelegationConnector(this.getReference());
+        connector.setInnerProvidedRole_ProvidedDelegationConnector(getProvidedRole(this.getReference().getEncapsulatedComponent__AssemblyContext(), providedRole));
+        connector.setOuterProvidedRole_ProvidedDelegationConnector(opr);
+
+        // link provided role to system
+        this.end().getReference().getProvidedRoles_InterfaceProvidingEntity().add(opr);
+        this.end().getReference().getConnectors__ComposedStructure().add(connector);
+
+        return this;
     }
 
     @Override
     public AssemblyBuilder requiredBySystem(final InterfaceBuilder requiredRole) {
-        return null;
+        // create operation required role
+        final OperationRequiredRole orr = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
+        orr.setRequiredInterface__OperationRequiredRole(requiredRole.getReference());
+
+        // create delegation connector
+        final RequiredDelegationConnector connector = CompositionFactory.eINSTANCE.createRequiredDelegationConnector();
+        connector.setAssemblyContext_RequiredDelegationConnector(this.getReference());
+        connector.setInnerRequiredRole_RequiredDelegationConnector(getRequiredRole(this.getReference().getEncapsulatedComponent__AssemblyContext(), requiredRole));
+        connector.setOuterRequiredRole_RequiredDelegationConnector(orr);
+
+        // link required role to system
+        this.end().getReference().getRequiredRoles_InterfaceRequiringEntity().add(orr);
+        this.end().getReference().getConnectors__ComposedStructure().add(connector);
+
+        return this;
     }
 }
