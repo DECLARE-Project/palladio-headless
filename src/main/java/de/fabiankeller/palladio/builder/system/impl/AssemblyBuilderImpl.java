@@ -84,7 +84,7 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
                 component.getEntityName(),
                 component.getProvidedRoles_InterfaceProvidingEntity()
                         .stream()
-                        .map(Role::toString)
+                        .map(Role::getEntityName)
                         .collect(Collectors.joining(", "))));
     }
 
@@ -92,12 +92,12 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
      * Locates the {@link OperationRequiredRole} object in the given component exposing the given interface.
      */
     private OperationRequiredRole getRequiredRole(final RepositoryComponent component, final InterfaceBuilder iface) {
-        for (final ProvidedRole role : component.getProvidedRoles_InterfaceProvidingEntity()) {
+        for (final RequiredRole role : component.getRequiredRoles_InterfaceRequiringEntity()) {
             if (!(role instanceof OperationRequiredRole)) {
                 continue;
             }
             final OperationRequiredRole orr = (OperationRequiredRole) role;
-            if (orr.getRequiredInterface__OperationRequiredRole().equals(iface.getReference())) {
+            if (orr.getRequiredInterface__OperationRequiredRole() == iface.getReference()) {
                 return orr;
             }
         }
@@ -106,7 +106,7 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
                 component.getEntityName(),
                 component.getRequiredRoles_InterfaceRequiringEntity()
                         .stream()
-                        .map(Role::toString)
+                        .map(Role::getEntityName)
                         .collect(Collectors.joining(", "))));
     }
 
