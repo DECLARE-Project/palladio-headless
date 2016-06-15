@@ -131,7 +131,7 @@ public class AssemblyBuilderImpl extends AbstractHierarchicalBuilder<AssemblyBui
     }
 
     @Override
-    public AssemblyBuilder requiredFromSystem(final InterfaceBuilder requiredRole) {
+    public AssemblyBuilder requireFromSystem(final InterfaceBuilder requiredRole) {
         // create operation required role
         final OperationRequiredRole orr = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
         orr.setRequiredInterface__OperationRequiredRole(requiredRole.getReference());
