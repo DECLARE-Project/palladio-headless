@@ -53,7 +53,9 @@ public class PalladioResourceRepositoryImpl implements PalladioResourceRepositor
                     break;
                 }
             }
-            throw new RuntimeException(String.format("Could not find resource type '%s'", entityName));
+            if (!this.resourceTypes.containsKey(entityName)) {
+                throw new RuntimeException(String.format("Could not find resource type '%s'", entityName));
+            }
         }
         return this.resourceTypes.get(entityName);
     }
