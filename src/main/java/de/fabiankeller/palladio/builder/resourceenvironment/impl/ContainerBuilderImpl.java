@@ -1,7 +1,7 @@
 package de.fabiankeller.palladio.builder.resourceenvironment.impl;
 
+import de.fabiankeller.palladio.builder.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.BuilderException;
-import de.fabiankeller.palladio.builder.repository.impl.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ResourceEnvironmentBuilder;

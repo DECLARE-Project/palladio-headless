@@ -1,16 +1,14 @@
-package de.fabiankeller.palladio.builder.repository.impl;
+package de.fabiankeller.palladio.builder;
 
-import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
-import de.fabiankeller.palladio.builder.NamedBuilder;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 /**
- * Provides common functionality to implement {@link EntityHierarchicalBuilder}.
+ * Provides common functionality to implement a {@link EntityHierarchicalBuilder}.
  */
 abstract public class AbstractHierarchicalBuilder<
         SELF extends EntityHierarchicalBuilder<SELF, TYPE, PARENT>,
         TYPE extends Entity,
-        PARENT extends NamedBuilder<PARENT, ?>
+        PARENT extends BaseBuilder<?>
         > implements EntityHierarchicalBuilder<SELF, TYPE, PARENT> {
 
     /**

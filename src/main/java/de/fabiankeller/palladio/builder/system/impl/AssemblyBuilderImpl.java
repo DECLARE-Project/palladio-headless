@@ -1,9 +1,9 @@
 package de.fabiankeller.palladio.builder.system.impl;
 
+import de.fabiankeller.palladio.builder.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
-import de.fabiankeller.palladio.builder.repository.impl.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
 import de.fabiankeller.palladio.builder.system.SystemBuilder;
 import org.palladiosimulator.pcm.core.composition.*;

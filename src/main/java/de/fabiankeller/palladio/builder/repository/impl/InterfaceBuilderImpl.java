@@ -1,5 +1,6 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
+import de.fabiankeller.palladio.builder.AbstractHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.RepositoryBuilder;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
