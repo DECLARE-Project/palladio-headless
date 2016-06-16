@@ -19,16 +19,21 @@ import java.util.logging.Logger;
  */
 public class RunLQNS implements Runnable {
 
-    private static final String RUNNER_CONFIG_DEFAULT = "src/main/resources/config.properties";
+    protected static final String RUNNER_CONFIG_DEFAULT = "src/main/resources/config.properties";
 
-    private static final Logger log = Logger.getLogger(RunLQNS.class.getName());
+    protected static final Logger log = Logger.getLogger(RunLQNS.class.getName());
 
     /**
      * Stores all configuration required by this runner
      */
-    private final Properties runnerConfig;
+    protected final Properties runnerConfig;
 
     public static void main(String[] args) throws IOException {
+        Properties runnerConfig = loadConfig(args);
+        new RunLQNS(runnerConfig).run();
+    }
+
+    protected static Properties loadConfig(String[] args) {
         Properties runnerConfig = new Properties();
         String configFile = RUNNER_CONFIG_DEFAULT;
         if (args.length > 0) {
@@ -40,13 +45,12 @@ public class RunLQNS implements Runnable {
             BufferedInputStream stream = new BufferedInputStream(new FileInputStream(configFile));
             runnerConfig.load(stream);
             stream.close();
+            return runnerConfig;
         } catch (IOException e) {
             e.printStackTrace();
             log.severe("Could not load runner config: " + e.getMessage());
             throw new RuntimeException(e);
         }
-
-        new RunLQNS(runnerConfig).run();
     }
 
     public RunLQNS(Properties runnerConfig) {
