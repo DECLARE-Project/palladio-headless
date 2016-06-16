@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.builder.allocation.impl;
 
-import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.allocation.AllocationBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ResourceEnvironmentBuilder;
@@ -36,10 +35,5 @@ public class AllocationBuilderImpl implements AllocationBuilder {
     @Override
     public Allocation getReference() {
         return this.eModel;
-    }
-
-    @Override
-    public Allocation build() throws BuilderException {
-        return this.getReference();
     }
 }

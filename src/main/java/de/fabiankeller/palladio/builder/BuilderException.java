@@ -23,16 +23,21 @@ public class BuilderException extends RuntimeException {
 
 
     private static String builderToExceptionMessage(final BaseBuilder<?> builder, final String original) {
-        String msg = String.format("There was an error building an instance of '%s' with name '%s' in builder '%s'",
+        String nameInfo = "";
+        if (builder instanceof NamedBuilder) {
+            final NamedBuilder namedBuilder = (NamedBuilder) builder;
+            nameInfo = String.format(" with name '%s'", namedBuilder.getEntityName());
+        }
+        String msg = String.format("There was an error building an instance of '%s'%s in builder '%s'",
                 builder.getReference().getClass().getName(),
-                builder.getReference().getEntityName(),
+                nameInfo,
                 builder.getClass());
         if (null != original) {
             msg += ": " + original;
         }
         return msg;
-
     }
+
 
     private static String builderToExceptionMessage(final BaseBuilder<?> builder) {
         return builderToExceptionMessage(builder, null);

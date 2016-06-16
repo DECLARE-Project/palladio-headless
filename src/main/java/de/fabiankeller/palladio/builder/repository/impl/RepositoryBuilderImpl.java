@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
-import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.RepositoryBuilder;
@@ -49,10 +48,5 @@ public class RepositoryBuilderImpl implements RepositoryBuilder {
     @Override
     public Repository getReference() {
         return this.eRepository;
-    }
-
-    @Override
-    public Repository build() throws BuilderException {
-        return this.getReference();
     }
 }

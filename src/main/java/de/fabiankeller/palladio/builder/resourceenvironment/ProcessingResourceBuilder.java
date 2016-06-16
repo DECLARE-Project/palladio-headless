@@ -1,17 +1,12 @@
 package de.fabiankeller.palladio.builder.resourceenvironment;
 
-import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
-import de.fabiankeller.palladio.builder.NamedBuilder;
-import org.palladiosimulator.pcm.core.entity.NamedElement;
+import de.fabiankeller.palladio.builder.BaseHierarchicalBuilder;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
 
 /**
  * Builds a {@link ProcessingResourceSpecification}.
- * <p>
- * Note: Unfortunately it is not possible to extend either {@link EntityHierarchicalBuilder} or {@link NamedBuilder}, as
- * the {@link ProcessingResourceSpecification} interface does not extend {@link NamedElement}.
  */
-public interface ProcessingResourceBuilder {
+public interface ProcessingResourceBuilder extends BaseHierarchicalBuilder<ProcessingResourceSpecification, ContainerBuilder> {
 
     ProcessingResourceBuilder withProcessingRate(double processingRate);
 
@@ -24,11 +19,4 @@ public interface ProcessingResourceBuilder {
     ProcessingResourceBuilder withRequiredByContainer(boolean requiredByContainer);
 
     ProcessingResourceBuilder withSchedulingPolicy(/* todo: add policies */);
-
-    ProcessingResourceSpecification getReference();
-
-    /**
-     * Finish specifying resource and return to container.
-     */
-    ContainerBuilder end();
 }

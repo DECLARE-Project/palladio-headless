@@ -21,11 +21,14 @@ public interface BaseBuilder<TYPE extends CDOObject> {
     TYPE getReference();
 
     /**
-     * Returns the built palladio model instance.
+     * Returns the built palladio model instance. Ensures the returned model is fully constructed and consistent.
      * <p>
      * Validates and builds the model instance.
      *
      * @return the built instance.
+     * @deprecated - this method will most likely be removed in the near future as there is no need for it
      */
-    TYPE build() throws BuilderException;
+    default TYPE build() throws BuilderException {
+        return this.getReference();
+    }
 }

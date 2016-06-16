@@ -21,4 +21,11 @@ public interface NamedBuilder<
         return (SELF) this;
     }
 
+    /**
+     * Returns the name of the entity under construction.
+     */
+    default String getEntityName() {
+        return this.getReference().getEntityName();
+    }
+
 }

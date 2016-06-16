@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.builder.resourceenvironment.impl;
 
-import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.LinkBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ResourceEnvironmentBuilder;
@@ -20,11 +19,6 @@ public class ResourceEnvironmentBuilderImpl implements ResourceEnvironmentBuilde
     @Override
     public ResourceEnvironment getReference() {
         return this.env;
-    }
-
-    @Override
-    public ResourceEnvironment build() throws BuilderException {
-        return this.getReference();
     }
 
     @Override

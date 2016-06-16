@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
-import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.NamedBuilder;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -49,10 +48,5 @@ abstract public class AbstractHierarchicalBuilder<
     @Override
     public TYPE getReference() {
         return this.eModel;
-    }
-
-    @Override
-    public TYPE build() throws BuilderException {
-        return this.getReference();
     }
 }
