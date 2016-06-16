@@ -2,6 +2,8 @@ package de.fabiankeller.palladio.builder.resourceenvironment.impl;
 
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
+import de.fabiankeller.palladio.builder.util.RandomVariableFactory;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 
@@ -24,9 +26,9 @@ public class ProcessingResourceBuilderImpl implements ProcessingResourceBuilder 
 
     @Override
     public ProcessingResourceBuilder withProcessingRate(final double processingRate) {
-        // fixme: create PCM random variable
-        // this.eModel.setProcessingRate_ProcessingResourceSpecification(processingRate);
-        throw new RuntimeException("NYI");
+        final PCMRandomVariable rnd = RandomVariableFactory.fromDouble(processingRate);
+        this.eModel.setProcessingRate_ProcessingResourceSpecification(rnd);
+        return this;
     }
 
     @Override
