@@ -4,9 +4,11 @@ import org.eclipse.emf.cdo.CDOObject;
 
 /**
  * Base interface for building {@link CDOObject}s.
+ *
+ * @param <TYPE> The model class ({@link CDOObject}) that is built by this builder
  */
 public interface BaseBuilder<TYPE extends CDOObject> {
-    
+
     /**
      * Returns a reference to the palladio model.
      * <p>

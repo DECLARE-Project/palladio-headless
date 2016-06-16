@@ -1,12 +1,12 @@
 package de.fabiankeller.palladio.builder.resourceenvironment;
 
-import de.fabiankeller.palladio.builder.HierarchicalEntityBuilder;
+import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 /**
  * Used to build {@link ResourceContainer}s.
  */
-public interface ContainerBuilder extends HierarchicalEntityBuilder<ContainerBuilder, ResourceContainer, ResourceEnvironmentBuilder> {
+public interface ContainerBuilder extends EntityHierarchicalBuilder<ContainerBuilder, ResourceContainer, ResourceEnvironmentBuilder> {
     /**
      * Nest this createContainer within the given parent createContainer.
      */

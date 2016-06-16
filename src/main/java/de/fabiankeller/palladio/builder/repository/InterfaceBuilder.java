@@ -1,13 +1,13 @@
 package de.fabiankeller.palladio.builder.repository;
 
-import de.fabiankeller.palladio.builder.HierarchicalEntityBuilder;
+import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 
 /**
  * Builds an {@link OperationInterface}.
  */
-public interface InterfaceBuilder extends HierarchicalEntityBuilder<InterfaceBuilder, OperationInterface, RepositoryBuilder> {
+public interface InterfaceBuilder extends EntityHierarchicalBuilder<InterfaceBuilder, OperationInterface, RepositoryBuilder> {
 
     /**
      * Adds an interface as parent.

@@ -1,6 +1,6 @@
 package de.fabiankeller.palladio.builder.resourceenvironment;
 
-import de.fabiankeller.palladio.builder.HierarchicalEntityBuilder;
+import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.NamedBuilder;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
@@ -8,7 +8,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecifica
 /**
  * Builds a {@link ProcessingResourceSpecification}.
  * <p>
- * Note: Unfortunately it is not possible to extend either {@link HierarchicalEntityBuilder} or {@link NamedBuilder}, as
+ * Note: Unfortunately it is not possible to extend either {@link EntityHierarchicalBuilder} or {@link NamedBuilder}, as
  * the {@link ProcessingResourceSpecification} interface does not extend {@link NamedElement}.
  */
 public interface ProcessingResourceBuilder {

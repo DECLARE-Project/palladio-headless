@@ -1,13 +1,13 @@
 package de.fabiankeller.palladio.builder.system;
 
-import de.fabiankeller.palladio.builder.HierarchicalEntityBuilder;
+import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 /**
  * Builds a Palladio {@link AssemblyContext} that can be connected to different parts of the system.
  */
-public interface AssemblyBuilder extends HierarchicalEntityBuilder<AssemblyBuilder, AssemblyContext, SystemBuilder> {
+public interface AssemblyBuilder extends EntityHierarchicalBuilder<AssemblyBuilder, AssemblyContext, SystemBuilder> {
 
     /**
      * Connect the given assembly to an interface required by the component in this assembly.

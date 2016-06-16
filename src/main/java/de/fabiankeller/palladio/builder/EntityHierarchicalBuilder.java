@@ -10,14 +10,10 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  * @param <TYPE>   The Palladio {@link Entity} class that is built by this builder
  * @param <PARENT> The parent builder that created this builder.
  */
-public interface HierarchicalEntityBuilder<
-        SELF extends HierarchicalEntityBuilder<SELF, TYPE, PARENT>,
+public interface EntityHierarchicalBuilder<
+        SELF extends EntityHierarchicalBuilder<SELF, TYPE, PARENT>,
         TYPE extends Entity,
         PARENT extends NamedBuilder<PARENT, ?>
-        > extends EntityBuilder<SELF, TYPE> {
+        > extends EntityBuilder<SELF, TYPE>, BaseHierarchicalBuilder<TYPE, PARENT> {
 
-    /**
-     * Ends the fluent interface in this level and returns to the parent builder.
-     */
-    PARENT end();
 }

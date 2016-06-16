@@ -1,12 +1,12 @@
 package de.fabiankeller.palladio.builder.repository;
 
-import de.fabiankeller.palladio.builder.HierarchicalEntityBuilder;
+import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 
 /**
  * Builds a {@link BasicComponent}
  */
-public interface ComponentBuilder extends HierarchicalEntityBuilder<ComponentBuilder, BasicComponent, RepositoryBuilder> {
+public interface ComponentBuilder extends EntityHierarchicalBuilder<ComponentBuilder, BasicComponent, RepositoryBuilder> {
 
     /**
      * Add an interface the component provides.
