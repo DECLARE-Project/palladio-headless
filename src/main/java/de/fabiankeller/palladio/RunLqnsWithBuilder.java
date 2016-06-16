@@ -1,12 +1,10 @@
 package de.fabiankeller.palladio;
 
-import de.fabiankeller.palladio.analysis.PcmProvider;
-import de.fabiankeller.palladio.analysis.provider.FileSystemProvider;
+import de.fabiankeller.palladio.analysis.provider.SimpleTacticsProvider;
 import de.fabiankeller.palladio.analysis.runner.pcm2lqn.Pcm2LqnAnalysisConfig;
 import de.fabiankeller.palladio.analysis.runner.pcm2lqn.Pcm2LqnRunner;
 import de.fabiankeller.palladio.builder.PcmBuilder;
 import de.fabiankeller.palladio.config.EnvironmentConfig;
-import de.fabiankeller.palladio.config.PcmModelConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 import org.palladiosimulator.solver.models.PCMInstance;
 
@@ -21,12 +19,12 @@ public class RunLqnsWithBuilder extends RunLQNS {
 
     private static final Logger log = Logger.getLogger(RunLQNS.class.getName());
 
-    public static void main(String[] args) throws IOException {
-        Properties runnerConfig = loadConfig(args);
+    public static void main(final String[] args) throws IOException {
+        final Properties runnerConfig = loadConfig(args);
         new RunLqnsWithBuilder(runnerConfig).run();
     }
 
-    public RunLqnsWithBuilder(Properties runnerConfig) {
+    public RunLqnsWithBuilder(final Properties runnerConfig) {
         super(runnerConfig);
     }
 
@@ -36,10 +34,10 @@ public class RunLqnsWithBuilder extends RunLQNS {
         log.info("Launching LQNS headless");
         PalladioEclipseEnvironment.INSTANCE.setup(new EnvironmentConfig(this.runnerConfig));
 
-        PcmBuilder builder = new PcmBuilder();
-        PCMInstance instance = builder.build();
+        final PCMInstance instance = new SimpleTacticsProvider().provide();
+        instance.saveToFiles();
 
-        Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
+        final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
         runner.analyze(instance);
     }
 }
