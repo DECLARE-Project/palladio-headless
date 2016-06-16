@@ -7,6 +7,7 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ### Added
 - Major refactoring to split prototype to several classes.
+- Builder API to construct PCM instances using an API (see [PR #3](https://github.com/SQuAT-Team/palladio-lqns-headless/pull/3))
 
 
 ## v0.0.1 - 2016-05-28

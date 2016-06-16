@@ -19,8 +19,8 @@ The actual output of the tool will appear upon successful completion in your def
 ## ToDo
 
 - ~~Design a nice API to call LQNS. Currently the project only provides a `main(...)` method within `de.fabiankeller.palladio.RunLQNS`.~~
+- ~~Provide a builder API to construct PCM models.~~
 - Extract LQNS results. Ideally, results are mapped to the PCM model. Maybe this is already part of Palladio?
-- Provide a builder API to construct PCM models.
 
 ## Wiki
 
