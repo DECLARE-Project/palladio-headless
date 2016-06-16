@@ -59,6 +59,10 @@ public class PcmBuilder {
         return this.allocation;
     }
 
+    public UsageBuilder usage() {
+        return this.usage;
+    }
+
     public PCMInstance build() {
         this.rsp.setContents(URI.createFileURI("default.repository"), this.repository.build());
         this.rsp.setContents(URI.createFileURI("default.system"), this.system.build());
@@ -68,4 +72,6 @@ public class PcmBuilder {
         this.rsp.resolveAllProxies();
         return new PCMInstance(this.rsp);
     }
+
+
 }

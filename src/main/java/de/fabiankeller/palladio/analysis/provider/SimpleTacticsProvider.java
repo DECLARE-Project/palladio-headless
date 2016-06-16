@@ -5,6 +5,7 @@ import de.fabiankeller.palladio.builder.PcmBuilder;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.ParameterType;
+import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.LinkBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
@@ -19,11 +20,10 @@ public class SimpleTacticsProvider implements PcmProvider {
         // // // REPOSITORY // // //
 
         // create interfaces in repository
-        final InterfaceBuilder i_businessTrip = builder.repository().withInterface("IBusinessTrip")
-                .createOperation("plan")
+        final InterfaceBuilder i_businessTrip = builder.repository().withInterface("IBusinessTrip");
+        final SignatureBuilder s_plan = i_businessTrip.createOperation("plan")
                 .withParameter("isBook", ParameterType.BOOL)
-                .withParameter("isBank", ParameterType.BOOL)
-                .end();
+                .withParameter("isBank", ParameterType.BOOL);
 
         final InterfaceBuilder i_booking = builder.repository().withInterface("IBooking")
                 .createOperation("book")
@@ -98,6 +98,14 @@ public class SimpleTacticsProvider implements PcmProvider {
         builder.allocation().allocate(a_businessTripMgmt, e_server1);
         builder.allocation().allocate(a_bookingSystem, e_server2);
         builder.allocation().allocate(a_paymentSystem, e_server3);
+
+        // // // USAGE // // //
+        builder.usage().createScenario("defaultUsageScenario")
+                .withOpenWorkload(0.5)
+                .withBehaviour()
+                .start()
+                .entryLevelSystemCall(s_plan)
+                .stop();
 
         return builder.build();
     }
