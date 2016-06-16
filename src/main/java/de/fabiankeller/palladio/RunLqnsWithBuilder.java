@@ -35,7 +35,7 @@ public class RunLqnsWithBuilder extends RunLQNS {
         PalladioEclipseEnvironment.INSTANCE.setup(new EnvironmentConfig(this.runnerConfig));
 
         final PCMInstance instance = new SimpleTacticsProvider().provide();
-        instance.saveToFiles();
+        instance.saveToFiles("palladio-headless");
 
         final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
         runner.analyze(instance);
