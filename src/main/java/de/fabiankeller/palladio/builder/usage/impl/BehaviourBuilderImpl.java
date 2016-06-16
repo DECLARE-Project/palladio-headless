@@ -16,12 +16,13 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class BehaviourBuilderImpl extends AbstractHierarchicalBuilder<BehaviourBuilder, ScenarioBehaviour, ScenarioBuilder> implements BehaviourBuilder {
 
-    SystemBuilder system;
+    private final SystemBuilder system;
 
     private AbstractUserAction predecessor;
 
-    public BehaviourBuilderImpl(final ScenarioBuilder belongsTo) {
+    public BehaviourBuilderImpl(final SystemBuilder system, final ScenarioBuilder belongsTo) {
         super(belongsTo);
+        this.system = system;
     }
 
 

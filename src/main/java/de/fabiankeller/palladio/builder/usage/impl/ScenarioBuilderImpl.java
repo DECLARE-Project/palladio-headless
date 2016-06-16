@@ -2,6 +2,7 @@ package de.fabiankeller.palladio.builder.usage.impl;
 
 
 import de.fabiankeller.palladio.builder.AbstractHierarchicalBuilder;
+import de.fabiankeller.palladio.builder.system.SystemBuilder;
 import de.fabiankeller.palladio.builder.usage.BehaviourBuilder;
 import de.fabiankeller.palladio.builder.usage.ScenarioBuilder;
 import de.fabiankeller.palladio.builder.usage.UsageBuilder;
@@ -12,10 +13,13 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class ScenarioBuilderImpl extends AbstractHierarchicalBuilder<ScenarioBuilder, UsageScenario, UsageBuilder> implements ScenarioBuilder {
 
+    private final SystemBuilder system;
+
     private BehaviourBuilder behaviour;
 
-    public ScenarioBuilderImpl(final UsageBuilder belongsTo) {
+    public ScenarioBuilderImpl(final SystemBuilder system, final UsageBuilder belongsTo) {
         super(belongsTo);
+        this.system = system;
     }
 
     @Override
@@ -32,7 +36,7 @@ public class ScenarioBuilderImpl extends AbstractHierarchicalBuilder<ScenarioBui
     @Override
     public BehaviourBuilder withBehaviour() {
         if (null == this.behaviour) {
-            this.behaviour = new BehaviourBuilderImpl(this);
+            this.behaviour = new BehaviourBuilderImpl(this.system, this);
         }
         return this.behaviour;
     }
