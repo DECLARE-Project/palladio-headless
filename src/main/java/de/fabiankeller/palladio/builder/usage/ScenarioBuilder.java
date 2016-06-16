@@ -8,7 +8,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
  */
 public interface ScenarioBuilder extends EntityHierarchicalBuilder<ScenarioBuilder, UsageScenario, UsageBuilder> {
 
-    BehaviourBuilder behaviour();
+    BehaviourBuilder withBehaviour();
 
     ScenarioBuilder withOpenWorkload(double interArrivalTime);
 }

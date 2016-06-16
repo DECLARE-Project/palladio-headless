@@ -13,4 +13,10 @@ public class RandomVariableFactory {
         rnd.setSpecification(String.valueOf(value));
         return rnd;
     }
+
+    public static PCMRandomVariable exp(final double value) {
+        final PCMRandomVariable rnd = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        rnd.setSpecification("Exp(" + String.valueOf(value) + ")");
+        return rnd;
+    }
 }
