@@ -5,24 +5,24 @@ package de.fabiankeller.palladio.builder;
  */
 public class BuilderException extends RuntimeException {
 
-    public BuilderException(final NamedBuilder<?, ?> builder, final String message) {
+    public BuilderException(final BaseBuilder<?> builder, final String message) {
         super(builderToExceptionMessage(builder, message));
     }
 
-    public BuilderException(final NamedBuilder<?, ?> builder, final String message, final Throwable cause) {
+    public BuilderException(final BaseBuilder<?> builder, final String message, final Throwable cause) {
         super(builderToExceptionMessage(builder, message), cause);
     }
 
-    public BuilderException(final NamedBuilder<?, ?> builder, final Throwable cause) {
+    public BuilderException(final BaseBuilder<?> builder, final Throwable cause) {
         super(builderToExceptionMessage(builder), cause);
     }
 
-    public BuilderException(final NamedBuilder<?, ?> builder, final String message, final Throwable cause, final boolean enableSuppression, final boolean writableStackTrace) {
+    public BuilderException(final BaseBuilder<?> builder, final String message, final Throwable cause, final boolean enableSuppression, final boolean writableStackTrace) {
         super(builderToExceptionMessage(builder, message), cause, enableSuppression, writableStackTrace);
     }
 
 
-    private static String builderToExceptionMessage(final NamedBuilder<?, ?> builder, final String original) {
+    private static String builderToExceptionMessage(final BaseBuilder<?> builder, final String original) {
         String msg = String.format("There was an error building an instance of '%s' with name '%s' in builder '%s'",
                 builder.getReference().getClass().getName(),
                 builder.getReference().getEntityName(),
@@ -34,7 +34,7 @@ public class BuilderException extends RuntimeException {
 
     }
 
-    private static String builderToExceptionMessage(final NamedBuilder<?, ?> builder) {
+    private static String builderToExceptionMessage(final BaseBuilder<?> builder) {
         return builderToExceptionMessage(builder, null);
     }
 }
