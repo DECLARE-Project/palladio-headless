@@ -6,14 +6,14 @@ import java.util.Properties;
  * Config parameters to locate certain PCM models.
  */
 public class PcmModelConfig extends AbstractPropertiesConfig {
-    private static final String PROPERTY_USAGE_MODEL = "Filename_UsageModel";
-    private static final String PROPERTY_ALLOCATION_MODEL = "Filename_AllocationModel";
+    public static final String PROPERTY_USAGE_MODEL = "Filename_UsageModel";
+    public static final String PROPERTY_ALLOCATION_MODEL = "Filename_AllocationModel";
 
     public PcmModelConfig() {
         super();
     }
 
-    public PcmModelConfig(Properties config) {
+    public PcmModelConfig(final Properties config) {
         super(config);
     }
 
@@ -21,7 +21,7 @@ public class PcmModelConfig extends AbstractPropertiesConfig {
         return this.getPropertyNotNull(PROPERTY_USAGE_MODEL);
     }
 
-    public void setUsageModel(String usageModel) {
+    public void setUsageModel(final String usageModel) {
         this.setProperty(PROPERTY_USAGE_MODEL, usageModel);
     }
 
@@ -29,7 +29,7 @@ public class PcmModelConfig extends AbstractPropertiesConfig {
         return this.getPropertyNotNull(PROPERTY_ALLOCATION_MODEL);
     }
 
-    public void setAllocationModel(String allocationModel) {
+    public void setAllocationModel(final String allocationModel) {
         this.setProperty(PROPERTY_ALLOCATION_MODEL, allocationModel);
     }
 }
