@@ -5,6 +5,7 @@ import de.fabiankeller.palladio.analysis.runner.pcm2lqn.Pcm2LqnAnalysisConfig;
 import de.fabiankeller.palladio.analysis.runner.pcm2lqn.Pcm2LqnRunner;
 import de.fabiankeller.palladio.builder.PcmBuilder;
 import de.fabiankeller.palladio.config.EnvironmentConfig;
+import de.fabiankeller.palladio.config.PcmModelConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 import org.palladiosimulator.solver.models.PCMInstance;
 
@@ -32,12 +33,17 @@ public class RunLqnsWithBuilder extends RunLQNS {
     @Override
     public void run() {
         log.info("Launching LQNS headless");
+        this.runnerConfig.setProperty(PcmModelConfig.PROPERTY_USAGE_MODEL, "default.usagemodel");
+        this.runnerConfig.setProperty(PcmModelConfig.PROPERTY_ALLOCATION_MODEL, "default.allocation");
         PalladioEclipseEnvironment.INSTANCE.setup(new EnvironmentConfig(this.runnerConfig));
 
         final PCMInstance instance = new SimpleTacticsProvider().provide();
-        instance.saveToFiles("palladio-headless");
 
         final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
         runner.analyze(instance);
+
+        // WARNING: saving the files actually removes them from the PCMResourceSetPartition! therefore the model can
+        // only be saved AFTER the analysis has been performed!
+        instance.saveToFiles("palladio-headless");
     }
 }
