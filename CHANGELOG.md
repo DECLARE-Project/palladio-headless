@@ -5,6 +5,9 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+### Fixes
+- Fixed issues when running the LQNS analysis with a model built by the `PcmBuilder`.
+
 ### Added
 - Major refactoring to split prototype to several classes.
 - Builder API to construct PCM instances using an API (see [PR #3](https://github.com/SQuAT-Team/palladio-lqns-headless/pull/3))
