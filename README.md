@@ -6,9 +6,20 @@ Run Palladio LQNS headless (i.e. without Eclipse) and integrate it into your app
 
 ## Installation
 
-- Follow the [installation steps](https://sdqweb.ipd.kit.edu/wiki/PCM2LQN) described in the Palladio Wiki. It is important that you have a working installation of the PCM which includes the PCMSolver and the PCM2LQN tool. Additionally, for PCM2LQN to work, you will need the [LQNSolvers](http://www.sce.carleton.ca/rads/lqns/) executables on your PATH.
-- Check out this project from source and open it in your favorite IDE. Add the `C:\...\Palladio\plugins` folder to the classpath of this project.
+**Prerequisites:**
+
+- Follow the [installation steps](https://sdqweb.ipd.kit.edu/wiki/PCM2LQN) described in the Palladio Wiki. It is important that you have a working installation of the PCM which includes the PCMSolver and the PCM2LQN tool. 
+- Additionally, for PCM2LQN to work, you will need the [LQNSolvers](http://www.sce.carleton.ca/rads/lqns/) executables on your PATH.
+
+**Installation Steps:**
+
+- Check out this project from source.
+- Hop on a shell and run `./buildLocalPalladioMavenRepo.sh C:/<pathTo>/Palladio`. That builds a local maven repository in `./pathing/.m2` containing all required Palladio JAR files.
 - Copy the configuration file in `src/main/resources/config.properties.dist` to `src/main/resources/config.properties` and adjust its values accordingly.
+
+**Export as Library:**
+
+You may export the palladio-headless project as standalone JAR library including all required dependencies by running `mvn clean package`. The JAR files are then created in `./target`.
 
 ## Running
 
