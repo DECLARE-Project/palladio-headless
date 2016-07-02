@@ -21,8 +21,13 @@ mkdir -p ./pathing/.m2/
 for plugin in $(find $1/plugins -maxdepth 1 -type f -name '*.jar' ); do
     name=$(echo $plugin | sed -rn 's/^.+\/([^_]+)\_.*?$/\1/p')
     version=$(echo $plugin | sed -rn 's/^[^_]+\_(.*?)\.jar$/\1/p')
-    echo "  Adding >>> $name :: $version"
 
+    if [ -f ./pathing/.m2/de/fabiankeller/palladio/$name/$version/$name-$version.pom ]; then
+        echo "  Skipping >>> $name :: $version, as pom is already present"
+        continue
+    fi
+
+    echo "  Adding >>> $name :: $version"
     mvn install:install-file \
         -Dfile=$plugin \
         -DgroupId="de.fabiankeller.palladio" \
