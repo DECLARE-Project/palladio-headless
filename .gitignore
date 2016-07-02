@@ -15,3 +15,4 @@ incPalladio.iml
 tmp/
 target/
 src/main/resources/config.properties
+pathing/
