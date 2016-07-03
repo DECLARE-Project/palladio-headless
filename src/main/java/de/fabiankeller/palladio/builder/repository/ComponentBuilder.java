@@ -22,5 +22,5 @@ public interface ComponentBuilder extends EntityHierarchicalBuilder<ComponentBui
     /**
      * Creates a {@link ServiceEffectSpecification} for the provided operation.
      */
-    ServiceEffectSpecificationBuilder withServiceEffectSpecification(SignatureBuilder affectedOperation);
+    ResourceDemandBuilder withServiceEffectSpecification(SignatureBuilder affectedOperation);
 }

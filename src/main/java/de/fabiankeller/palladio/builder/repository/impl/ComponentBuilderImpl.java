@@ -55,8 +55,8 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
     }
 
     @Override
-    public ServiceEffectSpecificationBuilder withServiceEffectSpecification(final SignatureBuilder affectedOperation) {
+    public ResourceDemandBuilder withServiceEffectSpecification(final SignatureBuilder affectedOperation) {
         // todo: assert that affected operation is provided by an interface of this component
-        return new ServiceEffectSpecificationBuilderImpl(this, affectedOperation);
+        return new ResourceDemandBuilderImpl(this, affectedOperation);
     }
 }

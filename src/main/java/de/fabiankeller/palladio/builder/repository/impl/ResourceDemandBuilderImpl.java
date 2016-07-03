@@ -1,18 +1,18 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
-import de.fabiankeller.palladio.builder.repository.ServiceEffectSpecificationBuilder;
+import de.fabiankeller.palladio.builder.repository.ResourceDemandBuilder;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
 
-public class ServiceEffectSpecificationBuilderImpl implements ServiceEffectSpecificationBuilder {
+public class ResourceDemandBuilderImpl implements ResourceDemandBuilder {
 
     private final ComponentBuilder belongsTo;
 
     private final ResourceDemandingSEFF eModel;
 
-    public ServiceEffectSpecificationBuilderImpl(final ComponentBuilder belongsTo, final SignatureBuilder affectedOperation) {
+    public ResourceDemandBuilderImpl(final ComponentBuilder belongsTo, final SignatureBuilder affectedOperation) {
         this.belongsTo = belongsTo;
 
         // link SEFF to the belonging component
