@@ -14,11 +14,27 @@ public interface ResourceDemandBuilder extends BaseHierarchicalBuilder<ResourceD
 
     ResourceDemandBuilder start();
 
-    InternalActionBuilder internalAction(String name);
 
-    ExternalCallBuilder externalCall(String name);
+    InternalActionBuilder internalAction();
 
-    BranchBuilder branch(String name);
+    default InternalActionBuilder internalAction(final String name) {
+        return internalAction().withEntityName(name);
+    }
+
+
+    ExternalCallBuilder externalCall();
+
+    default ExternalCallBuilder externalCall(final String name) {
+        return externalCall().withEntityName(name);
+    }
+
+
+    BranchBuilder branch();
+
+    default BranchBuilder branch(final String name) {
+        return branch().withEntityName(name);
+    }
+    
 
     ResourceDemandBuilder stop();
 
