@@ -11,7 +11,7 @@ import org.palladiosimulator.pcm.seff.*;
  * Builds root level {@link ServiceEffectSpecification}s, as well as nested {@link ResourceDemandingBehaviour}s in the
  * control flow of resource demands.
  */
-public interface ResourceDemandBuilder<PARENT extends BaseBuilder<?>> extends BaseHierarchicalBuilder<ResourceDemandingSEFF, PARENT> {
+public interface ResourceDemandBuilder<PARENT extends BaseBuilder<?>> extends BaseHierarchicalBuilder<ResourceDemandingBehaviour, PARENT> {
 
     ResourceDemandBuilder<PARENT> start();
 
