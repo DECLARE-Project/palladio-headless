@@ -1,6 +1,7 @@
 package de.fabiankeller.palladio.builder.repository;
 
 import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
+import de.fabiankeller.palladio.builder.repository.seff.ResourceDemandBuilder;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
@@ -22,5 +23,5 @@ public interface ComponentBuilder extends EntityHierarchicalBuilder<ComponentBui
     /**
      * Creates a {@link ServiceEffectSpecification} for the provided operation.
      */
-    ResourceDemandBuilder withServiceEffectSpecification(SignatureBuilder affectedOperation);
+    ResourceDemandBuilder<ComponentBuilder> withServiceEffectSpecification(SignatureBuilder affectedOperation);
 }
