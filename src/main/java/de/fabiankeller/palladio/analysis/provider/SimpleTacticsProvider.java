@@ -25,25 +25,41 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .withParameter("isBook", ParameterType.BOOL)
                 .withParameter("isBank", ParameterType.BOOL);
 
-        final InterfaceBuilder i_booking = builder.repository().withInterface("IBooking")
-                .createOperation("book")
-                .withParameter("isBank", ParameterType.BOOL)
-                .end();
+        final InterfaceBuilder i_booking = builder.repository().withInterface("IBooking");
+        final SignatureBuilder s_book = i_booking.createOperation("book")
+                .withParameter("isBank", ParameterType.BOOL);
 
-        final InterfaceBuilder i_employeePayment = builder.repository().withInterface("IEmployeePayment")
-                .createOperation("reimburse")
-                .end();
+        final InterfaceBuilder i_employeePayment = builder.repository().withInterface("IEmployeePayment");
+        final SignatureBuilder s_reimburse = i_employeePayment.createOperation("reimburse");
 
-        final InterfaceBuilder i_externalPayment = builder.repository().withInterface("IExternalPayment")
-                .createOperation("pay")
-                .withParameter("isBank", ParameterType.BOOL)
-                .end();
+
+        final InterfaceBuilder i_externalPayment = builder.repository().withInterface("IExternalPayment");
+        final SignatureBuilder s_isBank = i_externalPayment.createOperation("pay")
+                .withParameter("isBank", ParameterType.BOOL);
+
 
         // create components in repository
         final ComponentBuilder c_businessTripMgmt = builder.repository().withComponent("BusinessTripMgmt")
                 .provides(i_businessTrip)
                 .requires(i_booking)
                 .requires(i_employeePayment);
+        //@formatter:off
+        c_businessTripMgmt.withServiceEffectSpecification(s_plan)
+                .start()
+                .internalAction("action")
+                    .withCpuDemand("4")
+                .end()
+                .branch("aName")
+                    .createBranch("aName", "isBook.VALUE")
+                        .start()
+                        .externalCall()
+                            .withVariableUsage("isBank", "isBank.VALUE")
+                        .end()
+                        .stop()
+                    .end()
+                .end()
+                .stop();
+        //@formatter:on
         final ComponentBuilder c_bookingSystem = builder.repository().withComponent("BookingSystem")
                 .provides(i_booking)
                 .requires(i_externalPayment);
