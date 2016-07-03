@@ -1,12 +1,14 @@
 package de.fabiankeller.palladio.builder.repository.seff.impl;
 
 import de.fabiankeller.palladio.builder.BaseBuilder;
+import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.BranchBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.ExternalCallBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.InternalActionBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.ResourceDemandBuilder;
+import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SeffFactory;
@@ -17,11 +19,20 @@ public class ResourceDemandBuilderImpl<PARENT extends BaseBuilder<?>> implements
 
     private final ResourceDemandingBehaviour eModel;
 
+    private AbstractAction predecessor;
+
     private ResourceDemandBuilderImpl(final ResourceDemandingBehaviour eModel, final PARENT belongsTo) {
         this.eModel = eModel;
         this.belongsTo = belongsTo;
     }
 
+
+    // // CONSTRUCTOR METHODS // //
+
+    /**
+     * Creates a {@link ResourceDemandBuilder} to be used by {@link ComponentBuilder}s, as this will create a root-level
+     * resource demand.
+     */
     public static ResourceDemandBuilder<ComponentBuilder> rootResourceDemand(final ComponentBuilder belongsTo, final SignatureBuilder affectedOperation) {
         // create demand
         final ResourceDemandingSEFF eModel = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
@@ -34,35 +45,82 @@ public class ResourceDemandBuilderImpl<PARENT extends BaseBuilder<?>> implements
         return new ResourceDemandBuilderImpl<ComponentBuilder>(eModel, belongsTo);
     }
 
+    /**
+     * Creates a {@link ResourceDemandBuilder} to be used in nested control flow resource demands, as can be reached by
+     * using {@link BranchBuilder}s.
+     */
     public static <P extends ResourceDemandBuilder<?>> ResourceDemandBuilder<P> nestedResourceDemand(final P belongsTo) {
         final ResourceDemandingBehaviour eModel = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
         return new ResourceDemandBuilderImpl<P>(eModel, belongsTo);
     }
 
-    @Override
-    public BranchBuilder<ResourceDemandBuilder<PARENT>> branch() {
-        return null;
+
+    // // QUEUING LOGIC // //
+
+    private ResourceDemandBuilder<PARENT> enqueueAction(final AbstractAction action) {
+        // double-link
+        if (null != this.predecessor) {
+            action.setPredecessor_AbstractAction(this.predecessor);
+            this.predecessor.setSuccessor_AbstractAction(action);
+        }
+
+        // link to parent model
+        this.eModel.getSteps_Behaviour().add(action);
+        action.setResourceDemandingBehaviour_AbstractAction(this.eModel);
+
+        this.predecessor = action;
+        return this;
     }
+
+    private void assertPredecessor() {
+        if (null == this.predecessor) {
+            throw new BuilderException(this, "The action you are trying to create requires a previous action to be registered. If you have not set an action yet, begin with the start() action.");
+        }
+    }
+
+
+    // // NON-BUILDER ACTIONS // //
 
     @Override
     public ResourceDemandBuilder<PARENT> start() {
-        return null;
-    }
-
-    @Override
-    public InternalActionBuilder<ResourceDemandBuilder<PARENT>> internalAction() {
-        return null;
-    }
-
-    @Override
-    public ExternalCallBuilder<ResourceDemandBuilder<PARENT>> externalCall() {
-        return null;
+        return enqueueAction(SeffFactory.eINSTANCE.createStartAction());
     }
 
     @Override
     public ResourceDemandBuilder<PARENT> stop() {
-        return null;
+        assertPredecessor();
+        return enqueueAction(SeffFactory.eINSTANCE.createStartAction());
     }
+
+
+    // // BUILDER ACTIONS // //
+
+    @Override
+    public InternalActionBuilder<ResourceDemandBuilder<PARENT>> internalAction() {
+        assertPredecessor();
+        final InternalActionBuilder<ResourceDemandBuilder<PARENT>> builder = new InternalActionBuilderImpl<>(this);
+        enqueueAction(builder.getReference());
+        return builder;
+    }
+
+    @Override
+    public ExternalCallBuilder<ResourceDemandBuilder<PARENT>> externalCall() {
+        assertPredecessor();
+        final ExternalCallBuilder<ResourceDemandBuilder<PARENT>> builder = new ExternalCallBuilderImpl<>(this);
+        enqueueAction(builder.getReference());
+        return builder;
+    }
+
+    @Override
+    public BranchBuilder<ResourceDemandBuilder<PARENT>> branch() {
+        assertPredecessor();
+        final BranchBuilderImpl<ResourceDemandBuilder<PARENT>> builder = new BranchBuilderImpl<>(this);
+        enqueueAction(builder.getReference());
+        return builder;
+    }
+
+
+    // // BUILDER API METHODS // //
 
     @Override
     public PARENT end() {

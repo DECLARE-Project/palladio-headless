@@ -38,6 +38,4 @@ public interface ResourceDemandBuilder<PARENT extends BaseBuilder<?>> extends Ba
 
 
     ResourceDemandBuilder<PARENT> stop();
-
-
 }
