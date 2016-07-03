@@ -1,9 +1,7 @@
 package de.fabiankeller.palladio.builder.repository.impl;
 
 import de.fabiankeller.palladio.builder.AbstractHierarchicalBuilder;
-import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
-import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
-import de.fabiankeller.palladio.builder.repository.RepositoryBuilder;
+import de.fabiankeller.palladio.builder.repository.*;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -54,5 +52,11 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
         this.eModel.getRequiredRoles_InterfaceRequiringEntity().add(required);
 
         return this;
+    }
+
+    @Override
+    public ServiceEffectSpecificationBuilder withServiceEffectSpecification(final SignatureBuilder affectedOperation) {
+        // todo: assert that affected operation is provided by an interface of this component
+        return new ServiceEffectSpecificationBuilderImpl(this, affectedOperation);
     }
 }
