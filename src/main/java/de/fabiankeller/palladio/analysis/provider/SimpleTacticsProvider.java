@@ -6,6 +6,7 @@ import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.ParameterType;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
+import de.fabiankeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.LinkBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
@@ -34,17 +35,20 @@ public class SimpleTacticsProvider implements PcmProvider {
 
 
         final InterfaceBuilder i_externalPayment = builder.repository().withInterface("IExternalPayment");
-        final SignatureBuilder s_isBank = i_externalPayment.createOperation("pay")
+        final SignatureBuilder s_pay = i_externalPayment.createOperation("pay")
                 .withParameter("isBank", ParameterType.BOOL);
+
+        final SoftwareInducedFailureBuilder f_swFailure = builder.repository().withSoftwareInducedFailure("SWFailure");
 
 
         // create components in repository
+
+        // @formatter:off
         final ComponentBuilder c_businessTripMgmt = builder.repository().withComponent("BusinessTripMgmt")
-                .provides(i_businessTrip)
-                .requires(i_booking)
-                .requires(i_employeePayment);
-        //@formatter:off
-        c_businessTripMgmt.withServiceEffectSpecification(s_plan)
+            .provides(i_businessTrip)
+            .requires(i_booking)
+            .requires(i_employeePayment)
+            .withServiceEffectSpecification(s_plan)
                 .start()
                 .internalAction("action")
                     .withCpuDemand("4")
@@ -52,24 +56,87 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .branch("aName")
                     .createBranch("aName", "isBook.VALUE")
                         .start()
-                        .externalCall()
+                        .externalCall(s_book)
                             .withInputVariableUsage("isBank", "isBank.VALUE")
                         .end()
                         .stop()
                     .end()
+                    .createBranch("aName", "NOT isBook.VALUE")
+                        .start()
+                        .externalCall(s_reimburse).end()
+                        .stop()
+                    .end()
                 .end()
-                .stop();
-        //@formatter:on
-        final ComponentBuilder c_bookingSystem = builder.repository().withComponent("BookingSystem")
-                .provides(i_booking)
-                .requires(i_externalPayment);
-        final ComponentBuilder c_paymentSystem = builder.repository().withComponent("PaymentSystem")
-                .provides(i_employeePayment)
-                .provides(i_externalPayment);
-        final ComponentBuilder c_quickBooking = builder.repository().withComponent("QuickBooking")
-                .provides(i_booking)
-                .requires(i_externalPayment);
+                .stop()
+            .end();
 
+        final ComponentBuilder c_bookingSystem = builder.repository().withComponent("BookingSystem")
+            .provides(i_booking)
+            .requires(i_externalPayment)
+            .withServiceEffectSpecification(s_book)
+                .start()
+                .internalAction("aName")
+                    .withCpuDemand("5")
+                    .withFailure(1.0e-4, f_swFailure)
+                .end()
+                .externalCall(s_pay)
+                    .withInputVariableUsage("isBank", "isBank.VALUE")
+                .end()
+                .stop()
+            .end();
+
+        final ComponentBuilder c_paymentSystem = builder.repository().withComponent("PaymentSystem")
+            .provides(i_employeePayment)
+            .provides(i_externalPayment)
+            .withServiceEffectSpecification(s_reimburse)
+                .start()
+                .internalAction()
+                    .withCpuDemand("3")
+                .end()
+                .stop()
+            .end()
+            .withServiceEffectSpecification(s_pay)
+                .start()
+                .branch("isBank?")
+                    .createBranch("aName", "isBank.VALUE")
+                        .start()
+                        .internalAction()
+                            .withCpuDemand("3")
+                            .withFailure(1.0e-4, f_swFailure)
+                        .end()
+                        .stop()
+                    .end()
+                    .createBranch("aName", "NOT isBank.VALUE")
+                        .start()
+                        .internalAction("CCpayment")
+                            .withCpuDemand("4")
+                            .withFailure(3.0e-4, f_swFailure)
+                        .end()
+                        .stop()
+                    .end()
+                .end()
+                .stop()
+            .end();
+
+        final ComponentBuilder c_quickBooking = builder.repository().withComponent("QuickBooking")
+            .provides(i_booking)
+            .requires(i_externalPayment)
+            .withServiceEffectSpecification(s_book)
+                .start()
+                .internalAction("checkCache")
+                    .withCpuDemand("0.5")
+                    .withFailure(2.5e-4, f_swFailure)
+                .end()
+                .internalAction("determineCheapest")
+                    .withCpuDemand("2.5")
+                    .withFailure(1.0e-4, f_swFailure)
+                .end()
+                .externalCall(s_pay)
+                    .withInputVariableUsage("isBank", "isBank.VALUE")
+                .end()
+                .stop()
+            .end();
+        // @formatter:on
 
         // // // SYSTEM // // //
         final AssemblyBuilder a_businessTripMgmt = builder.system().assemble(c_businessTripMgmt);
