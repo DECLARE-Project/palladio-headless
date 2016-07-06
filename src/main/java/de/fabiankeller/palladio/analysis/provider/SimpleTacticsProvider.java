@@ -183,12 +183,20 @@ public class SimpleTacticsProvider implements PcmProvider {
         builder.allocation().allocate(a_paymentSystem, e_server3);
 
         // // // USAGE // // //
-        builder.usage().createScenario("defaultUsageScenario")
+        // @formatter:off
+        builder.usage()
+            .createScenario("defaultUsageScenario")
                 .withOpenWorkload(0.5)
                 .withBehaviour()
-                .start()
-                .entryLevelSystemCall(s_plan)
-                .stop();
+                    .start()
+                    .entryLevelSystemCall(s_plan)
+                        .withInputVariableUsage("isBook", "BoolPMF[(true;0.8)(false;0.2)]")
+                        .withInputVariableUsage("isBank", "BoolPMF[(true;0.4)(false;0.6)]")
+                    .end()
+                    .stop()
+                .end()
+            .end();
+        // @formatter:on
 
         return builder.build();
     }

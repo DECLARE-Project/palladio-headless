@@ -10,11 +10,11 @@ import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 public interface BehaviourBuilder extends EntityHierarchicalBuilder<BehaviourBuilder, ScenarioBehaviour, ScenarioBuilder> {
     BehaviourBuilder start();
 
-    default BehaviourBuilder entryLevelSystemCall(final SignatureBuilder signature) {
-        return entryLevelSystemCall(signature, 0);
-    }
+    EntryLevelSystemCallBuilder entryLevelSystemCall(final SignatureBuilder signature);
 
-    BehaviourBuilder entryLevelSystemCall(SignatureBuilder signature, int priority);
+    default EntryLevelSystemCallBuilder entryLevelSystemCall(final String name, final SignatureBuilder signature) {
+        return entryLevelSystemCall(signature).withEntityName(name);
+    }
 
     BehaviourBuilder stop();
 
