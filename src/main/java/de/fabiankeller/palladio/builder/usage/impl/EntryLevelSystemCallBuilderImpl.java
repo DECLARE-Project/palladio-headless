@@ -25,16 +25,20 @@ public class EntryLevelSystemCallBuilderImpl
         super(belongsTo);
         this.system = system;
         this.signature = signature;
+        registerSignature();
     }
 
     @Override
     protected EntryLevelSystemCall newEModel() {
         return UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
-
     }
 
     @Override
     protected void registerParent() {
+        // taken care of in {@link BehaviourBuilderImpl#enqueueAction}.
+    }
+
+    private void registerSignature() {
         this.eModel.setOperationSignature__EntryLevelSystemCall(this.signature.getReference());
         this.eModel.setProvidedRole_EntryLevelSystemCall(findRoleProvidingSignature(this.signature));
     }
