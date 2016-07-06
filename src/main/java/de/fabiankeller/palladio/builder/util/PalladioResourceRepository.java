@@ -3,6 +3,7 @@ package de.fabiankeller.palladio.builder.util;
 import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
+import org.palladiosimulator.pcm.resourcetype.SchedulingPolicy;
 
 /**
  * Convenient access to Palladio's {@link ResourceRepository}
@@ -16,6 +17,12 @@ public interface PalladioResourceRepository {
     ProcessingResourceType delay();
 
     CommunicationLinkResourceType lan();
+
+    SchedulingPolicy policyProcessorSharing();
+
+    SchedulingPolicy policyFCFS();
+
+    SchedulingPolicy policyDelay();
 
 
     /**

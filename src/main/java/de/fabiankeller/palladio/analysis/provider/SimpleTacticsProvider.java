@@ -9,6 +9,7 @@ import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import de.fabiankeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.LinkBuilder;
+import de.fabiankeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
 import de.fabiankeller.palladio.builder.system.AssemblyBuilder;
 import org.palladiosimulator.solver.models.PCMInstance;
 
@@ -156,6 +157,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .withMTTR(6.0)
                 .withNumberOfReplicas(1)
                 .withRequiredByContainer(false)
+                .withSchedulingPolicy(ProcessingResourceBuilder.SchedulingPolicy.PROCESSOR_SHARING)
                 .end();
         final ContainerBuilder e_server2 = builder.resourceEnvironment().createContainer("Server2")
                 .withCpu(4.0)
@@ -163,6 +165,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .withMTTR(3.0)
                 .withNumberOfReplicas(1)
                 .withRequiredByContainer(false)
+                .withSchedulingPolicy(ProcessingResourceBuilder.SchedulingPolicy.PROCESSOR_SHARING)
                 .end();
         final ContainerBuilder e_server3 = builder.resourceEnvironment().createContainer("Server3")
                 .withCpu(3.0)
@@ -170,6 +173,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .withMTTR(4.0)
                 .withNumberOfReplicas(1)
                 .withRequiredByContainer(false)
+                .withSchedulingPolicy(ProcessingResourceBuilder.SchedulingPolicy.PROCESSOR_SHARING)
                 .end();
         final LinkBuilder e_network = builder.resourceEnvironment().createLink("Network")
                 .between(e_server1, e_server2, e_server3)

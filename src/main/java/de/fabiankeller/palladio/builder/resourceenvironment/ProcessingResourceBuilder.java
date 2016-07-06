@@ -8,6 +8,12 @@ import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecifica
  */
 public interface ProcessingResourceBuilder extends BaseHierarchicalBuilder<ProcessingResourceSpecification, ContainerBuilder> {
 
+    enum SchedulingPolicy {
+        DELAY,
+        FCFS,
+        PROCESSOR_SHARING
+    }
+
     ProcessingResourceBuilder withProcessingRate(double processingRate);
 
     ProcessingResourceBuilder withMTTF(double mttf);
@@ -18,5 +24,5 @@ public interface ProcessingResourceBuilder extends BaseHierarchicalBuilder<Proce
 
     ProcessingResourceBuilder withRequiredByContainer(boolean requiredByContainer);
 
-    ProcessingResourceBuilder withSchedulingPolicy(/* todo: add policies */);
+    ProcessingResourceBuilder withSchedulingPolicy(SchedulingPolicy policy);
 }
