@@ -9,5 +9,5 @@ import org.palladiosimulator.pcm.seff.BranchAction;
  */
 public interface BranchBuilder<P extends ResourceDemandBuilder<?>> extends EntityHierarchicalBuilder<BranchBuilder<P>, BranchAction, P> {
 
-    ResourceDemandBuilder<ResourceDemandBuilder<P>> createBranch(String name, String branchConditionExpression);
+    ResourceDemandBuilder<BranchBuilder<P>> createBranch(String name, String branchConditionExpression);
 }

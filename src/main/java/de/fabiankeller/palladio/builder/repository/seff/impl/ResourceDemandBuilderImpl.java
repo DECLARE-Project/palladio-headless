@@ -49,7 +49,7 @@ public class ResourceDemandBuilderImpl<PARENT extends BaseBuilder<?>> implements
      * Creates a {@link ResourceDemandBuilder} to be used in nested control flow resource demands, as can be reached by
      * using {@link BranchBuilder}s.
      */
-    public static <P extends ResourceDemandBuilder<?>> ResourceDemandBuilder<P> nestedResourceDemand(final P belongsTo) {
+    public static <P extends BaseBuilder<?>> ResourceDemandBuilder<P> nestedResourceDemand(final P belongsTo) {
         final ResourceDemandingBehaviour eModel = SeffFactory.eINSTANCE.createResourceDemandingBehaviour();
         return new ResourceDemandBuilderImpl<P>(eModel, belongsTo);
     }
@@ -83,13 +83,17 @@ public class ResourceDemandBuilderImpl<PARENT extends BaseBuilder<?>> implements
 
     @Override
     public ResourceDemandBuilder<PARENT> start() {
+        final int noExistingActions = this.getReference().getSteps_Behaviour().size();
+        if (noExistingActions > 0) {
+            throw new BuilderException(this, String.format("There are already %d actions defined for this resource demand specification. Cannot add the START action again!", noExistingActions));
+        }
         return enqueueAction(SeffFactory.eINSTANCE.createStartAction());
     }
 
     @Override
     public ResourceDemandBuilder<PARENT> stop() {
         assertPredecessor();
-        return enqueueAction(SeffFactory.eINSTANCE.createStartAction());
+        return enqueueAction(SeffFactory.eINSTANCE.createStopAction());
     }
 
 

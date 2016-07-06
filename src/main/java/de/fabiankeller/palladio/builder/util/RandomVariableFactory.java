@@ -9,14 +9,16 @@ import org.palladiosimulator.pcm.core.PCMRandomVariable;
 public class RandomVariableFactory {
 
     public static PCMRandomVariable fromDouble(final double value) {
-        final PCMRandomVariable rnd = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        rnd.setSpecification(String.valueOf(value));
-        return rnd;
+        return expression(String.valueOf(value));
     }
 
     public static PCMRandomVariable exp(final double value) {
-        final PCMRandomVariable rnd = CoreFactory.eINSTANCE.createPCMRandomVariable();
-        rnd.setSpecification("Exp(" + String.valueOf(value) + ")");
-        return rnd;
+        return expression("Exp(" + String.valueOf(value) + ")");
+    }
+
+    public static PCMRandomVariable expression(final String branchConditionExpression) {
+        final PCMRandomVariable expr = CoreFactory.eINSTANCE.createPCMRandomVariable();
+        expr.setSpecification(branchConditionExpression);
+        return expr;
     }
 }
