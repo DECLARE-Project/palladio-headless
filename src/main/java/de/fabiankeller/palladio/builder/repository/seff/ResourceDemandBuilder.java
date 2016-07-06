@@ -2,6 +2,7 @@ package de.fabiankeller.palladio.builder.repository.seff;
 
 import de.fabiankeller.palladio.builder.BaseBuilder;
 import de.fabiankeller.palladio.builder.BaseHierarchicalBuilder;
+import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 
@@ -25,8 +26,12 @@ public interface ResourceDemandBuilder<PARENT extends BaseBuilder<?>> extends Ba
 
     ExternalCallBuilder<ResourceDemandBuilder<PARENT>> externalCall();
 
-    default ExternalCallBuilder<ResourceDemandBuilder<PARENT>> externalCall(final String name) {
-        return externalCall().withEntityName(name);
+    default ExternalCallBuilder<ResourceDemandBuilder<PARENT>> externalCall(final SignatureBuilder toSignature) {
+        return externalCall().withCalledService(toSignature);
+    }
+
+    default ExternalCallBuilder<ResourceDemandBuilder<PARENT>> externalCall(final String name, final SignatureBuilder toSignature) {
+        return externalCall(toSignature).withEntityName(name);
     }
 
 

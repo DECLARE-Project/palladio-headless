@@ -54,8 +54,8 @@ public class ResourceDemandBuilderImplTest {
 
 
         this.c_booking = this.repo.withComponent("Booking")
-                .provides(this.i_payment)
-                .provides(this.i_reservation);
+                .requires(this.i_payment)
+                .requires(this.i_reservation);
         this.sut = this.c_booking.withServiceEffectSpecification(this.s_pay);
     }
 
@@ -145,6 +145,29 @@ public class ResourceDemandBuilderImplTest {
     @Test(expected = BuilderException.class)
     public void branch_withoutPrecedingStart_shouldThrowException() {
         this.sut.branch();
+    }
+
+    // // EXTERNAL CALL // //
+
+    @Test
+    public void externalCall_withValidSignature_isAdded() {
+        this.sut
+                .start()
+                .externalCall(this.s_pay)
+                .withRetryCount(2)
+                .end()
+                .stop();
+        assertActionIsOfType(this.sut.getReference(), StartAction.class, ExternalCallAction.class, StopAction.class);
+
+        final ExternalCallAction extCall = (ExternalCallAction) this.sut.getReference().getSteps_Behaviour().get(1);
+        assertEquals(2, extCall.getRetryCount());
+        assertSame(this.s_pay.getReference(), extCall.getCalledService_ExternalService());
+        assertSame(this.i_payment.getReference(), extCall.getRole_ExternalService().getRequiredInterface__OperationRequiredRole());
+    }
+
+    @Test(expected = BuilderException.class)
+    public void externalCall_withoutPrecedingStart_shouldThrowException() {
+        this.sut.externalCall();
     }
 
 

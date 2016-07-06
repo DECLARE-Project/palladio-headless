@@ -53,7 +53,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                     .createBranch("aName", "isBook.VALUE")
                         .start()
                         .externalCall()
-                            .withVariableUsage("isBank", "isBank.VALUE")
+                            .withInputVariableUsage("isBank", "isBank.VALUE")
                         .end()
                         .stop()
                     .end()
