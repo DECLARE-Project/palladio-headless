@@ -2,6 +2,7 @@ package de.fabiankeller.palladio.builder.resourceenvironment.impl;
 
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
+import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
 import de.fabiankeller.palladio.builder.util.RandomVariableFactory;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
@@ -13,8 +14,11 @@ public class ProcessingResourceBuilderImpl implements ProcessingResourceBuilder 
 
     ProcessingResourceSpecification eModel;
 
+    PalladioResourceRepository resources;
+
     public ProcessingResourceBuilderImpl(final ContainerBuilder belongsTo) {
         this.belongsTo = belongsTo;
+        this.resources = PalladioResourceRepository.INSTANCE.resources();
 
         // build model
         this.eModel = ResourceenvironmentFactory.eINSTANCE.createProcessingResourceSpecification();
@@ -56,9 +60,19 @@ public class ProcessingResourceBuilderImpl implements ProcessingResourceBuilder 
     }
 
     @Override
-    public ProcessingResourceBuilder withSchedulingPolicy() {
-        // fixme: implement
-        return null;
+    public ProcessingResourceBuilder withSchedulingPolicy(final SchedulingPolicy policy) {
+        switch (policy) {
+            case DELAY:
+                this.eModel.setSchedulingPolicy(this.resources.policyDelay());
+                break;
+            case FCFS:
+                this.eModel.setSchedulingPolicy(this.resources.policyFCFS());
+                break;
+            case PROCESSOR_SHARING:
+                this.eModel.setSchedulingPolicy(this.resources.policyProcessorSharing());
+                break;
+        }
+        return this;
     }
 
     @Override

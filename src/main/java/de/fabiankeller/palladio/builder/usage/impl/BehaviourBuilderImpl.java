@@ -5,12 +5,9 @@ import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import de.fabiankeller.palladio.builder.system.SystemBuilder;
 import de.fabiankeller.palladio.builder.usage.BehaviourBuilder;
+import de.fabiankeller.palladio.builder.usage.EntryLevelSystemCallBuilder;
 import de.fabiankeller.palladio.builder.usage.ScenarioBuilder;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
@@ -64,29 +61,13 @@ public class BehaviourBuilderImpl extends AbstractHierarchicalBuilder<BehaviourB
     }
 
     @Override
-    public BehaviourBuilder entryLevelSystemCall(final SignatureBuilder signature, final int priority) {
+    public EntryLevelSystemCallBuilder entryLevelSystemCall(final SignatureBuilder signature) {
         assertPredecessor();
-        final EntryLevelSystemCall call = UsagemodelFactory.eINSTANCE.createEntryLevelSystemCall();
-        call.setPriority(priority);
-        call.setOperationSignature__EntryLevelSystemCall(signature.getReference());
-        call.setProvidedRole_EntryLevelSystemCall(findRoleProvidingSignature(signature));
-        return enqueueAction(call);
+        final EntryLevelSystemCallBuilder builder = new EntryLevelSystemCallBuilderImpl(this, this.system, signature);
+        enqueueAction(builder.getReference());
+        return builder;
     }
 
-    private OperationProvidedRole findRoleProvidingSignature(final SignatureBuilder signature) {
-        for (final ProvidedRole providedRole : this.system.getReference().getProvidedRoles_InterfaceProvidingEntity()) {
-            if (!(providedRole instanceof OperationProvidedRole)) {
-                continue;
-            }
-            final OperationProvidedRole opRole = (OperationProvidedRole) providedRole;
-            for (final OperationSignature other : opRole.getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface()) {
-                if (other == signature.getReference()) {
-                    return opRole;
-                }
-            }
-        }
-        throw new BuilderException(this, "Could not find signature in provided roles of the system. Did you forget to call AssemblyBuilder.provideToSystem()?");
-    }
 
     @Override
     public BehaviourBuilder stop() {
