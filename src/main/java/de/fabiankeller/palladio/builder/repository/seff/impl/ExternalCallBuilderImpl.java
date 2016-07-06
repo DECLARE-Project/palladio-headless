@@ -7,12 +7,7 @@ import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.SignatureBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.ExternalCallBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.ResourceDemandBuilder;
-import de.fabiankeller.palladio.builder.util.RandomVariableFactory;
-import de.uka.ipd.sdq.stoex.StoexFactory;
-import de.uka.ipd.sdq.stoex.VariableReference;
-import org.palladiosimulator.pcm.parameter.ParameterFactory;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisationType;
+import de.fabiankeller.palladio.builder.util.impl.VariableUsageFactoryImpl;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
@@ -79,18 +74,7 @@ public class ExternalCallBuilderImpl<PARENT extends ResourceDemandBuilder<?>> im
     @Override
     public ExternalCallBuilderImpl<PARENT> withInputVariableUsage(final String name, final String specification) {
         // create usage model
-        final VariableUsage varusg = ParameterFactory.eINSTANCE.createVariableUsage();
-        final VariableCharacterisation characterisation = ParameterFactory.eINSTANCE.createVariableCharacterisation();
-
-        // create characterisation
-        characterisation.setType(VariableCharacterisationType.VALUE);
-        varusg.getVariableCharacterisation_VariableUsage().add(characterisation);
-        characterisation.setVariableUsage_VariableCharacterisation(varusg);
-        characterisation.setSpecification_VariableCharacterisation(RandomVariableFactory.expression(specification));
-        // create var reference
-        final VariableReference varref = StoexFactory.eINSTANCE.createVariableReference();
-        varref.setReferenceName(name);
-        varusg.setNamedReference__VariableUsage(varref);
+        final VariableUsage varusg = new VariableUsageFactoryImpl().valueUsage(name, specification);
 
         // link model
         varusg.setCallAction__VariableUsage(this.eModel);
