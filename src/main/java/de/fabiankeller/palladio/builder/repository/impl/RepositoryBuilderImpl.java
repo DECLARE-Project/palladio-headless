@@ -3,6 +3,8 @@ package de.fabiankeller.palladio.builder.repository.impl;
 import de.fabiankeller.palladio.builder.repository.ComponentBuilder;
 import de.fabiankeller.palladio.builder.repository.InterfaceBuilder;
 import de.fabiankeller.palladio.builder.repository.RepositoryBuilder;
+import de.fabiankeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
+import de.fabiankeller.palladio.builder.repository.failure.impl.SoftwareInducedFailureBuilderImpl;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
@@ -43,6 +45,11 @@ public class RepositoryBuilderImpl implements RepositoryBuilder {
         this.eRepository.getInterfaces__Repository().add(builder.getReference());
 
         return builder;
+    }
+
+    @Override
+    public SoftwareInducedFailureBuilder withSoftwareInducedFailure(final String name) {
+        return new SoftwareInducedFailureBuilderImpl(this);
     }
 
     @Override

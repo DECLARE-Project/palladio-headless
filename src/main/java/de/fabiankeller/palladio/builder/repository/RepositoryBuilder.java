@@ -1,6 +1,8 @@
 package de.fabiankeller.palladio.builder.repository;
 
 import de.fabiankeller.palladio.builder.EntityBuilder;
+import de.fabiankeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
+import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.Repository;
 
@@ -18,4 +20,9 @@ public interface RepositoryBuilder extends EntityBuilder<RepositoryBuilder, Repo
      * Adds an {@link OperationInterface} with the given name.
      */
     InterfaceBuilder withInterface(String name);
+
+    /**
+     * Adds an {@link SoftwareInducedFailureType} with the given name to the repository.
+     */
+    SoftwareInducedFailureBuilder withSoftwareInducedFailure(String name);
 }
