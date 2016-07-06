@@ -1,6 +1,8 @@
 package de.fabiankeller.palladio.environment;
 
 import com.google.common.base.Throwables;
+import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
+import de.fabiankeller.palladio.builder.util.impl.PalladioResourceRepositoryImpl;
 import de.fabiankeller.palladio.config.EnvironmentConfig;
 import de.fabiankeller.palladio.environment.uriconverter.PrefixConverter;
 import de.fabiankeller.palladio.environment.uriconverter.URIConverterHandler;
@@ -21,6 +23,7 @@ import org.palladiosimulator.pcm.qosannotations.util.QosannotationsResourceFacto
 import org.palladiosimulator.pcm.reliability.util.ReliabilityResourceFactoryImpl;
 import org.palladiosimulator.pcm.repository.util.RepositoryResourceFactoryImpl;
 import org.palladiosimulator.pcm.resourceenvironment.util.ResourceenvironmentResourceFactoryImpl;
+import org.palladiosimulator.pcm.resourcetype.ResourceRepository;
 import org.palladiosimulator.pcm.resourcetype.util.ResourcetypeResourceFactoryImpl;
 import org.palladiosimulator.pcm.seff.seff_performance.util.SeffPerformanceResourceFactoryImpl;
 import org.palladiosimulator.pcm.seff.seff_reliability.util.SeffReliabilityResourceFactoryImpl;
@@ -58,17 +61,18 @@ public enum PalladioEclipseEnvironment {
      * Sets up the Palladio Eclipse environment by registering certain Palladio and Eclipse functionality in the right
      * places. This method is thread-safe and will only perform the setup once, even when called multiple times.
      */
-    public synchronized void setup(EnvironmentConfig config) {
-        if (isSetup) {
+    public synchronized void setup(final EnvironmentConfig config) {
+        if (this.isSetup) {
             return;
         }
-        isSetup = true;
+        this.isSetup = true;
         this.config = config;
 
         log.info("Starting to set up the Palladio Eclipse environment.");
         registerFactories();
         registerUriConverter();
         registerPathmapConverters();
+        registerPalladioResourceRepository();
         log.info("Finished setting up the Palladio Eclipse environment.");
     }
 
@@ -76,7 +80,7 @@ public enum PalladioEclipseEnvironment {
      * Determines whether setup of the environment has already been executed.
      */
     public boolean isSetup() {
-        return isSetup;
+        return this.isSetup;
     }
 
     /**
@@ -122,9 +126,9 @@ public enum PalladioEclipseEnvironment {
 
         // register globally
         try {
-            Field field = ExtensibleURIConverterImpl.class.getField("INSTANCE");
+            final Field field = ExtensibleURIConverterImpl.class.getField("INSTANCE");
             field.setAccessible(true);
-            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            final Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
             modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
             field.set(null, this.uriConverter);
@@ -144,8 +148,14 @@ public enum PalladioEclipseEnvironment {
     }
 
     private void registerPathmapConverters() {
-        assert uriConverter != null;
+        assert this.uriConverter != null;
         this.uriConverter.addInterceptor(new PrefixConverter("pathmap://PCM_MODELS/", this.config.getPCMModelsLocation()));
+    }
+
+    private void registerPalladioResourceRepository() {
+        final ResourceRepository resources = new PCMResourceSetPartitionFactory.DefaultFactory().create().getResourceTypeRepository();
+        assert resources != null;
+        PalladioResourceRepository.INSTANCE.initResources(new PalladioResourceRepositoryImpl(resources));
     }
 
 }
