@@ -1,9 +1,12 @@
 package de.fabiankeller.palladio.builder.repository.seff.impl;
 
+import de.fabiankeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.InternalActionBuilder;
 import de.fabiankeller.palladio.builder.repository.seff.ResourceDemandBuilder;
 import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
 import de.fabiankeller.palladio.builder.util.RandomVariableFactory;
+import org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription;
+import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.pcm.seff.InternalAction;
 import org.palladiosimulator.pcm.seff.SeffFactory;
@@ -51,9 +54,20 @@ public class InternalActionBuilderImpl<PARENT extends ResourceDemandBuilder<?>> 
     }
 
     @Override
-    public InternalActionBuilder<PARENT> withFailure(final double probability, final String failure) {
-        // fixme: implement
-        throw new RuntimeException("NIY");
+    public InternalActionBuilder<PARENT> withFailure(final double probability, final SoftwareInducedFailureBuilder failure) {
+        // create failure description
+        final InternalFailureOccurrenceDescription desc = ReliabilityFactory.eINSTANCE.createInternalFailureOccurrenceDescription();
+        desc.setFailureProbability(probability);
+
+        // link to failure type
+        desc.setSoftwareInducedFailureType__InternalFailureOccurrenceDescription(failure.getReference());
+        failure.getReference().getInternalFailureOccurrenceDescriptions__SoftwareInducedFailureType().add(desc);
+
+        // link to parent
+        desc.setInternalAction__InternalFailureOccurrenceDescription(this.eModel);
+        this.eModel.getInternalFailureOccurrenceDescriptions__InternalAction().add(desc);
+
+        return this;
     }
 
 

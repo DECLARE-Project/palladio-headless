@@ -1,6 +1,8 @@
 package de.fabiankeller.palladio.builder.repository.seff;
 
 import de.fabiankeller.palladio.builder.EntityHierarchicalBuilder;
+import de.fabiankeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
+import org.palladiosimulator.pcm.reliability.SoftwareInducedFailureType;
 import org.palladiosimulator.pcm.seff.InternalAction;
 
 /**
@@ -16,5 +18,8 @@ public interface InternalActionBuilder<P extends ResourceDemandBuilder<?>> exten
 
     InternalActionBuilder<P> withHddDemand(String demand);
 
-    InternalActionBuilder<P> withFailure(double probability, String failure);
+    /**
+     * Attach a {@link SoftwareInducedFailureType} to this internal action.
+     */
+    InternalActionBuilder<P> withFailure(double probability, SoftwareInducedFailureBuilder failure);
 }
