@@ -22,7 +22,7 @@ public class SimpleTacticsProvider implements PcmProvider {
         // // // REPOSITORY // // //
 
         // create interfaces in repository
-        final InterfaceBuilder i_businessTrip = builder.repository().withInterface("IBusinessTrip");
+        final InterfaceBuilder i_businessTrip = builder.repository().withInterface("IBusiness Trip");
         final SignatureBuilder s_plan = i_businessTrip.createOperation("plan")
                 .withParameter("isBook", ParameterType.BOOL)
                 .withParameter("isBank", ParameterType.BOOL);
@@ -86,7 +86,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .stop()
             .end();
 
-        final ComponentBuilder c_paymentSystem = builder.repository().withComponent("PaymentSystem")
+        final ComponentBuilder c_paymentSystem = builder.repository().withComponent("Payment System")
             .provides(i_employeePayment)
             .provides(i_externalPayment)
             .withServiceEffectSpecification(s_reimburse)
@@ -101,7 +101,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .branch("isBank?")
                     .createBranch("aName", "isBank.VALUE")
                         .start()
-                        .internalAction()
+                        .internalAction("bankPayment")
                             .withCpuDemand("3")
                             .withFailure(1.0e-4, f_swFailure)
                         .end()
@@ -159,7 +159,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .withRequiredByContainer(false)
                 .withSchedulingPolicy(ProcessingResourceBuilder.SchedulingPolicy.PROCESSOR_SHARING)
                 .end();
-        final ContainerBuilder e_server2 = builder.resourceEnvironment().createContainer("Server2")
+        final ContainerBuilder e_server2 = builder.resourceEnvironment().createContainer("server2")
                 .withCpu(4.0)
                 .withMTTF(250000.0)
                 .withMTTR(3.0)
@@ -175,7 +175,7 @@ public class SimpleTacticsProvider implements PcmProvider {
                 .withRequiredByContainer(false)
                 .withSchedulingPolicy(ProcessingResourceBuilder.SchedulingPolicy.PROCESSOR_SHARING)
                 .end();
-        final LinkBuilder e_network = builder.resourceEnvironment().createLink("Network")
+        final LinkBuilder e_network = builder.resourceEnvironment().createLink("aName")
                 .between(e_server1, e_server2, e_server3)
                 .withLatency(0.015)
                 .withThroughput(2000000000)

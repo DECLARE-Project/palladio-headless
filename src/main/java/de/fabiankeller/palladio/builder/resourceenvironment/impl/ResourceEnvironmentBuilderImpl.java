@@ -23,11 +23,11 @@ public class ResourceEnvironmentBuilderImpl implements ResourceEnvironmentBuilde
 
     @Override
     public ContainerBuilder createContainer(final String name) {
-        return new ContainerBuilderImpl(this, this.resources);
+        return new ContainerBuilderImpl(this, this.resources).withEntityName(name);
     }
 
     @Override
     public LinkBuilder createLink(final String name) {
-        return new LinkBuilderImpl(this, this.resources);
+        return new LinkBuilderImpl(this, this.resources).withEntityName(name);
     }
 }

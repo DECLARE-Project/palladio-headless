@@ -18,7 +18,7 @@ public class UsageBuilderImpl implements UsageBuilder {
 
     @Override
     public ScenarioBuilder createScenario(final String name) {
-        return new ScenarioBuilderImpl(this.system, this);
+        return new ScenarioBuilderImpl(this.system, this).withEntityName(name);
     }
 
     @Override
