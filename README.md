@@ -34,7 +34,7 @@ The actual output of the tool will appear upon successful completion in your def
 
 ## Builder API
 
-The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like.
+The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like. You may see the full example by [viewing the SimpleTacticsProvider](https://github.com/SQuAT-Team/palladio-lqns-headless/blob/master/palladio-builder/src/main/java/de/fabiankeller/palladio/analysis/provider/SimpleTacticsProvider.java) class.
 
 ```java
     final PcmBuilder builder = new PcmBuilder();

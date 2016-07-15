@@ -5,6 +5,9 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+
+## v0.1.0 - 2016-07-15
+
 ### Fixes
 - Fixed issues when running the LQNS analysis with a model built by the `PcmBuilder`.
 
