@@ -8,24 +8,24 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>palladio-headless-bridge</artifactId>
-    <packaging>eclipse-plugin</packaging>
+    <artifactId>palladio-headless-builder</artifactId>
 
-    <name>Palladio Headless Bridge</name>
-    <description>Provides all Palladio dependencies and ensures they work outside an OSGi environment.</description>
+    <name>Palladio Headless Builder</name>
+    <description>Provides an API to build PCM instances on the fly.</description>
 
-    <repositories>
-        <repository>
-            <id>PalladioSimulator</id>
-            <layout>p2</layout>
-            <url>https://sdqweb.ipd.kit.edu/eclipse/palladiosimulator/releases/1.0.7/</url>
-        </repository>
-        <repository>
-            <id>Eclipse Luna</id>
-            <layout>p2</layout>
-            <url>http://download.eclipse.org/releases/mars/</url>
-        </repository>
-    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>de.fabiankeller</groupId>
+            <artifactId>palladio-headless-bridge</artifactId>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -45,13 +45,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <!-- this is awesome: http://stackoverflow.com/a/6710870/1262901 -->
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-maven-plugin</artifactId>
-                <version>0.25.0</version>
-                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>
