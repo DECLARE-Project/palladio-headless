@@ -11,6 +11,9 @@
             <directory>${project.build.directory}/dependency/</directory>
             <outputDirectory>/</outputDirectory>
             <useDefaultExcludes>true</useDefaultExcludes>
+            <excludes>
+                <exclude>%regex[.*META-INF.*]</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
 </assembly>
