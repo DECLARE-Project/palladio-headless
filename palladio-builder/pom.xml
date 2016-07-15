@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.fabiankeller</groupId>
+        <groupId>de.fabiankeller.palladio-headless</groupId>
         <artifactId>palladio-headless</artifactId>
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>palladio-headless-builder</artifactId>
+    <artifactId>palladio-builder</artifactId>
 
     <name>Palladio Headless Builder</name>
     <description>Provides an API to build PCM instances on the fly.</description>
