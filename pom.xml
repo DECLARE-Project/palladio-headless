@@ -5,72 +5,27 @@
     <groupId>de.fabiankeller</groupId>
     <artifactId>palladio-headless</artifactId>
     <version>0.0.1</version>
-    <packaging>eclipse-plugin</packaging>
+    <packaging>pom</packaging>
 
     <name>Palladio Headless</name>
     <description>Interact with Palladio using Java without having an Eclipse environment.</description>
     <url>https://github.com/SQuAT-Team/palladio-lqns-headless</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <repositories>
-        <repository>
-            <id>palladio-headless-repo</id>
-            <url>file://${basedir}/pathing/.m2</url>
-        </repository>
-
-        <repository>
-            <id>PalladioSimulator</id>
-            <layout>p2</layout>
-            <url>https://sdqweb.ipd.kit.edu/eclipse/palladiosimulator/releases/1.0.7/</url>
-        </repository>
-        <repository>
-            <id>Eclipse Luna</id>
-            <layout>p2</layout>
-            <url>http://download.eclipse.org/releases/mars/</url>
-        </repository>
-    </repositories>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <!-- this is awesome: http://stackoverflow.com/a/6710870/1262901 -->
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-maven-plugin</artifactId>
-                <version>0.25.0</version>
-                <extensions>true</extensions>
-            </plugin>
-        </plugins>
-    </build>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
