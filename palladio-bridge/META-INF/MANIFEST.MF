@@ -48,7 +48,7 @@ Require-Bundle: com.google.guava;visibility:="reexport",
 Bundle-Vendor: de.fabiankeller.palladio-headless
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
-Bundle-Version: 0.0.1
+Bundle-Version: 0.1.0
 Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-ManifestVersion: 2
