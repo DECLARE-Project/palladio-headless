@@ -1,25 +1,29 @@
 # Palladio LQNS Headless
 
-Run Palladio LQNS headless (i.e. without Eclipse) and integrate it into your application.
+Run Palladio headless (i.e. without Eclipse) and integrate it into your application. The project currently features:
+
+- Running the Palladio LQNS solver for a `PcmInstance`
+- Building `PcmInstances` on the fly ith a fluewnt builder API.
 
 > **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime. For recent changes refer to the change log.
+
 
 ## Installation
 
 #### Prerequisites:
 
-- Follow the [installation steps](https://sdqweb.ipd.kit.edu/wiki/PCM2LQN) described in the Palladio Wiki. It is important that you have a working installation of the PCM which includes the PCMSolver and the PCM2LQN tool. 
-- Additionally, for PCM2LQN to work, you will need the [LQNSolvers](http://www.sce.carleton.ca/rads/lqns/) executables on your PATH.
+- For the Palladio PCM2LQN to work, you will need the [LQNSolvers](http://www.sce.carleton.ca/rads/lqns/) executables on your PATH.
 
 #### Installation Steps:
 
 - Check out this project from source.
-- Hop on a shell and run `./buildLocalPalladioMavenRepo.sh C:/<pathTo>/Palladio`. That builds a local maven repository in `./pathing/.m2` containing all required Palladio JAR files.
-- Copy the configuration file in `src/main/resources/config.properties.dist` to `src/main/resources/config.properties` and adjust its values accordingly.
+- Hop on a shell and run `mvn clean install`. You may also do this from your favorite IDE.
+- Copy the configuration file in `palladio-builder/src/main/resources/config.properties.dist` to `palladio-builder/src/main/resources/config.properties` and adjust its values accordingly.
 
 #### Export as Library:
 
-You may export the palladio-headless project as standalone JAR library including all required dependencies by running `mvn clean package`. The JAR files are then created in `./target`.
+You may export the palladio-headless project as standalone JAR library including all required dependencies by running `mvn clean package`. The JAR files are then created in the respective `target` folders, i.e. `palladio-builder/target/*.jar`.
+
 
 ## Running
 
@@ -27,11 +31,56 @@ The `de.fabiankeller.palladio.RunLQNS` class offers a main method that reads the
 
 The actual output of the tool will appear upon successful completion in your defined `Output_Path`.
 
-## ToDo
 
-- ~~Design a nice API to call LQNS. Currently the project only provides a `main(...)` method within `de.fabiankeller.palladio.RunLQNS`.~~
-- ~~Provide a builder API to construct PCM models.~~
+## Builder API
+
+The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like.
+
+```java
+    final PcmBuilder builder = new PcmBuilder();
+    
+    final InterfaceBuilder i_businessTrip = builder.repository().withInterface("IBusiness Trip");
+    final SignatureBuilder s_plan = i_businessTrip.createOperation("plan")
+            .withParameter("isBook", ParameterType.BOOL)
+            .withParameter("isBank", ParameterType.BOOL);
+    
+    // ...
+    
+    final ComponentBuilder c_businessTripMgmt = builder.repository().withComponent("BusinessTripMgmt")
+            .provides(i_businessTrip)
+            .requires(i_booking)
+            .requires(i_employeePayment)
+            .withServiceEffectSpecification(s_plan)
+                .start()
+                .internalAction("action")
+                    .withCpuDemand("4")
+                .end()
+                .branch("aName")
+                    .createBranch("aName", "isBook.VALUE")
+                        .start()
+                        .externalCall(s_book)
+                            .withInputVariableUsage("isBank", "isBank.VALUE")
+                        .end()
+                        .stop()
+                    .end()
+                    .createBranch("aName", "NOT isBook.VALUE")
+                        .start()
+                        .externalCall(s_reimburse).end()
+                        .stop()
+                    .end()
+                .end()
+                .stop()
+            .end();
+            
+    // ...
+```
+
+**Limitations:** The builder does not yet support all PCM features. You may have a look at [issue #7](https://github.com/SQuAT-Team/palladio-lqns-headless/issues/7) to see what is still missing.
+
+## Roadmap
+
 - Extract LQNS results. Ideally, results are mapped to the PCM model. Maybe this is already part of Palladio?
+- Support more PCM features for the builder API.
 
 ## Wiki
 
