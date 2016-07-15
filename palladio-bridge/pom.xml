@@ -18,12 +18,12 @@
         <repository>
             <id>PalladioSimulator</id>
             <layout>p2</layout>
-            <url>https://sdqweb.ipd.kit.edu/eclipse/palladiosimulator/releases/1.0.7/</url>
+            <url>${ph.updateSite.palladio}</url>
         </repository>
         <repository>
-            <id>Eclipse Luna</id>
+            <id>Eclipse</id>
             <layout>p2</layout>
-            <url>http://download.eclipse.org/releases/mars/</url>
+            <url>${ph.updateSite.eclipse}</url>
         </repository>
     </repositories>
 

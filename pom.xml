@@ -21,10 +21,25 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <ph.updateSite.palladio>https://sdqweb.ipd.kit.edu/eclipse/palladiosimulator/releases/1.0.7
+        </ph.updateSite.palladio>
+        <ph.updateSite.eclipse>http://download.eclipse.org/releases/mars/</ph.updateSite.eclipse>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <artifactId>palladio-headless</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <artifactId>palladio-bridge</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
