@@ -15,8 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.fabiankeller</groupId>
-            <artifactId>palladio-headless-bridge</artifactId>
+            <groupId>de.fabiankeller.palladio-headless</groupId>
+            <artifactId>palladio-bridge</artifactId>
+            <version>0.0.1</version>
         </dependency>
 
         <!-- test dependencies -->

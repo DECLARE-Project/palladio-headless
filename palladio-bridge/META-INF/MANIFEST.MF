@@ -45,12 +45,12 @@ Require-Bundle: com.google.guava;visibility:="reexport",
                 org.palladiosimulator.solver.context.source;visibility:="reexport",
                 org.palladiosimulator.solver.lqn.source;visibility:="reexport",
                 org.palladiosimulator.solver.source;visibility:="reexport"
-Bundle-Vendor: de.fabiankeller.palladio
+Bundle-Vendor: de.fabiankeller.palladio-headless
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-Version: 0.0.1
 Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: palladio-headless;singleton:=true
+Bundle-SymbolicName: palladio-bridge;singleton:=true
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
