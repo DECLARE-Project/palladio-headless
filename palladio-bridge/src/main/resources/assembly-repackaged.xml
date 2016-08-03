@@ -13,6 +13,7 @@
             <useDefaultExcludes>true</useDefaultExcludes>
             <excludes>
                 <exclude>%regex[.*META-INF.*]</exclude>
+                <exclude>%regex[.*junit.*]</exclude>
             </excludes>
         </fileSet>
     </fileSets>
