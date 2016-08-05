@@ -14,20 +14,6 @@
     <name>Palladio Headless Bridge</name>
     <description>Provides all Palladio dependencies and ensures they work outside an OSGi environment.</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.9.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
-
     <repositories>
         <repository>
             <id>PalladioSimulator</id>

@@ -14,6 +14,8 @@
             <excludes>
                 <exclude>%regex[.*META-INF.*]</exclude>
                 <exclude>%regex[.*junit.*]</exclude>
+                <exclude>%regex[.*javax.*]</exclude>
+                <exclude>%regex[.*org.xml.sax.*]</exclude>
             </excludes>
         </fileSet>
     </fileSets>
