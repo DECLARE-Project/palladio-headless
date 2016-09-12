@@ -12,7 +12,6 @@
     <url>https://github.com/SQuAT-Team/palladio-lqns-headless</url>
 
     <modules>
-        <module>palladio-bridge</module>
         <module>palladio-builder</module>
     </modules>
 
@@ -37,7 +36,7 @@
             <dependency>
                 <groupId>de.fabiankeller.palladio-headless</groupId>
                 <artifactId>palladio-bridge</artifactId>
-                <version>0.1.0</version>
+                <version>0.2.0</version>
             </dependency>
 
             <dependency>
@@ -48,4 +47,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>palladio-headless-mvn-repo</id>
+            <url>https://raw.github.com/FaKeller/palladio-headless-bridge-mvn/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
