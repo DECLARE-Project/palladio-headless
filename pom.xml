@@ -20,10 +20,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <ph.updateSite.palladio>https://sdqweb.ipd.kit.edu/eclipse/palladiosimulator/releases/1.0.7
-        </ph.updateSite.palladio>
-        <ph.updateSite.eclipse>http://download.eclipse.org/releases/mars/</ph.updateSite.eclipse>
     </properties>
 
     <dependencyManagement>
@@ -36,7 +32,7 @@
             <dependency>
                 <groupId>de.fabiankeller.palladio-headless</groupId>
                 <artifactId>palladio-bridge</artifactId>
-                <version>0.2.0</version>
+                <version>0.3.0</version>
             </dependency>
 
             <dependency>
@@ -51,7 +47,7 @@
     <repositories>
         <repository>
             <id>palladio-headless-mvn-repo</id>
-            <url>https://raw.github.com/FaKeller/palladio-headless-bridge-mvn/mvn-repo/</url>
+            <url>http://palladioheadless.fabian-keller.de/</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
