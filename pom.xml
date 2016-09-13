@@ -13,6 +13,8 @@
 
     <modules>
         <module>palladio-builder</module>
+        <module>palladio-analysis</module>
+        <module>palladio-environment</module>
     </modules>
 
     <properties>
