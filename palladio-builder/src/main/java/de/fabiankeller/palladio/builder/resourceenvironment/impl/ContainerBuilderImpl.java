@@ -5,7 +5,7 @@ import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ResourceEnvironmentBuilder;
-import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
+import de.fabiankeller.palladio.environment.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;

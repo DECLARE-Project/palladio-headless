@@ -1,6 +1,5 @@
-package de.fabiankeller.palladio.builder.util.impl;
+package de.fabiankeller.palladio.environment.util;
 
-import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourcetype.*;
 

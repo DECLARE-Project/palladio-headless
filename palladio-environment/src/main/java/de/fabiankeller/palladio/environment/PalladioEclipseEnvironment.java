@@ -1,11 +1,11 @@
 package de.fabiankeller.palladio.environment;
 
 import com.google.common.base.Throwables;
-import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
-import de.fabiankeller.palladio.builder.util.impl.PalladioResourceRepositoryImpl;
 import de.fabiankeller.palladio.config.EnvironmentConfig;
 import de.fabiankeller.palladio.environment.uriconverter.PrefixConverter;
 import de.fabiankeller.palladio.environment.uriconverter.URIConverterHandler;
+import de.fabiankeller.palladio.environment.util.PalladioResourceRepository;
+import de.fabiankeller.palladio.environment.util.PalladioResourceRepositoryImpl;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;

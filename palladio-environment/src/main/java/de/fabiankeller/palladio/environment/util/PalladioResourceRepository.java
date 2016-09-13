@@ -1,4 +1,4 @@
-package de.fabiankeller.palladio.builder.util;
+package de.fabiankeller.palladio.environment.util;
 
 import org.palladiosimulator.pcm.resourcetype.CommunicationLinkResourceType;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;

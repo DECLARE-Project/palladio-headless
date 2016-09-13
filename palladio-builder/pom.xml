@@ -18,6 +18,10 @@
             <groupId>de.fabiankeller.palladio-headless</groupId>
             <artifactId>palladio-bridge</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.fabiankeller.palladio-headless</groupId>
+            <artifactId>palladio-environment</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
