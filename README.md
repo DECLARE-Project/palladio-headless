@@ -7,7 +7,7 @@
 Run Palladio headless (i.e. without Eclipse) and integrate it into your application. The project currently features:
 
 - Running the Palladio LQNS solver for a `PcmInstance`
-- Building `PcmInstances` on the fly ith a fluewnt builder API.
+- Building `PcmInstances` on the fly with a fluent builder API.
 
 > **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime. For recent changes refer to the change log.
 
@@ -22,7 +22,7 @@ Run Palladio headless (i.e. without Eclipse) and integrate it into your applicat
 
 - Check out this project from source.
 - Hop on a shell and run `mvn clean install`. You may also do this from your favorite IDE.
-- Copy the configuration file in `palladio-builder/src/main/resources/config.properties.dist` to `palladio-builder/src/main/resources/config.properties` and adjust its values accordingly.
+- Copy the configuration file in `palladio-analysis/src/main/resources/config.properties.dist` to `palladio-analysis/src/main/resources/config.properties` and adjust its values accordingly.
 
 #### Export as Library:
 
@@ -38,7 +38,7 @@ The actual output of the tool will appear upon successful completion in your def
 
 ## Builder API
 
-The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like. You may see the full example by [viewing the SimpleTacticsProvider](https://github.com/SQuAT-Team/palladio-lqns-headless/blob/master/palladio-builder/src/main/java/de/fabiankeller/palladio/analysis/provider/SimpleTacticsProvider.java) class.
+The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like. You may see the full example by [viewing the SimpleTacticsProvider](https://github.com/SQuAT-Team/palladio-headless/blob/master/palladio-analysis/src/main/java/de/fabiankeller/palladio/analysis/provider/SimpleTacticsProvider.java) class.
 
 ```java
     final PcmBuilder builder = new PcmBuilder();
@@ -81,10 +81,12 @@ The project features a fluent Java builder API to build `PcmInstance`s on the fl
 
 **Limitations:** The builder does not yet support all PCM features. You may have a look at [issue #7](https://github.com/SQuAT-Team/palladio-lqns-headless/issues/7) to see what is still missing.
 
+
 ## Roadmap
 
 - Extract LQNS results. Ideally, results are mapped to the PCM model. Maybe this is already part of Palladio?
 - Support more PCM features for the builder API.
+
 
 ## Wiki
 
@@ -99,6 +101,11 @@ To release a new version, run the following commands:
 mvn release:prepare -DautoVersionSubmodules=true
 mvn release:perform -Darguments="-Dmaven.javadoc.skip=true"
 ```
+
+
+## Contributing
+
+Open a PR :-)
 
 
 ## [Change Log](CHANGELOG.md)
