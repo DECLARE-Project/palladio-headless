@@ -5,6 +5,16 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+## v0.2.0 - 2016-09-13
+
+### Changed
+- Palladio default models are now loaded from the classpath, the Environment config is not required anymore.
+- The module structure has been refactored
+
+### Fixes
+- Excludes all xml-api related dependencies
+- The palladio-bridge module has been extracted to a separate project
+
 
 ## v0.1.0 - 2016-07-15
 
