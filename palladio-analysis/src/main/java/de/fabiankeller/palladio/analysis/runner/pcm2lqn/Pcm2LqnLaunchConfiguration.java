@@ -92,7 +92,7 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
         attr.put("maxDomain", 256);
         attr.put("mwRepositoryFile", "pathmap://PCM_MODELS/Glassfish.repository");
         attr.put("outpath", "de.uka.ipd.sdq.temporary");
-        attr.put("output", "Human Readable Output");
+        attr.put("output", "XML Output");
         attr.put("printInt", "10");
         attr.put("psQuantum", "0.001");
         attr.put("rmiRepositoryFile", "pathmap://PCM_MODELS/Glassfish.repository");
