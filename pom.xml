@@ -3,7 +3,7 @@
 
     <groupId>de.fabiankeller.palladio-headless</groupId>
     <artifactId>palladio-headless</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Palladio Headless</name>
@@ -11,9 +11,8 @@
     <url>https://github.com/SQuAT-Team/palladio-lqns-headless</url>
 
     <scm>
-        <developerConnection>scm:git:git@github.com:SQuAT-Team/palladio-headless.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <developerConnection>scm:git:https://github.com/SQuAT-Team/palladio-headless.git</developerConnection>
+    </scm>
 
     <modules>
         <module>palladio-builder</module>
