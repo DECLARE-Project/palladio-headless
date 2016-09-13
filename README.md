@@ -91,6 +91,16 @@ The project features a fluent Java builder API to build `PcmInstance`s on the fl
 For more information [check out the wiki](https://github.com/SQuAT-Team/palladio-lqns-headless/wiki) of this project. It contains behind the scenes information how the headless approach works.
 
 
+## Release
+
+To release a new version, run the following commands:
+
+```sh
+mvn release:prepare -DautoVersionSubmodules=true
+mvn release:perform -Darguments="-Dmaven.javadoc.skip=true"
+```
+
+
 ## [Change Log](CHANGELOG.md)
 
 See all changes made to this project in the [change log](CHANGELOG.md). This project follows [semantic versioning](http://semver.org/).
