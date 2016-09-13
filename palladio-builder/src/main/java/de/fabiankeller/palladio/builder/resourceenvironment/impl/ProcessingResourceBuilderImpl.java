@@ -2,8 +2,8 @@ package de.fabiankeller.palladio.builder.resourceenvironment.impl;
 
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
-import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
 import de.fabiankeller.palladio.builder.util.RandomVariableFactory;
+import de.fabiankeller.palladio.environment.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;

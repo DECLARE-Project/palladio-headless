@@ -3,7 +3,7 @@ package de.fabiankeller.palladio.builder.resourceenvironment.impl;
 import de.fabiankeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.LinkBuilder;
 import de.fabiankeller.palladio.builder.resourceenvironment.ResourceEnvironmentBuilder;
-import de.fabiankeller.palladio.builder.util.PalladioResourceRepository;
+import de.fabiankeller.palladio.environment.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 

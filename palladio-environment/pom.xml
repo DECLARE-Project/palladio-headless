@@ -8,19 +8,15 @@
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>palladio-builder</artifactId>
+    <artifactId>palladio-environment</artifactId>
 
-    <name>Palladio Headless Builder</name>
-    <description>Provides an API to build PCM instances on the fly.</description>
+    <name>Palladio Headless Environment</name>
+    <description>Helps creating an environment to run Palladio outside the Eclipse platform.</description>
 
     <dependencies>
         <dependency>
             <groupId>de.fabiankeller.palladio-headless</groupId>
             <artifactId>palladio-bridge</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.fabiankeller.palladio-headless</groupId>
-            <artifactId>palladio-environment</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -33,25 +29,6 @@
 
     <build>
         <plugins>
-            <!-- assemble a self-containing jar -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- run unit tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,5 +1,9 @@
 # Palladio LQNS Headless
 
+[![GitHub tag](https://img.shields.io/github/tag/SQuAT-Team/palladio-headless.svg?maxAge=3600)]()
+[![Travis](https://img.shields.io/travis/SQuAT-Team/palladio-headless.svg?maxAge=3600)](Travis CI Status)
+[![license](https://img.shields.io/github/license/SQuAT-Team/palladio-headless.svg?maxAge=3600)]()
+
 Run Palladio headless (i.e. without Eclipse) and integrate it into your application. The project currently features:
 
 - Running the Palladio LQNS solver for a `PcmInstance`

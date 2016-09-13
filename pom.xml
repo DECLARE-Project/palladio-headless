@@ -12,8 +12,9 @@
     <url>https://github.com/SQuAT-Team/palladio-lqns-headless</url>
 
     <modules>
-        <module>palladio-bridge</module>
         <module>palladio-builder</module>
+        <module>palladio-analysis</module>
+        <module>palladio-environment</module>
     </modules>
 
     <properties>
@@ -21,10 +22,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <ph.updateSite.palladio>https://sdqweb.ipd.kit.edu/eclipse/palladiosimulator/releases/1.0.7
-        </ph.updateSite.palladio>
-        <ph.updateSite.eclipse>http://download.eclipse.org/releases/mars/</ph.updateSite.eclipse>
     </properties>
 
     <dependencyManagement>
@@ -36,8 +33,23 @@
             </dependency>
             <dependency>
                 <groupId>de.fabiankeller.palladio-headless</groupId>
-                <artifactId>palladio-bridge</artifactId>
+                <artifactId>palladio-builder</artifactId>
                 <version>0.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <artifactId>palladio-analysis</artifactId>
+                <version>0.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <artifactId>palladio-environment</artifactId>
+                <version>0.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <artifactId>palladio-bridge</artifactId>
+                <version>0.3.1</version>
             </dependency>
 
             <dependency>
@@ -48,4 +60,28 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>palladio-headless-mvn-repo</id>
+            <url>http://palladioheadless.fabian-keller.de/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
