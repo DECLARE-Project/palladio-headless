@@ -84,14 +84,9 @@
                 <version>2.5.3</version>
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <goals>install</goals>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>none</id>
-        </repository>
-    </distributionManagement>
 </project>
