@@ -149,7 +149,7 @@ public enum PalladioEclipseEnvironment {
 
     private void registerPathmapConverters() {
         assert this.uriConverter != null;
-        this.uriConverter.addInterceptor(new PrefixConverter("pathmap://PCM_MODELS/", this.config.getPCMModelsLocation()));
+        this.uriConverter.addInterceptor(new PrefixConverter("pathmap://PCM_MODELS/", this.getClass().getResource("/defaultModels/").toString()));
     }
 
     private void registerPalladioResourceRepository() {
