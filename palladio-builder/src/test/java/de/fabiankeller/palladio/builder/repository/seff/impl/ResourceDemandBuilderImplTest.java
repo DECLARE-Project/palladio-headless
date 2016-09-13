@@ -12,12 +12,6 @@ import org.junit.Test;
 import org.palladiosimulator.pcm.seff.*;
 import org.palladiosimulator.pcm.seff.seff_performance.ParametricResourceDemand;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 import static org.junit.Assert.*;
 
 public class ResourceDemandBuilderImplTest {
@@ -34,14 +28,6 @@ public class ResourceDemandBuilderImplTest {
 
     @Before
     public void setup() {
-        // todo: eclipse env setup for tests needs to be put somewhere else
-        final Properties runnerConfig = new Properties();
-        try {
-            final BufferedInputStream stream = new BufferedInputStream(new FileInputStream(new File("src/main/resources/config.properties")));
-            runnerConfig.load(stream);
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
         PalladioEclipseEnvironment.INSTANCE.setup();
 
 
