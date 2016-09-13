@@ -4,7 +4,6 @@ import de.fabiankeller.palladio.builder.BuilderException;
 import de.fabiankeller.palladio.builder.repository.*;
 import de.fabiankeller.palladio.builder.repository.impl.RepositoryBuilderImpl;
 import de.fabiankeller.palladio.builder.repository.seff.ResourceDemandBuilder;
-import de.fabiankeller.palladio.config.EnvironmentConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 import de.fabiankeller.palladio.environment.util.PalladioResourceRepository;
 import org.eclipse.emf.common.util.EList;
@@ -43,8 +42,7 @@ public class ResourceDemandBuilderImplTest {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-        final EnvironmentConfig config = new EnvironmentConfig(runnerConfig);
-        PalladioEclipseEnvironment.INSTANCE.setup(config);
+        PalladioEclipseEnvironment.INSTANCE.setup();
 
 
         this.repo = new RepositoryBuilderImpl();

@@ -11,6 +11,3 @@ Filename_AllocationModel=C:\\...\\src\\main\\resources\\SimpleTacticsExample\\de
 
 # Output path for LQNS
 Output_Path=C:\\...\\tmp
-
-# path to palladio default models
-PCM_Models_Location=file:/C:/.../Palladio/Core/trunk/PCM/org.palladiosimulator.pcm.resources/defaultModels/

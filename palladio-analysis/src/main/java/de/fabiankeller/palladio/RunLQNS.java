@@ -4,7 +4,6 @@ import de.fabiankeller.palladio.analysis.PcmProvider;
 import de.fabiankeller.palladio.analysis.provider.FileSystemProvider;
 import de.fabiankeller.palladio.analysis.runner.pcm2lqn.Pcm2LqnAnalysisConfig;
 import de.fabiankeller.palladio.analysis.runner.pcm2lqn.Pcm2LqnRunner;
-import de.fabiankeller.palladio.config.EnvironmentConfig;
 import de.fabiankeller.palladio.config.PcmModelConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 
@@ -19,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class RunLQNS implements Runnable {
 
-    protected static final String RUNNER_CONFIG_DEFAULT = "palladio-builder/src/main/resources/config.properties";
+    protected static final String RUNNER_CONFIG_DEFAULT = "palladio-analysis/src/main/resources/config.properties";
 
     protected static final Logger log = Logger.getLogger(RunLQNS.class.getName());
 
@@ -62,7 +61,7 @@ public class RunLQNS implements Runnable {
      */
     public void run() {
         log.info("Launching LQNS headless");
-        PalladioEclipseEnvironment.INSTANCE.setup(new EnvironmentConfig(this.runnerConfig));
+        PalladioEclipseEnvironment.INSTANCE.setup();
 
         final PcmProvider provider = new FileSystemProvider(new PcmModelConfig(this.runnerConfig));
         final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));

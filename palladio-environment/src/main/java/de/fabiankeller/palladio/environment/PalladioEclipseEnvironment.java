@@ -1,7 +1,6 @@
 package de.fabiankeller.palladio.environment;
 
 import com.google.common.base.Throwables;
-import de.fabiankeller.palladio.config.EnvironmentConfig;
 import de.fabiankeller.palladio.environment.uriconverter.PrefixConverter;
 import de.fabiankeller.palladio.environment.uriconverter.URIConverterHandler;
 import de.fabiankeller.palladio.environment.util.PalladioResourceRepository;
@@ -50,7 +49,6 @@ public enum PalladioEclipseEnvironment {
 
     private static final Logger log = Logger.getLogger(PalladioEclipseEnvironment.class.getName());
 
-    private EnvironmentConfig config;
     private boolean isSetup = false;
     private URIConverterHandler uriConverter;
 
@@ -61,12 +59,11 @@ public enum PalladioEclipseEnvironment {
      * Sets up the Palladio Eclipse environment by registering certain Palladio and Eclipse functionality in the right
      * places. This method is thread-safe and will only perform the setup once, even when called multiple times.
      */
-    public synchronized void setup(final EnvironmentConfig config) {
+    public synchronized void setup() {
         if (this.isSetup) {
             return;
         }
         this.isSetup = true;
-        this.config = config;
 
         log.info("Starting to set up the Palladio Eclipse environment.");
         registerFactories();
