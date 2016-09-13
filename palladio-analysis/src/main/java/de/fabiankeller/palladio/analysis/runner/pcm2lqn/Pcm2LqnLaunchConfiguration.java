@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.analysis.runner.pcm2lqn;
 
-import de.fabiankeller.palladio.RunLQNS;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -8,7 +7,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -17,18 +19,18 @@ import java.util.stream.Collectors;
  */
 public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
 
-    private Map<String, Object> attr = new HashMap<>();
+    private final Map<String, Object> attr = new HashMap<>();
 
-    private Logger log = Logger.getLogger(Pcm2LqnLaunchConfiguration.class.getName());
+    private final Logger log = Logger.getLogger(Pcm2LqnLaunchConfiguration.class.getName());
 
-    private Pcm2LqnLaunchConfiguration(Map<String, Object> attr) {
+    private Pcm2LqnLaunchConfiguration(final Map<String, Object> attr) {
         this.attr.putAll(attr);
-        log.info("Using ILaunchConfiguration from " + this.getClass().getName() + " with attributes:");
-        log.info(this.toString());
+        this.log.info("Using ILaunchConfiguration from " + this.getClass().getName() + " with attributes:");
+        this.log.info(this.toString());
     }
 
     public static ILaunchConfiguration asIsFromExample() {
-        Map<String, Object> attr = new HashMap<>();
+        final Map<String, Object> attr = new HashMap<>();
         attr.put("LINEDebug", true);
         attr.put("LINEOutputDir", "/Volumes/Daten/PalladioTests/Eclipse.app/Contents/MacOS");
         attr.put("LINEPropFile", "/Volumes/Daten/PalladioTests/Eclipse.app/Contents/MacOSLINE.properties");
@@ -65,8 +67,8 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
         return new Pcm2LqnLaunchConfiguration(attr);
     }
 
-    public static ILaunchConfiguration adjusted(Pcm2LqnAnalysisConfig config) {
-        Map<String, Object> attr = new HashMap<>();
+    public static ILaunchConfiguration adjusted(final Pcm2LqnAnalysisConfig config) {
+        final Map<String, Object> attr = new HashMap<>();
         attr.put("LINEDebug", true);
         attr.put("LINEOutputDir", "/Volumes/Daten/PalladioTests/Eclipse.app/Contents/MacOS");
         attr.put("LINEPropFile", "/Volumes/Daten/PalladioTests/Eclipse.app/Contents/MacOSLINE.properties");
@@ -111,12 +113,12 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public boolean contentsEqual(ILaunchConfiguration iLaunchConfiguration) {
+    public boolean contentsEqual(final ILaunchConfiguration iLaunchConfiguration) {
         return iLaunchConfiguration.contentsEqual(this);
     }
 
     @Override
-    public ILaunchConfigurationWorkingCopy copy(String s) throws CoreException {
+    public ILaunchConfigurationWorkingCopy copy(final String s) throws CoreException {
         throw new RuntimeException("NYI");
     }
 
@@ -130,8 +132,8 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
         return false;
     }
 
-    private <T> T get(String key, T defaultValue) {
-        Object val = this.attr.get(key);
+    private <T> T get(final String key, final T defaultValue) {
+        final Object val = this.attr.get(key);
         if (null == val) {
             return defaultValue;
         } else {
@@ -140,32 +142,32 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public boolean getAttribute(String s, boolean b) throws CoreException {
+    public boolean getAttribute(final String s, final boolean b) throws CoreException {
         return this.get(s, b);
     }
 
     @Override
-    public int getAttribute(String s, int i) throws CoreException {
+    public int getAttribute(final String s, final int i) throws CoreException {
         return this.get(s, i);
     }
 
     @Override
-    public List<String> getAttribute(String s, List<String> list) throws CoreException {
+    public List<String> getAttribute(final String s, final List<String> list) throws CoreException {
         return this.get(s, list);
     }
 
     @Override
-    public Set<String> getAttribute(String s, Set<String> set) throws CoreException {
+    public Set<String> getAttribute(final String s, final Set<String> set) throws CoreException {
         return this.get(s, set);
     }
 
     @Override
-    public Map<String, String> getAttribute(String s, Map<String, String> map) throws CoreException {
+    public Map<String, String> getAttribute(final String s, final Map<String, String> map) throws CoreException {
         return this.get(s, map);
     }
 
     @Override
-    public String getAttribute(String s, String s1) throws CoreException {
+    public String getAttribute(final String s, final String s1) throws CoreException {
         return this.get(s, s1);
     }
 
@@ -210,7 +212,7 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public ILaunchDelegate getPreferredDelegate(Set<String> set) throws CoreException {
+    public ILaunchDelegate getPreferredDelegate(final Set<String> set) throws CoreException {
         throw new RuntimeException("NYI");
     }
 
@@ -225,7 +227,7 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public boolean hasAttribute(String s) throws CoreException {
+    public boolean hasAttribute(final String s) throws CoreException {
         return this.attr.containsKey(s);
     }
 
@@ -245,17 +247,17 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public ILaunch launch(String s, IProgressMonitor iProgressMonitor) throws CoreException {
+    public ILaunch launch(final String s, final IProgressMonitor iProgressMonitor) throws CoreException {
         throw new RuntimeException("NYI");
     }
 
     @Override
-    public ILaunch launch(String s, IProgressMonitor iProgressMonitor, boolean b) throws CoreException {
+    public ILaunch launch(final String s, final IProgressMonitor iProgressMonitor, final boolean b) throws CoreException {
         throw new RuntimeException("NYI");
     }
 
     @Override
-    public ILaunch launch(String s, IProgressMonitor iProgressMonitor, boolean b, boolean b1) throws CoreException {
+    public ILaunch launch(final String s, final IProgressMonitor iProgressMonitor, final boolean b, final boolean b1) throws CoreException {
         throw new RuntimeException("NYI");
     }
 
@@ -265,7 +267,7 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public boolean supportsMode(String s) throws CoreException {
+    public boolean supportsMode(final String s) throws CoreException {
         throw new RuntimeException("NYI");
     }
 
@@ -275,7 +277,7 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
     }
 
     @Override
-    public Object getAdapter(Class aClass) {
+    public Object getAdapter(final Class aClass) {
         throw new RuntimeException("NYI");
     }
 }
