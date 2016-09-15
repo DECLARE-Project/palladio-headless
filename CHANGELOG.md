@@ -2,8 +2,19 @@
 
 This file keeps track of all changes to this project. This project follows [semantic versioning](http://semver.org/) and [keeps a change log](http://keepachangelog.com/).
 
+> Please [view this change log on the master branch](https://github.com/SQuAT-Team/palladio-headless/blob/master/CHANGELOG.md), as otherwise it is probably outdated.
+
 
 ## [UNRELEASED]
+
+
+## v0.2.2 - 2016-09-15
+
+### Changed
+- Travis is now releasing build artifacts to GitHub releases.
+
+
+## v0.2.1 - 2016-09-15
 
 ### Changed
 - The PCM2LQN analysis output format is XML by default now.
