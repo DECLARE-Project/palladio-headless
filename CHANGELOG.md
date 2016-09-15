@@ -6,7 +6,8 @@ This file keeps track of all changes to this project. This project follows [sema
 ## [UNRELEASED]
 
 ### Changed
-- The PCM2LQN analysis output format is XML by default now
+- The PCM2LQN analysis output format is XML by default now.
+- Build process to produce a JAR file for `palladio-environment` containing all dependencies, and all others without dependencies.
 
 
 ## v0.2.0 - 2016-09-13
