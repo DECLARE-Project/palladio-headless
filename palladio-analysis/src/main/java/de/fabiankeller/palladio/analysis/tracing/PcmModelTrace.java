@@ -30,7 +30,7 @@ public class PcmModelTrace {
      * <p>
      * The first group captures the UUID.
      */
-    private static final String TRACE_REGEX = "/__TRACE\\[(" + UUID_REGEX + ")\\]/i";
+    private static final String TRACE_REGEX = "__TRACE\\[(" + UUID_REGEX + ")\\]";
 
     private static final Pattern traceRegex = Pattern.compile(TRACE_REGEX);
 
@@ -96,7 +96,7 @@ public class PcmModelTrace {
      */
     public static UUID extractTrace(final String string) {
         final Matcher matcher = traceRegex.matcher(string);
-        if (matcher.matches()) {
+        if (!matcher.find()) {
             return null;
         }
         return UUID.fromString(matcher.group(1));
