@@ -7,6 +7,9 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+### Changed
+- `Pcm2Lqn*` classes are now located in `de.fabiankeller.palladio.analysis.pcm2lqn`.
+
 
 ## v0.2.2 - 2016-09-15
 
