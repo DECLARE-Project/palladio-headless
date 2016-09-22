@@ -1,0 +1,2 @@
+ignore:
+  - "palladio-analysis/src/main/java/de/fabiankeller/palladio/analysis/provider/SimpleTacticsProvider.java"
