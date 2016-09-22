@@ -1,4 +1,4 @@
-package de.fabiankeller.palladio.analysis.runner.pcm2lqn;
+package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;

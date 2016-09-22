@@ -1,4 +1,4 @@
-package de.fabiankeller.palladio.analysis.runner.pcm2lqn;
+package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
 import de.fabiankeller.palladio.config.PcmModelConfig;
 
@@ -16,7 +16,7 @@ public class Pcm2LqnAnalysisConfig extends PcmModelConfig {
         super();
     }
 
-    public Pcm2LqnAnalysisConfig(Properties config) {
+    public Pcm2LqnAnalysisConfig(final Properties config) {
         super(config);
     }
 
@@ -25,7 +25,7 @@ public class Pcm2LqnAnalysisConfig extends PcmModelConfig {
         return this.getPropertyNotNull(PROPERTY_STORAGE_PATH);
     }
 
-    public void setStoragePath(String storagePath) {
+    public void setStoragePath(final String storagePath) {
         this.setProperty(PROPERTY_STORAGE_PATH, storagePath);
     }
 
@@ -33,7 +33,7 @@ public class Pcm2LqnAnalysisConfig extends PcmModelConfig {
         return this.getPropertyNotNull(PROPERTY_OUTPUT_PATH);
     }
 
-    public void setOutputPath(String outputPath) {
+    public void setOutputPath(final String outputPath) {
         this.setProperty(PROPERTY_OUTPUT_PATH, outputPath);
     }
 }
