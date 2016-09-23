@@ -1,5 +1,7 @@
 package de.fabiankeller.palladio.analysis.result.valueobject;
 
+import java.util.Locale;
+
 public class Percentage implements ValueObject {
 
     private final double percentage;
@@ -23,7 +25,7 @@ public class Percentage implements ValueObject {
     }
 
     public String toHumanReadable() {
-        return String.format("%.4f%%", 100.0 * getPercentage());
+        return String.format(Locale.ROOT, "%.2f%%", 100.0 * getPercentage());
     }
 
 

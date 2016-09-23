@@ -48,4 +48,22 @@ public class DurationTest {
         assertNotEquals(Duration.ofDays(6), Duration.ofWeeks(1));
     }
 
+    @Test
+    public void testGetters() throws Exception {
+        final Duration day = Duration.ofDays(1);
+        assertEquals(1, day.getDays(), Double.MIN_VALUE);
+        assertEquals(24, day.getHours(), Double.MIN_VALUE);
+        assertEquals(24 * 60, day.getMinutes(), Double.MIN_VALUE);
+        assertEquals(24 * 60 * 60, day.getSeconds(), Double.MIN_VALUE);
+        assertEquals(24 * 60 * 60 * 1000, day.getMilliseconds(), Double.MIN_VALUE);
+
+        assertEquals(1.0 / 7.0, day.getWeeks(), Double.MIN_VALUE);
+        assertEquals(1.0 / 365.25, day.getYears(), Double.MIN_VALUE);
+    }
+
+    @Test
+    public void testHumanReadable() throws Exception {
+        assertEquals("0.640s", Duration.ofMilliseconds(640).toHumanReadable());
+    }
+
 }

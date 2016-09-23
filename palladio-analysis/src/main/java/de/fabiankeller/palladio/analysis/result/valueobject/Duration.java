@@ -1,5 +1,7 @@
 package de.fabiankeller.palladio.analysis.result.valueobject;
 
+import java.util.Locale;
+
 /**
  * Represents a timespan.
  */
@@ -40,7 +42,7 @@ public class Duration implements ValueObject {
 
     @Override
     public String toHumanReadable() {
-        return String.format("%.2fms", this.milliseconds);
+        return String.format(Locale.ROOT, "%.3fs", this.getSeconds());
     }
 
     public double getMilliseconds() {
