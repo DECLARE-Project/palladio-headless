@@ -36,13 +36,21 @@ public class Pcm2LqnResultsParser {
      */
     private final PerformanceResultWriter<NamedElement> rw;
 
-    public Pcm2LqnResultsParser(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
+    private Pcm2LqnResultsParser(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
         this.trace = trace;
         this.rw = resultWriter;
 
         this.loadedModel = LqnXmlHandler.loadModelFromXMI(resultsFile);
         this.extractSolverParams(this.loadedModel.getSolverParams());
         this.loadedModel.getProcessor().forEach(this::extractProcessor);
+    }
+
+    /**
+     * Parses the LQNS results file containing trace information with the help of the given {@link PcmModelTrace} and
+     * stores all performance prediction results in the {@link PerformanceResultWriter}.
+     */
+    public static void parse(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
+        new Pcm2LqnResultsParser(trace, resultWriter, resultsFile);
     }
 
     private void extractSolverParams(final SolverParamsType solverParams) {

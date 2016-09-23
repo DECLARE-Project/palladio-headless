@@ -41,7 +41,7 @@ public class Pcm2LqnResultsParserTest {
                 return Optional.of(mock(AbstractAction.class));
             }
         });
-        final Pcm2LqnResultsParser parser = new Pcm2LqnResultsParser(trace, rw, RESULTS_FILE);
+        Pcm2LqnResultsParser.parse(trace, rw, RESULTS_FILE);
 
         // lower bound of result objects being generated for the sample file
         verify(rw, atLeast(40)).attach(any(Utilization.class));
