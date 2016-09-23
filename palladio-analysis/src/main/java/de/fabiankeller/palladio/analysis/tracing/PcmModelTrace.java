@@ -7,7 +7,7 @@ import org.palladiosimulator.solver.models.PCMInstance;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -22,9 +22,10 @@ public class PcmModelTrace {
     /**
      * Used to generate a name containing the trace
      */
-    private static final String TRACE_FORMAT = "%s__TRACE[%s]";
+    static final String TRACE_FORMAT = "%s__TRACE[%s]";
 
-    private static final String UUID_REGEX = "[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}";
+    static final String UUID_REGEX = "[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}";
+
     /**
      * Used to parse the trace from a name containing a trace
      * <p>
@@ -70,12 +71,12 @@ public class PcmModelTrace {
     public static PcmModelTrace load(final PCMInstance instance) {
         final PcmModelTrace map = new PcmModelTrace(instance);
         doTrace(instance, el -> {
-            final UUID trace = extractTrace(el.getEntityName());
-            if (null == trace) {
+            final Optional<UUID> trace = extractTrace(el.getEntityName());
+            if (!trace.isPresent()) {
                 return;
             }
-            assert !map.traceMap.containsKey(trace);
-            map.traceMap.put(trace, el);
+            assert !map.traceMap.containsKey(trace.get());
+            map.traceMap.put(trace.get(), el);
         });
         return map;
     }
@@ -94,12 +95,17 @@ public class PcmModelTrace {
     /**
      * Tries to match a trace UUID in the given string.
      */
-    public static UUID extractTrace(final String string) {
+    public static Optional<UUID> extractTrace(final String string) {
         final Matcher matcher = traceRegex.matcher(string);
         if (!matcher.find()) {
-            return null;
+            return Optional.empty();
         }
-        return UUID.fromString(matcher.group(1));
+        try {
+            return Optional.of(UUID.fromString(matcher.group(1)));
+        } catch (final IllegalArgumentException e) {
+            // in case the found UUID is invalid
+            return Optional.empty();
+        }
     }
 
     /**
@@ -127,11 +133,24 @@ public class PcmModelTrace {
     }
 
 
-    public NamedElement find(final UUID uuid) {
+    /**
+     * Retrieves the traced element.
+     */
+    public Optional<NamedElement> find(final UUID uuid) {
         if (!this.traceMap.containsKey(uuid)) {
-            throw new NoSuchElementException(String.format("The UUID '%s' is not part of this doTrace map.", uuid.toString()));
+            return Optional.empty();
         }
-        return this.traceMap.get(uuid);
+        return Optional.of(this.traceMap.get(uuid));
+    }
+
+    /**
+     * Tries to extract a trace UUID from the given string using {@link PcmModelTrace::extractTrace} and if found,
+     * returns the corresponding element, if present.
+     */
+    public Optional<NamedElement> findByString(final String string) {
+        return PcmModelTrace
+                .extractTrace(string)
+                .flatMap(this::find);
     }
 
 }

@@ -8,7 +8,6 @@ import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.solver.models.PCMInstance;
 
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
@@ -55,8 +54,8 @@ public class PcmModelTraceTest {
 
         final PcmModelTrace trace = PcmModelTrace.load(this.pcm);
 
-        assertSame(cmp, trace.find(PcmModelTrace.extractTrace(cmp.getEntityName())));
-        assertSame(cpu, trace.find(PcmModelTrace.extractTrace(cpu.getEntityName())));
+        assertSame(cmp, PcmModelTrace.extractTrace(cmp.getEntityName()).flatMap(trace::find).get());
+        assertSame(cpu, PcmModelTrace.extractTrace(cpu.getEntityName()).flatMap(trace::find).get());
     }
 
     @Test
@@ -77,9 +76,9 @@ public class PcmModelTraceTest {
 
     @Test
     public void extractTrace() throws Exception {
-        assertEquals(UUID.fromString("85c78b64-4931-48dd-842e-f8af14e05e87"), PcmModelTrace.extractTrace("Server1__TRACE[85c78b64-4931-48dd-842e-f8af14e05e87]_CPU_Processor"));
-        assertNull(PcmModelTrace.extractTrace("Server1__TRACE[invalid]_CPU_Processor"));
-        assertNull(PcmModelTrace.extractTrace("Server1__CPU_Processor_NOTRACE"));
+        assertEquals(UUID.fromString("85c78b64-4931-48dd-842e-f8af14e05e87"), PcmModelTrace.extractTrace("Server1__TRACE[85c78b64-4931-48dd-842e-f8af14e05e87]_CPU_Processor").get());
+        assertFalse(PcmModelTrace.extractTrace("Server1__TRACE[invalid]_CPU_Processor").isPresent());
+        assertFalse(PcmModelTrace.extractTrace("Server1__CPU_Processor_NOTRACE").isPresent());
     }
 
     @Test
@@ -88,15 +87,22 @@ public class PcmModelTraceTest {
         final ResourceContainer cpu = this.pcm.getResourceEnvironment().getResourceContainer_ResourceEnvironment().get(0);
         final PcmModelTrace trace = PcmModelTrace.trace(this.pcm);
 
-        assertSame(cmp, trace.find(PcmModelTrace.extractTrace(cmp.getEntityName())));
-        assertSame(cpu, trace.find(PcmModelTrace.extractTrace(cpu.getEntityName())));
+        assertSame(cmp, PcmModelTrace.extractTrace(cmp.getEntityName()).flatMap(trace::find).get());
+        assertSame(cpu, PcmModelTrace.extractTrace(cpu.getEntityName()).flatMap(trace::find).get());
+        assertFalse(trace.find(UUID.randomUUID()).isPresent());
+        assertFalse(trace.find(null).isPresent());
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void find_nonExistingUUID_throwsException() throws Exception {
+    @Test
+    public void findByString() throws Exception {
+        final RepositoryComponent cmp = this.pcm.getRepositories().get(0).getComponents__Repository().get(0);
+        final ResourceContainer cpu = this.pcm.getResourceEnvironment().getResourceContainer_ResourceEnvironment().get(0);
         final PcmModelTrace trace = PcmModelTrace.trace(this.pcm);
-        trace.find(UUID.randomUUID());
-    }
 
+        assertSame(cmp, trace.findByString(cmp.getEntityName()).get());
+        assertSame(cpu, trace.findByString(cpu.getEntityName()).get());
+        assertFalse(trace.findByString(String.format(PcmModelTrace.TRACE_FORMAT, "WrongUUID", UUID.randomUUID())).isPresent());
+        assertFalse(trace.findByString("No trace present here").isPresent());
+    }
 
 }
