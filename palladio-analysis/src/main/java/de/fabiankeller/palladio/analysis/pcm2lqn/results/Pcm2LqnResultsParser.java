@@ -60,7 +60,7 @@ public class Pcm2LqnResultsParser {
     private void extractProcessor(final ProcessorType proc) {
         // in case the processor is a {@link ResourceContainer}, we'll attach the utilization result
         if (proc.getResultProcessor().size() == 1) {
-            this.<ResourceContainer>traceElement(proc.getName()).ifPresent(resourceContainer -> {
+            this.<ResourceContainer>traceElement(proc.getName(), ResourceContainer.class).ifPresent(resourceContainer -> {
                 final OutputResultType result = proc.getResultProcessor().get(0);
                 this.rw.attach(new Utilization<>(resourceContainer, Percentage.of(result.getUtilization())));
             });
@@ -72,6 +72,9 @@ public class Pcm2LqnResultsParser {
 
     private void extractTask(final TaskType task) {
         task.getEntry().forEach(this::extractEntry);
+        if (null != task.getTaskActivities()) {
+            task.getTaskActivities().getActivity().forEach(this::extractActivity);
+        }
     }
 
     private void extractEntry(final EntryType entry) {
@@ -81,17 +84,18 @@ public class Pcm2LqnResultsParser {
         }
     }
 
-    private void extractActivity(final ActivityPhasesType activity) {
+    private void extractActivity(final ActivityDefBase activity) {
         if (activity.getResultActivity().size() == 1) {
+            // currently we only know the semantics of a single <result-activity>
             this.extractActivityResult(activity, activity.getResultActivity().get(0));
         }
     }
 
-    private void extractActivityResult(final ActivityPhasesType activity, final OutputResultType result) {
+    private void extractActivityResult(final ActivityDefBase activity, final OutputResultType result) {
         assert null != result;
 
         // get the action the result applies to
-        final Optional<AbstractAction> optionalAction = this.<AbstractAction>traceElement(activity.getName());
+        final Optional<AbstractAction> optionalAction = this.<AbstractAction>traceElement(activity.getName(), AbstractAction.class);
         if (!optionalAction.isPresent()) {
             return;
         }
@@ -127,13 +131,13 @@ public class Pcm2LqnResultsParser {
      *
      * @throws NoSuchElementException in case the trace does not contain an element identified by the given name
      */
-    private <T extends NamedElement> Optional<T> traceElement(final String name) {
+    private <T extends NamedElement> Optional<T> traceElement(final String name, final Class<T> tClass) {
         final NamedElement el = this.trace
                 .findByString(name)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Could not find '%s' in trace.", name)));
-        try {
-            return Optional.of((T) el);
-        } catch (final ClassCastException e) {
+        if (tClass.isInstance(el)) {
+            return Optional.<T>of((T) el);
+        } else {
             // found element is not of correct type
             return Optional.empty();
         }
