@@ -1,7 +1,5 @@
-package de.fabiankeller.palladio.analysis.runner.pcm2lqn;
+package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
-import com.google.common.base.Throwables;
-import de.fabiankeller.palladio.RunLQNS;
 import de.fabiankeller.palladio.analysis.AnalysisRunner;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowConfigurationBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -21,18 +19,18 @@ public class Pcm2LqnRunner implements AnalysisRunner {
 
     private static final Logger log = Logger.getLogger(Pcm2LqnRunner.class.getName());
 
-    private Pcm2LqnAnalysisConfig config;
+    private final Pcm2LqnAnalysisConfig config;
 
-    public Pcm2LqnRunner(Pcm2LqnAnalysisConfig config) {
+    public Pcm2LqnRunner(final Pcm2LqnAnalysisConfig config) {
         this.config = config;
     }
 
     @Override
-    public void analyze(PCMInstance pcmInstance) {
-        PCMSolverWorkflowRunConfiguration config = buildConfigWithBuilder();
+    public void analyze(final PCMInstance pcmInstance) {
+        final PCMSolverWorkflowRunConfiguration config = buildConfigWithBuilder();
         log.info("Created workflow config");
 
-        Pcm2LqnStrategy strategy = new Pcm2LqnStrategy(config);
+        final Pcm2LqnStrategy strategy = new Pcm2LqnStrategy(config);
         log.info("Created PCM2LQN strategy");
 
         strategy.transform(pcmInstance);
@@ -46,15 +44,15 @@ public class Pcm2LqnRunner implements AnalysisRunner {
     }
 
     private PCMSolverWorkflowRunConfiguration buildConfigWithBuilder() {
-        PCMSolverWorkflowRunConfiguration solverConfiguration = new PCMSolverWorkflowRunConfiguration();
-        ILaunchConfiguration configuration = Pcm2LqnLaunchConfiguration.adjusted(this.config);
+        final PCMSolverWorkflowRunConfiguration solverConfiguration = new PCMSolverWorkflowRunConfiguration();
+        final ILaunchConfiguration configuration = Pcm2LqnLaunchConfiguration.adjusted(this.config);
         try {
             AbstractWorkflowConfigurationBuilder builder;
             builder = new PCMWorkflowConfigurationBuilder(configuration, "run");
             builder.fillConfiguration(solverConfiguration);
             builder = new PCMSolverConfigurationBasedConfigBuilder(configuration, "run");
             builder.fillConfiguration(solverConfiguration);
-        } catch (CoreException e) {
+        } catch (final CoreException e) {
             throw new RuntimeException("Could not build launch config.", e);
         }
 
