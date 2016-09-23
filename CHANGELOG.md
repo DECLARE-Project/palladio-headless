@@ -10,6 +10,11 @@ This file keeps track of all changes to this project. This project follows [sema
 ### Changed
 - `Pcm2Lqn*` classes are now located in `de.fabiankeller.palladio.analysis.pcm2lqn`.
 
+### Added
+- A `PcmModelTrace` class to trace PCM `NamedElements` by appending a UUID to their name.
+- An abstraction for performance results in `de.fabiankeller.palladio.analysis.result`.
+- A parser for the PCM2LQN analysis results.
+
 
 ## v0.2.2 - 2016-09-15
 
