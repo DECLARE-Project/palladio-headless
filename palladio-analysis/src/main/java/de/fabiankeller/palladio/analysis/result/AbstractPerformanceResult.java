@@ -8,12 +8,12 @@ import java.util.stream.Collectors;
 /**
  * Provides a base class to implement the {@link PerformanceResult} and {@link PerformanceResultWriter} interfaces.
  */
-public class AbstractPerformanceResult<T> implements PerformanceResult<T>, PerformanceResultWriter<T> {
+abstract public class AbstractPerformanceResult<T> implements PerformanceResult<T>, PerformanceResultWriter<T> {
 
     /**
      * Stores the actual results.
      */
-    private final Map<T, List<Result<? extends T>>> results = new HashMap<>();
+    private final Map<T, List<Result<? extends T>>> results = new LinkedHashMap<>();
 
     @Override
     public void attach(final Result<? extends T> result) {
