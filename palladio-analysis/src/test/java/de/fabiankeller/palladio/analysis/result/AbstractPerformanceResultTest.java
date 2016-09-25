@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.analysis.result;
 
-import de.fabiankeller.palladio.analysis.result.type.Result;
 import org.junit.Before;
 import org.junit.Test;
 

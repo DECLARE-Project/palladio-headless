@@ -5,11 +5,10 @@ import java.util.Locale;
 /**
  * Represents a timespan.
  */
-public class Duration implements ValueObject {
-    private final double milliseconds;
+public class Duration extends AbstractValueObject<Double> {
 
     private Duration(final double milliseconds) {
-        this.milliseconds = milliseconds;
+        super(milliseconds);
     }
 
     public static Duration ofMilliseconds(final double milliseconds) {
@@ -46,7 +45,7 @@ public class Duration implements ValueObject {
     }
 
     public double getMilliseconds() {
-        return this.milliseconds;
+        return this.value;
     }
 
     public double getSeconds() {
@@ -71,22 +70,5 @@ public class Duration implements ValueObject {
 
     public double getYears() {
         return this.getDays() / 365.25;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        final Duration duration = (Duration) o;
-
-        return Double.compare(duration.milliseconds, this.milliseconds) == 0;
-
-    }
-
-    @Override
-    public int hashCode() {
-        final long temp = Double.doubleToLongBits(this.milliseconds);
-        return (int) (temp ^ (temp >>> 32));
     }
 }

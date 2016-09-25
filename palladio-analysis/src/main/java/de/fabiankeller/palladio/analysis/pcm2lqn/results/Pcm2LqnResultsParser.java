@@ -2,10 +2,7 @@ package de.fabiankeller.palladio.analysis.pcm2lqn.results;
 
 import de.fabiankeller.palladio.analysis.result.PerformanceResultWriter;
 import de.fabiankeller.palladio.analysis.result.exception.InvalidResultException;
-import de.fabiankeller.palladio.analysis.result.type.ServiceTime;
-import de.fabiankeller.palladio.analysis.result.type.Utilization;
 import de.fabiankeller.palladio.analysis.result.valueobject.Duration;
-import de.fabiankeller.palladio.analysis.result.valueobject.Percentage;
 import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -13,13 +10,18 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.solver.lqn.*;
 import org.palladiosimulator.solver.transformations.pcm2lqn.LqnXmlHandler;
 
+import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * Parses the output of the Palladio PCM2LQN Analysis tool and maps it to the PCM instance objects.
  */
 public class Pcm2LqnResultsParser {
+
+    private static final Logger log = Logger.getLogger(Pcm2LqnResultsParser.class.getName());
 
     /**
      * parsed results file
@@ -36,11 +38,11 @@ public class Pcm2LqnResultsParser {
      */
     private final PerformanceResultWriter<NamedElement> rw;
 
-    private Pcm2LqnResultsParser(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
+    private Pcm2LqnResultsParser(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final Path resultsFile) {
         this.trace = trace;
         this.rw = resultWriter;
 
-        this.loadedModel = LqnXmlHandler.loadModelFromXMI(resultsFile);
+        this.loadedModel = LqnXmlHandler.loadModelFromXMI(resultsFile.toString());
         this.extractSolverParams(this.loadedModel.getSolverParams());
         this.loadedModel.getProcessor().forEach(this::extractProcessor);
     }
@@ -49,7 +51,7 @@ public class Pcm2LqnResultsParser {
      * Parses the LQNS results file containing trace information with the help of the given {@link PcmModelTrace} and
      * stores all performance prediction results in the {@link PerformanceResultWriter}.
      */
-    public static void parse(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
+    public static void parse(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final Path resultsFile) {
         new Pcm2LqnResultsParser(trace, resultWriter, resultsFile);
     }
 
@@ -70,7 +72,7 @@ public class Pcm2LqnResultsParser {
         if (proc.getResultProcessor().size() == 1) {
             this.<ResourceContainer>traceElement(proc.getName(), ResourceContainer.class).ifPresent(resourceContainer -> {
                 final OutputResultType result = proc.getResultProcessor().get(0);
-                this.rw.attach(new Utilization<>(resourceContainer, Percentage.of(result.getUtilization())));
+                this.rw.attachUtilization(resourceContainer, result.getUtilization());
             });
         }
 
@@ -111,12 +113,12 @@ public class Pcm2LqnResultsParser {
 
         // extract utilization
         if (result.isSetUtilization()) {
-            this.rw.attach(new Utilization<AbstractAction>(action, Percentage.of(result.getUtilization())));
+            this.rw.attachUtilization(action, result.getUtilization());
         }
 
         // extract service time
         if (result.isSetServiceTime()) {
-            this.rw.attach(new ServiceTime<AbstractAction>(action, Duration.ofMilliseconds(result.getServiceTime())));
+            this.rw.attachServiceTime(action, Duration.ofMilliseconds(result.getServiceTime()));
         }
 
         /*
@@ -140,11 +142,21 @@ public class Pcm2LqnResultsParser {
      * @throws NoSuchElementException in case the trace does not contain an element identified by the given name
      */
     private <T extends NamedElement> Optional<T> traceElement(final String name, final Class<T> tClass) {
+        // check if trace info is present
+        final Optional<UUID> uuid = PcmModelTrace.extractTrace(name);
+        if (!uuid.isPresent()) {
+            log.info(String.format("No trace information found in results file for name '%s'", name));
+            return Optional.empty();
+        }
+
+        // get traced element or fail
         final NamedElement el = this.trace
-                .findByString(name)
+                .find(uuid.get())
                 .orElseThrow(() -> new NoSuchElementException(String.format("Could not find '%s' in trace.", name)));
+
+        // check if traced element is of expected type
         if (tClass.isInstance(el)) {
-            return Optional.<T>of((T) el);
+            return Optional.of((T) el);
         } else {
             // found element is not of correct type
             return Optional.empty();

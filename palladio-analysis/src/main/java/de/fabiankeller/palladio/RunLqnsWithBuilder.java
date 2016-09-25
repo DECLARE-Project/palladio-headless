@@ -1,48 +1,46 @@
 package de.fabiankeller.palladio;
 
-import de.fabiankeller.palladio.analysis.pcm2lqn.runner.Pcm2LqnAnalysisConfig;
-import de.fabiankeller.palladio.analysis.pcm2lqn.runner.Pcm2LqnRunner;
+import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzer;
+import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzerContext;
 import de.fabiankeller.palladio.analysis.provider.SimpleTacticsProvider;
+import de.fabiankeller.palladio.analysis.result.PerformanceResult;
+import de.fabiankeller.palladio.analysis.result.Result;
 import de.fabiankeller.palladio.builder.PcmBuilder;
-import de.fabiankeller.palladio.config.PcmModelConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
+import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.solver.models.PCMInstance;
 
 import java.io.IOException;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
  * Tries to create a {@link PCMInstance} with the help of the {@link PcmBuilder}.
  */
-public class RunLqnsWithBuilder extends RunLQNS {
+public class RunLqnsWithBuilder {
 
-    private static final Logger log = Logger.getLogger(RunLQNS.class.getName());
+    private static final Logger log = Logger.getLogger(RunLqnsWithBuilder.class.getName());
 
     public static void main(final String[] args) throws IOException {
-        final Properties runnerConfig = loadConfig(args);
-        new RunLqnsWithBuilder(runnerConfig).run();
+        new RunLqnsWithBuilder().run();
     }
 
-    public RunLqnsWithBuilder(final Properties runnerConfig) {
-        super(runnerConfig);
-    }
-
-
-    @Override
     public void run() {
         log.info("Launching LQNS headless");
-        this.runnerConfig.setProperty(PcmModelConfig.PROPERTY_USAGE_MODEL, "default.usagemodel");
-        this.runnerConfig.setProperty(PcmModelConfig.PROPERTY_ALLOCATION_MODEL, "default.allocation");
         PalladioEclipseEnvironment.INSTANCE.setup();
 
         final PCMInstance instance = new SimpleTacticsProvider().provide();
 
-        final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
-        runner.analyze(instance);
+        final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
+        final PcmLqnsAnalyzerContext ctx = analyzer.setupAnalysis(instance);
+        final PerformanceResult<NamedElement> result = ctx.analyze();
+        ctx.untrace();
+
+        for (final Result<? extends NamedElement> r : result.getResults()) {
+            log.info(String.format("Result for '%s': %s", r.attachedTo().getEntityName(), r.value().toHumanReadable()));
+        }
 
         // WARNING: saving the files actually removes them from the PCMResourceSetPartition! therefore the model can
         // only be saved AFTER the analysis has been performed!
-        instance.saveToFiles("palladio-headless");
+        // instance.saveToFiles("palladio-headless");
     }
 }

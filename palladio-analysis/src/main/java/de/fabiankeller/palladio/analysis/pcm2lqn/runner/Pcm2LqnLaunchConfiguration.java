@@ -67,7 +67,7 @@ public class Pcm2LqnLaunchConfiguration implements ILaunchConfiguration {
         return new Pcm2LqnLaunchConfiguration(attr);
     }
 
-    public static ILaunchConfiguration adjusted(final Pcm2LqnAnalysisConfig config) {
+    public static ILaunchConfiguration adjusted(final PcmLqnsAnalyzerConfig config) {
         final Map<String, Object> attr = new HashMap<>();
         attr.put("LINEDebug", true);
         attr.put("LINEOutputDir", "/Volumes/Daten/PalladioTests/Eclipse.app/Contents/MacOS");
