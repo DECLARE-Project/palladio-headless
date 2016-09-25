@@ -33,9 +33,10 @@ public class RunLqnsWithBuilder {
         final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
         final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
         final PerformanceResult<NamedElement> result = ctx.run();
+        ctx.untrace();
 
         for (final Result<? extends NamedElement> r : result.getResults()) {
-            log.info(String.format("Result for '%s': %s", r.attachedTo().getEntityName(), r));
+            log.info(String.format("Result for '%s': %s", r.attachedTo().getEntityName(), r.value().toHumanReadable()));
         }
 
         // WARNING: saving the files actually removes them from the PCMResourceSetPartition! therefore the model can
