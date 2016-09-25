@@ -1,6 +1,6 @@
 package de.fabiankeller.palladio.analysis.result;
 
-import de.fabiankeller.palladio.analysis.result.valueobject.ValueObject;
+import de.fabiankeller.palladio.analysis.result.metric.PerformanceMetric;
 
 /**
  * Represents a single performance analysis result, that is specific for a element in the PCM.
@@ -17,5 +17,5 @@ public interface Result<T> {
     /**
      * The actual value.
      */
-    ValueObject value();
+    PerformanceMetric value();
 }
