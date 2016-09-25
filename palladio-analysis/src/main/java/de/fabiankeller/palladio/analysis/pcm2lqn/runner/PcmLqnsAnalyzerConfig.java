@@ -2,6 +2,9 @@ package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
 import de.fabiankeller.palladio.config.PcmModelConfig;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 /**
@@ -18,6 +21,28 @@ public class PcmLqnsAnalyzerConfig extends PcmModelConfig {
 
     public PcmLqnsAnalyzerConfig(final Properties config) {
         super(config);
+    }
+
+    /**
+     * Cretes a default configuration for the {@link PcmLqnsAnalyzer}, suitable in most use cases.
+     */
+    public static PcmLqnsAnalyzerConfig defaultConfig() {
+        final PcmLqnsAnalyzerConfig config = new PcmLqnsAnalyzerConfig();
+
+        // default model names
+        config.setAllocationModel("default.allocation");
+        config.setUsageModel("default.usagemodel");
+
+        // default output path
+        final Path output;
+        try {
+            output = Files.createTempDirectory("lqns-analysis");
+        } catch (final IOException e) {
+            throw new RuntimeException("Cannot create temporary directory for LQNS results", e);
+        }
+        config.setOutputPath(output.toString());
+
+        return config;
     }
 
 
