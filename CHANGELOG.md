@@ -7,6 +7,10 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+### Changed
+- The performance analyzers have a new API, starting with the `de.fabiankeller.palladio.analysis.PerformanceAnalyzer` interface. The usage of existing analyzers has slightly changed, however the new interface is simple to use and more generic.
+- The palladio headless project does not require a `config.properties` anymore. Former configuration settings now have sound default values and can be programmatically overridden using the respective classes.
+
 
 ## v0.3.0 - 2016-09-23
 
