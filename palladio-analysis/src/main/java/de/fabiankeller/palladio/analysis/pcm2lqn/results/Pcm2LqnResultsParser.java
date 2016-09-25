@@ -156,7 +156,7 @@ public class Pcm2LqnResultsParser {
 
         // check if traced element is of expected type
         if (tClass.isInstance(el)) {
-            return Optional.<T>of((T) el);
+            return Optional.of((T) el);
         } else {
             // found element is not of correct type
             return Optional.empty();

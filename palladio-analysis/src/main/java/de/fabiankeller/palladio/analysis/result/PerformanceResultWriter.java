@@ -24,7 +24,7 @@ public interface PerformanceResultWriter<T> {
         this.attach(new AttachedResult<T>(to, new ServiceTime(duration)));
     }
 
-    default void attachThroughout(final T to, final double throughout) {
+    default void attachThroughput(final T to, final double throughout) {
         this.attach(new AttachedResult<T>(to, new Throughput(NormalPercentage.of(throughout))));
     }
 }
