@@ -1,9 +1,6 @@
 package de.fabiankeller.palladio.analysis.pcm2lqn.results;
 
 import de.fabiankeller.palladio.analysis.result.PerformanceResultWriter;
-import de.fabiankeller.palladio.analysis.result.metric.ServiceTime;
-import de.fabiankeller.palladio.analysis.result.metric.Throughput;
-import de.fabiankeller.palladio.analysis.result.metric.Utilization;
 import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
 import org.junit.Before;
@@ -46,10 +43,10 @@ public class Pcm2LqnResultsParserTest {
         Pcm2LqnResultsParser.parse(trace, rw, Paths.get(RESULTS_FILE.toURI()));
 
         // lower bound of result objects being generated for the sample file
-        verify(rw, atLeast(40)).attach(any(Utilization.class));
-        verify(rw, atLeast(40)).attach(any(ServiceTime.class));
+        verify(rw, atLeast(40)).attachUtilization(any(), any());
+        verify(rw, atLeast(40)).attachServiceTime(any(), any());
 
         // throughput is not extracted yet
-        verify(rw, atMost(0)).attach(any(Throughput.class));
+        verify(rw, atMost(0)).attachThroughout(any(), any());
     }
 }

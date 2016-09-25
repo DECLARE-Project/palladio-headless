@@ -2,10 +2,7 @@ package de.fabiankeller.palladio.analysis.pcm2lqn.results;
 
 import de.fabiankeller.palladio.analysis.result.PerformanceResultWriter;
 import de.fabiankeller.palladio.analysis.result.exception.InvalidResultException;
-import de.fabiankeller.palladio.analysis.result.metric.ServiceTime;
-import de.fabiankeller.palladio.analysis.result.metric.Utilization;
 import de.fabiankeller.palladio.analysis.result.valueobject.Duration;
-import de.fabiankeller.palladio.analysis.result.valueobject.Percentage;
 import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -75,7 +72,7 @@ public class Pcm2LqnResultsParser {
         if (proc.getResultProcessor().size() == 1) {
             this.<ResourceContainer>traceElement(proc.getName(), ResourceContainer.class).ifPresent(resourceContainer -> {
                 final OutputResultType result = proc.getResultProcessor().get(0);
-                this.rw.attach(new Utilization<>(resourceContainer, Percentage.of(result.getUtilization())));
+                this.rw.attachUtilization(resourceContainer, result.getUtilization());
             });
         }
 
@@ -116,12 +113,12 @@ public class Pcm2LqnResultsParser {
 
         // extract utilization
         if (result.isSetUtilization()) {
-            this.rw.attach(new Utilization<AbstractAction>(action, Percentage.of(result.getUtilization())));
+            this.rw.attachUtilization(action, result.getUtilization());
         }
 
         // extract service time
         if (result.isSetServiceTime()) {
-            this.rw.attach(new ServiceTime<AbstractAction>(action, Duration.ofMilliseconds(result.getServiceTime())));
+            this.rw.attachServiceTime(action, Duration.ofMilliseconds(result.getServiceTime()));
         }
 
         /*

@@ -5,7 +5,7 @@ import de.fabiankeller.palladio.analysis.result.valueobject.Duration;
 /**
  * The time it takes for a single operation to complete.
  */
-public class ServiceTime<T> extends AbstractPerformanceMetric<Duration> {
+public class ServiceTime extends AbstractPerformanceMetric<Duration> {
 
     public ServiceTime(final Duration serviceTime) {
         super(serviceTime);

@@ -5,7 +5,7 @@ import de.fabiankeller.palladio.analysis.result.valueobject.NormalPercentage;
 /**
  * Defines the throughput of a constrained resource.
  */
-public class Throughput<T> extends AbstractPerformanceMetric<NormalPercentage> {
+public class Throughput extends AbstractPerformanceMetric<NormalPercentage> {
 
     public Throughput(final NormalPercentage throughput) {
         super(throughput);
