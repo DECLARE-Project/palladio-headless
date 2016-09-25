@@ -10,6 +10,7 @@ This file keeps track of all changes to this project. This project follows [sema
 ### Changed
 - The performance analyzers have a new API, starting with the `de.fabiankeller.palladio.analysis.PerformanceAnalyzer` interface. The usage of existing analyzers has slightly changed, however the new interface is simple to use and more generic.
 - The palladio headless project does not require a `config.properties` anymore. Former configuration settings now have sound default values and can be programmatically overridden using the respective classes.
+- The performance results are now value objects as well, implementing the `PerformanceMetric` interface.
 
 ### Fixes
 - The `Pcm2LqnResultsParser` previously failed when there was no UUID in any given element of the results file. The parser will now ignore elements without trace and print a log message instead.

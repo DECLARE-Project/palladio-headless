@@ -10,6 +10,7 @@ Run Palladio headless (i.e. without Eclipse) and integrate it into your applicat
 - Running the Palladio LQNS solver for a `PcmInstance`
 - Building `PcmInstances` on the fly with a fluent builder API.
 - Programmatically extracting the performance analysis results of the LQNS analysis.
+- A nice and strongly-typed API for performance analysis results.
 
 > **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime. For recent changes refer to the change log.
 
@@ -24,7 +25,6 @@ Run Palladio headless (i.e. without Eclipse) and integrate it into your applicat
 
 - Check out this project from source.
 - Hop on a shell and run `mvn clean install`. You may also do this from your favorite IDE.
-- Copy the configuration file in `palladio-analysis/src/main/resources/config.properties.dist` to `palladio-analysis/src/main/resources/config.properties` and adjust its values accordingly.
 
 #### Export as Library:
 
@@ -33,39 +33,37 @@ You may export the palladio-headless project as standalone JAR library including
 
 ## Running
 
-The `de.fabiankeller.palladio.RunLQNS` class offers a main method that reads the `config.properties` file and invokes the PCM2LQN solver.
+The `de.fabiankeller.palladio.RunLqnsWithBuilder` class offers a main method that invokes the PCM2LQN solver and prints the performance analysis results to the logger for demonstration purposes.
 
-The actual output of the tool will appear upon successful completion in your defined `Output_Path`.
+By default, the actual output of the LQNS CLI tool will be stored in a temporary directory. A custom output path can be set by setting the appropriate value in the `PcmLqnsAnalyzerConfig`.
 
 
 ## Result Extraction
 
-The project is capable of programmatically extracting the performance prediction results of the LQNS analysis. As references to the PCM model elements are lost on the transformation to the LQNS solver the solution relies on adding trace information to the names of PCM `NamedElement`s. The trace information simply is a random UUID. Let's take advantage of the tracing capabilities:
+The project automatically extracts the performance prediction results of the LQNS analysis. As references to the PCM model elements are lost on the transformation to the LQNS solver the solution relies on adding trace information to the names of PCM `NamedElement`s. The trace information simply is a random UUID. 
 
 ```java
 // 1. Create a PCM instance to analyze
 final PCMInstance instance = new SimpleTacticsProvider().provide();
 
-// 2. Add the UUID trace information
-final PcmModelTrace trace = PcmModelTrace.trace(instance);
+// 3. Prepare the actual analysis
+final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
 
-// 3. Run the actual analysis
-final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
-runner.analyze(instance);
-
-// 4. Parse the results file
-final Pcm2LqnResult results = new Pcm2LqnResult(instance);
-Pcm2LqnResultsParser.parse(trace, results, this.resultsFile);
+// 3. Run the performance analysis
+final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
+final PerformanceResult<NamedElement> result = ctx.run();
 
 // [optional] 4.1 Remove the trace information to restore the exact same PCMInstance
-PcmModelTrace.untrace(instance);
+ctx.untrace();
 
 // 5. Read the results
 RepositoryComponent component = instance.getRepositories().get(0).getComponents__Repository().get(0);
-results.getResults(component);
+for (final Result<? extends NamedElement> r : result.getResults(component)) {
+    // ...
+}
 ```
 
-The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughout` and `Utilization` objects to store the analysis results. Have a look at `de.fabiankeller.palladio.analysis.result` to see what else is available.
+The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at `de.fabiankeller.palladio.analysis.result` package to see what else is available.
 
 
 
