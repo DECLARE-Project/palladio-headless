@@ -1,8 +1,8 @@
 package de.fabiankeller.palladio;
 
 import de.fabiankeller.palladio.analysis.PcmProvider;
-import de.fabiankeller.palladio.analysis.pcm2lqn.runner.Pcm2LqnAnalysisConfig;
-import de.fabiankeller.palladio.analysis.pcm2lqn.runner.Pcm2LqnRunner;
+import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzer;
+import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzerConfig;
 import de.fabiankeller.palladio.analysis.provider.FileSystemProvider;
 import de.fabiankeller.palladio.config.PcmModelConfig;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
@@ -64,7 +64,7 @@ public class RunLQNS implements Runnable {
         PalladioEclipseEnvironment.INSTANCE.setup();
 
         final PcmProvider provider = new FileSystemProvider(new PcmModelConfig(this.runnerConfig));
-        final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
+        final PcmLqnsAnalyzer runner = new PcmLqnsAnalyzer(new PcmLqnsAnalyzerConfig(this.runnerConfig));
         runner.analyze(provider.provide());
     }
 }

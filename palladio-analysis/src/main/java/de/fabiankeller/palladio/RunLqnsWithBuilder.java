@@ -1,7 +1,7 @@
 package de.fabiankeller.palladio;
 
-import de.fabiankeller.palladio.analysis.pcm2lqn.runner.Pcm2LqnAnalysisConfig;
-import de.fabiankeller.palladio.analysis.pcm2lqn.runner.Pcm2LqnRunner;
+import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzer;
+import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzerConfig;
 import de.fabiankeller.palladio.analysis.provider.SimpleTacticsProvider;
 import de.fabiankeller.palladio.builder.PcmBuilder;
 import de.fabiankeller.palladio.config.PcmModelConfig;
@@ -38,7 +38,7 @@ public class RunLqnsWithBuilder extends RunLQNS {
 
         final PCMInstance instance = new SimpleTacticsProvider().provide();
 
-        final Pcm2LqnRunner runner = new Pcm2LqnRunner(new Pcm2LqnAnalysisConfig(this.runnerConfig));
+        final PcmLqnsAnalyzer runner = new PcmLqnsAnalyzer(new PcmLqnsAnalyzerConfig(this.runnerConfig));
         runner.analyze(instance);
 
         // WARNING: saving the files actually removes them from the PCMResourceSetPartition! therefore the model can

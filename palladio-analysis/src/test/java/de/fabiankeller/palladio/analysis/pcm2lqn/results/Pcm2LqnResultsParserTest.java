@@ -12,16 +12,18 @@ import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
 public class Pcm2LqnResultsParserTest {
 
-    public static final String RESULTS_FILE = Thread.currentThread()
+    public static final URL RESULTS_FILE = Thread.currentThread()
             .getContextClassLoader()
-            .getResource("lqns-sample-output/simple-tactics.out.lqxo")
-            .getPath();
+            .getResource("lqns-sample-output/simple-tactics.out.lqxo");
 
     @Before
     public void setUp() throws Exception {
@@ -29,7 +31,7 @@ public class Pcm2LqnResultsParserTest {
     }
 
     @Test
-    public void analyze() {
+    public void analyze() throws URISyntaxException {
         final PcmModelTrace trace = mock(PcmModelTrace.class);
         final PerformanceResultWriter<NamedElement> rw = mock(PerformanceResultWriter.class);
 
@@ -41,7 +43,7 @@ public class Pcm2LqnResultsParserTest {
                 return Optional.of(mock(AbstractAction.class));
             }
         });
-        Pcm2LqnResultsParser.parse(trace, rw, RESULTS_FILE);
+        Pcm2LqnResultsParser.parse(trace, rw, Paths.get(RESULTS_FILE.toURI()));
 
         // lower bound of result objects being generated for the sample file
         verify(rw, atLeast(40)).attach(any(Utilization.class));

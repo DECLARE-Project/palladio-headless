@@ -13,6 +13,7 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.solver.lqn.*;
 import org.palladiosimulator.solver.transformations.pcm2lqn.LqnXmlHandler;
 
+import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -36,11 +37,11 @@ public class Pcm2LqnResultsParser {
      */
     private final PerformanceResultWriter<NamedElement> rw;
 
-    private Pcm2LqnResultsParser(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
+    private Pcm2LqnResultsParser(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final Path resultsFile) {
         this.trace = trace;
         this.rw = resultWriter;
 
-        this.loadedModel = LqnXmlHandler.loadModelFromXMI(resultsFile);
+        this.loadedModel = LqnXmlHandler.loadModelFromXMI(resultsFile.toString());
         this.extractSolverParams(this.loadedModel.getSolverParams());
         this.loadedModel.getProcessor().forEach(this::extractProcessor);
     }
@@ -49,7 +50,7 @@ public class Pcm2LqnResultsParser {
      * Parses the LQNS results file containing trace information with the help of the given {@link PcmModelTrace} and
      * stores all performance prediction results in the {@link PerformanceResultWriter}.
      */
-    public static void parse(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final String resultsFile) {
+    public static void parse(final PcmModelTrace trace, final PerformanceResultWriter<NamedElement> resultWriter, final Path resultsFile) {
         new Pcm2LqnResultsParser(trace, resultWriter, resultsFile);
     }
 

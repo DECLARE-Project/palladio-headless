@@ -7,16 +7,16 @@ import java.util.Properties;
 /**
  * Config parameters to locate PCM models on the file system.
  */
-public class Pcm2LqnAnalysisConfig extends PcmModelConfig {
+public class PcmLqnsAnalyzerConfig extends PcmModelConfig {
 
     private static final String PROPERTY_STORAGE_PATH = "Storage_Path";
     private static final String PROPERTY_OUTPUT_PATH = "Output_Path";
 
-    public Pcm2LqnAnalysisConfig() {
+    public PcmLqnsAnalyzerConfig() {
         super();
     }
 
-    public Pcm2LqnAnalysisConfig(final Properties config) {
+    public PcmLqnsAnalyzerConfig(final Properties config) {
         super(config);
     }
 
