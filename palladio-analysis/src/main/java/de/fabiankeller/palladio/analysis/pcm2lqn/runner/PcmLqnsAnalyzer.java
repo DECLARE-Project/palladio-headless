@@ -44,7 +44,7 @@ public class PcmLqnsAnalyzer implements PerformanceAnalyzer<PCMInstance, PcmLqns
     }
 
     @Override
-    public PcmLqnsAnalyzerContext analyze(final PCMInstance instance) {
+    public PcmLqnsAnalyzerContext setupAnalysis(final PCMInstance instance) {
         log.info(String.format("Setup PcmLqnsAnalyzerContext for PCMInstance '%s'", instance.toString()));
         return new PcmLqnsAnalyzerContext(instance, this.config);
     }

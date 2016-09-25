@@ -12,5 +12,5 @@ public interface AnalysisContext<SYSTEM> {
     /**
      * Runs the analysis and yields the performance results.
      */
-    PerformanceResult<?> run();
+    PerformanceResult<?> analyze();
 }

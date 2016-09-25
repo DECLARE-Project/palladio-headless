@@ -26,5 +26,5 @@ public interface PerformanceAnalyzer<SYSTEM, CONTEXT extends AnalysisContext<SYS
     /**
      * Sets up and configures the analysis.
      */
-    CONTEXT analyze(SYSTEM system);
+    CONTEXT setupAnalysis(SYSTEM system);
 }

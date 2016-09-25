@@ -31,8 +31,8 @@ public class RunLqnsWithBuilder {
         final PCMInstance instance = new SimpleTacticsProvider().provide();
 
         final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
-        final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
-        final PerformanceResult<NamedElement> result = ctx.run();
+        final PcmLqnsAnalyzerContext ctx = analyzer.setupAnalysis(instance);
+        final PerformanceResult<NamedElement> result = ctx.analyze();
         ctx.untrace();
 
         for (final Result<? extends NamedElement> r : result.getResults()) {

@@ -38,7 +38,7 @@ public class PcmLqnsAnalyzerContext implements AnalysisContext<PCMInstance> {
         this.config = config;
     }
 
-    public PerformanceResult<NamedElement> run() {
+    public PerformanceResult<NamedElement> analyze() {
         // setup trace
         final PcmModelTrace trace = PcmModelTrace.trace(this.pcmInstance);
 
