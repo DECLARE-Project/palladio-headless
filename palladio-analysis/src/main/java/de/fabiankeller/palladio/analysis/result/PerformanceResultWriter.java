@@ -1,7 +1,5 @@
 package de.fabiankeller.palladio.analysis.result;
 
-import de.fabiankeller.palladio.analysis.result.type.Result;
-
 /**
  * Interface is used by performance analyis approaches to store performance analysis results.
  *

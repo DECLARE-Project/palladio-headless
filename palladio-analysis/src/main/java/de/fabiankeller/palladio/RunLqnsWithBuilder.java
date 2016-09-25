@@ -3,8 +3,11 @@ package de.fabiankeller.palladio;
 import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzer;
 import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzerContext;
 import de.fabiankeller.palladio.analysis.provider.SimpleTacticsProvider;
+import de.fabiankeller.palladio.analysis.result.PerformanceResult;
+import de.fabiankeller.palladio.analysis.result.Result;
 import de.fabiankeller.palladio.builder.PcmBuilder;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
+import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.solver.models.PCMInstance;
 
 import java.io.IOException;
@@ -29,7 +32,11 @@ public class RunLqnsWithBuilder {
 
         final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
         final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
-        ctx.run();
+        final PerformanceResult<NamedElement> result = ctx.run();
+
+        for (final Result<? extends NamedElement> r : result.getResults()) {
+            log.info(String.format("Result for '%s': %s", r.attachedTo().getEntityName(), r));
+        }
 
         // WARNING: saving the files actually removes them from the PCMResourceSetPartition! therefore the model can
         // only be saved AFTER the analysis has been performed!

@@ -1,7 +1,5 @@
 package de.fabiankeller.palladio.analysis.result;
 
-import de.fabiankeller.palladio.analysis.result.type.Result;
-
 import java.util.Collection;
 import java.util.Set;
 
