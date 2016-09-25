@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Stores a bunch of performance results associated to the hierarchy below {@link T}.
  *
- * @param <T> The top most node of the model to which performance results are attached.
+ * @param <T> The root node of the model class hierarchy to which performance results are attached.
  */
 public interface PerformanceResult<T> {
 

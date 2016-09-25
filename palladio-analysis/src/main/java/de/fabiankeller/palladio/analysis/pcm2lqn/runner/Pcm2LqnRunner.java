@@ -1,6 +1,6 @@
 package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
-import de.fabiankeller.palladio.analysis.AnalysisRunner;
+import de.fabiankeller.palladio.analysis.PalladioPerformanceAnalysis;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowConfigurationBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 /**
  * Runs the {@link Pcm2LqnStrategy} analysis.
  */
-public class Pcm2LqnRunner implements AnalysisRunner {
+public class Pcm2LqnRunner implements PalladioPerformanceAnalysis {
 
     private static final Logger log = Logger.getLogger(Pcm2LqnRunner.class.getName());
 
