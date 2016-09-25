@@ -12,6 +12,7 @@ import java.util.Properties;
  */
 public class PcmLqnsAnalyzerConfig extends PcmModelConfig {
 
+    @Deprecated
     private static final String PROPERTY_STORAGE_PATH = "Storage_Path";
     private static final String PROPERTY_OUTPUT_PATH = "Output_Path";
 
@@ -46,10 +47,12 @@ public class PcmLqnsAnalyzerConfig extends PcmModelConfig {
     }
 
 
+    @Deprecated
     public String getStoragePath() {
         return this.getPropertyNotNull(PROPERTY_STORAGE_PATH);
     }
 
+    @Deprecated
     public void setStoragePath(final String storagePath) {
         this.setProperty(PROPERTY_STORAGE_PATH, storagePath);
     }

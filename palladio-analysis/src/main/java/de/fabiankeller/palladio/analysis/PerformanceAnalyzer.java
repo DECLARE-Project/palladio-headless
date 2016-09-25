@@ -7,6 +7,9 @@ import java.util.Set;
  * <p>
  * Analyzers implementing this interface do not perform any performance analyses. They simply create and configure a
  * specific {@link AnalysisContext} that is able to execute the actual analysis.
+ *
+ * @param <SYSTEM>  the representation of the model to analyze
+ * @param <CONTEXT> the class that is able to perform the actual performance analysis
  */
 public interface PerformanceAnalyzer<SYSTEM, CONTEXT extends AnalysisContext<SYSTEM>> {
 
