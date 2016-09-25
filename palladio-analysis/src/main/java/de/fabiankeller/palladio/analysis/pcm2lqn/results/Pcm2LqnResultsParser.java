@@ -16,11 +16,15 @@ import org.palladiosimulator.solver.transformations.pcm2lqn.LqnXmlHandler;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * Parses the output of the Palladio PCM2LQN Analysis tool and maps it to the PCM instance objects.
  */
 public class Pcm2LqnResultsParser {
+
+    private static final Logger log = Logger.getLogger(Pcm2LqnResultsParser.class.getName());
 
     /**
      * parsed results file
@@ -141,9 +145,19 @@ public class Pcm2LqnResultsParser {
      * @throws NoSuchElementException in case the trace does not contain an element identified by the given name
      */
     private <T extends NamedElement> Optional<T> traceElement(final String name, final Class<T> tClass) {
+        // check if trace info is present
+        final Optional<UUID> uuid = PcmModelTrace.extractTrace(name);
+        if (!uuid.isPresent()) {
+            log.info(String.format("No trace information found in results file for name '%s'", name));
+            return Optional.empty();
+        }
+
+        // get traced element or fail
         final NamedElement el = this.trace
-                .findByString(name)
+                .find(uuid.get())
                 .orElseThrow(() -> new NoSuchElementException(String.format("Could not find '%s' in trace.", name)));
+
+        // check if traced element is of expected type
         if (tClass.isInstance(el)) {
             return Optional.<T>of((T) el);
         } else {

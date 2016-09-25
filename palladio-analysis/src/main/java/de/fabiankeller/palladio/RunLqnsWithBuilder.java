@@ -28,9 +28,11 @@ public class RunLqnsWithBuilder {
         final PCMInstance instance = new SimpleTacticsProvider().provide();
 
         final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
+        final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
+        ctx.run();
 
         // WARNING: saving the files actually removes them from the PCMResourceSetPartition! therefore the model can
         // only be saved AFTER the analysis has been performed!
-        instance.saveToFiles("palladio-headless");
+        // instance.saveToFiles("palladio-headless");
     }
 }
