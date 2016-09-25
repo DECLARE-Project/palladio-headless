@@ -1,6 +1,5 @@
 package de.fabiankeller.palladio.analysis.result;
 
-import de.fabiankeller.palladio.analysis.result.Result;
 import de.fabiankeller.palladio.analysis.result.valueobject.ValueObject;
 
 public class AttachedResult<T> implements Result<T> {

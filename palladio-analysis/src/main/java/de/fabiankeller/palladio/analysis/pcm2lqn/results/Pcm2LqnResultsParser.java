@@ -2,8 +2,8 @@ package de.fabiankeller.palladio.analysis.pcm2lqn.results;
 
 import de.fabiankeller.palladio.analysis.result.PerformanceResultWriter;
 import de.fabiankeller.palladio.analysis.result.exception.InvalidResultException;
-import de.fabiankeller.palladio.analysis.result.type.ServiceTime;
-import de.fabiankeller.palladio.analysis.result.type.Utilization;
+import de.fabiankeller.palladio.analysis.result.metric.ServiceTime;
+import de.fabiankeller.palladio.analysis.result.metric.Utilization;
 import de.fabiankeller.palladio.analysis.result.valueobject.Duration;
 import de.fabiankeller.palladio.analysis.result.valueobject.Percentage;
 import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
