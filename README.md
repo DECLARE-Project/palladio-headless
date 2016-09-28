@@ -46,17 +46,17 @@ The project automatically extracts the performance prediction results of the LQN
 // 1. Create a PCM instance to analyze
 final PCMInstance instance = new SimpleTacticsProvider().provide();
 
-// 3. Prepare the actual analysis
+// 2. Prepare the actual analysis
 final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
 
 // 3. Run the performance analysis
 final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
 final PerformanceResult<NamedElement> result = ctx.run();
 
-// [optional] 4.1 Remove the trace information to restore the exact same PCMInstance
+// [optional] 3.1 Remove the trace information to restore the exact same PCMInstance
 ctx.untrace();
 
-// 5. Read the results
+// 4. Read the results
 RepositoryComponent component = instance.getRepositories().get(0).getComponents__Repository().get(0);
 for (final Result<? extends NamedElement> r : result.getResults(component)) {
     // ...
