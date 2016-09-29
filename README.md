@@ -50,8 +50,8 @@ final PCMInstance instance = new SimpleTacticsProvider().provide();
 final PcmLqnsAnalyzer analyzer = new PcmLqnsAnalyzer();
 
 // 3. Run the performance analysis
-final PcmLqnsAnalyzerContext ctx = analyzer.analyze(instance);
-final PerformanceResult<NamedElement> result = ctx.run();
+final PcmLqnsAnalyzerContext ctx = analyzer.setupAnalysis(instance);
+final PerformanceResult<NamedElement> result = ctx.analyze();
 
 // [optional] 3.1 Remove the trace information to restore the exact same PCMInstance
 ctx.untrace();
