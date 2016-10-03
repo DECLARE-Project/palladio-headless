@@ -35,7 +35,7 @@ public class RunLqnsWithBuilder {
         final PerformanceResult<NamedElement> result = ctx.analyze();
         ctx.untrace();
 
-        for (final Result<? extends NamedElement> r : result.getResults()) {
+        for (final Result<NamedElement> r : result.getResults()) {
             log.info(String.format("Result for '%s': %s", r.attachedTo().getEntityName(), r.value().toHumanReadable()));
         }
 
