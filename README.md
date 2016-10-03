@@ -1,9 +1,9 @@
 # Palladio Headless
 
-[![GitHub tag](https://img.shields.io/github/tag/SQuAT-Team/palladio-headless.svg?maxAge=3600)](https://github.com/SQuAT-Team/palladio-headless/releases)
-[![Travis](https://img.shields.io/travis/SQuAT-Team/palladio-headless.svg?maxAge=3600)](https://travis-ci.org/SQuAT-Team/palladio-headless)
-[![Coverage](https://img.shields.io/codecov/c/github/SQuAT-Team/palladio-headless.svg?maxAge=3600)](https://codecov.io/gh/SQuAT-Team/palladio-headless)
-[![license](https://img.shields.io/github/license/SQuAT-Team/palladio-headless.svg?maxAge=3600)](LICENSE)
+[![GitHub tag](https://img.shields.io/github/tag/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://github.com/SQuAT-Team/palladio-headless/releases)
+[![Travis](https://img.shields.io/travis/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://travis-ci.org/SQuAT-Team/palladio-headless)
+[![Coverage](https://img.shields.io/codecov/c/github/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://codecov.io/gh/SQuAT-Team/palladio-headless)
+[![license](https://img.shields.io/github/license/SQuAT-Team/palladio-headless.svg?maxAge=30)](LICENSE)
 
 Run Palladio headless (i.e. without Eclipse) and integrate it into your application. The project currently features:
 
