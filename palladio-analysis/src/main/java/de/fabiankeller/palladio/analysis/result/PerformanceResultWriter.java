@@ -14,7 +14,15 @@ import de.fabiankeller.palladio.analysis.result.valueobject.Percentage;
  */
 public interface PerformanceResultWriter<T> {
 
+    /**
+     * Stores a single performance result.
+     */
     void attach(Result<T> result);
+
+    /**
+     * Returns the actual performance result.
+     */
+    PerformanceResult<T> get();
 
     default void attachUtilization(final T to, final double utilization) {
         this.attach(new AttachedResult<T>(to, new Utilization(Percentage.of(utilization))));

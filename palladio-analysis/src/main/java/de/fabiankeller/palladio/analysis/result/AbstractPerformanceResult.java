@@ -22,6 +22,10 @@ abstract public class AbstractPerformanceResult<T> implements PerformanceResult<
         this.results.get(key).add(result);
     }
 
+    @Override
+    public PerformanceResult<T> get() {
+        return this;
+    }
 
     @Override
     public boolean hasResults() {
