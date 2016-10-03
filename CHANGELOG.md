@@ -7,6 +7,9 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+
+## v0.4.1 - 2016-10-03
+
 ### Changed
 - The performance results interface has been simplified. Instead of `<? extends T>` all interfaces now simply use `<T>` instead.
 
