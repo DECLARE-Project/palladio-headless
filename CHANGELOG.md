@@ -7,6 +7,12 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+### Changed
+- The performance results interface has been simplified. Instead of `<? extends T>` all interfaces now simply use `<T>` instead.
+
+### Added
+- `TraceMapper` interface to easily map performance results between different models.
+
 
 ## v0.4.0 - 2016-09-28
 

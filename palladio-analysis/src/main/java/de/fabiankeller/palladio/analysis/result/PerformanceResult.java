@@ -13,7 +13,7 @@ public interface PerformanceResult<T> {
     /**
      * Returns all available results.
      */
-    Collection<Result<? extends T>> getResults();
+    Collection<Result<T>> getResults();
 
     /**
      * Returns a set of all {@link T} elements, that have a performance result attached.
@@ -33,5 +33,5 @@ public interface PerformanceResult<T> {
     /**
      * Returns all results for the {@link T}.
      */
-    Collection<Result<? extends T>> getResults(T element);
+    Collection<Result<T>> getResults(T element);
 }

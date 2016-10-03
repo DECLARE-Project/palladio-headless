@@ -11,10 +11,10 @@ abstract public class AbstractPerformanceResult<T> implements PerformanceResult<
     /**
      * Stores the actual results.
      */
-    private final Map<T, List<Result<? extends T>>> results = new LinkedHashMap<>();
+    private final Map<T, List<Result<T>>> results = new LinkedHashMap<>();
 
     @Override
-    public void attach(final Result<? extends T> result) {
+    public void attach(final Result<T> result) {
         final T key = result.attachedTo();
         if (!this.results.containsKey(key)) {
             this.results.put(key, new ArrayList<>());
@@ -22,6 +22,10 @@ abstract public class AbstractPerformanceResult<T> implements PerformanceResult<
         this.results.get(key).add(result);
     }
 
+    @Override
+    public PerformanceResult<T> get() {
+        return this;
+    }
 
     @Override
     public boolean hasResults() {
@@ -29,7 +33,7 @@ abstract public class AbstractPerformanceResult<T> implements PerformanceResult<
     }
 
     @Override
-    public Collection<Result<? extends T>> getResults() {
+    public Collection<Result<T>> getResults() {
         assert this.hasResults();
         // return a flat view on all results
         return this.results
@@ -51,7 +55,7 @@ abstract public class AbstractPerformanceResult<T> implements PerformanceResult<
     }
 
     @Override
-    public Collection<Result<? extends T>> getResults(final T element) {
+    public Collection<Result<T>> getResults(final T element) {
         assert this.hasResults(element);
         return this.results.get(element);
     }
