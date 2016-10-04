@@ -1,6 +1,6 @@
-package de.fabiankeller.palladio.analysis.result.metric;
+package de.fabiankeller.performance.analysis.result.metric;
 
-import de.fabiankeller.palladio.analysis.result.valueobject.NormalPercentage;
+import de.fabiankeller.performance.analysis.result.valueobject.NormalPercentage;
 
 /**
  * Defines the throughput of a constrained resource.

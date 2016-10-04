@@ -1,7 +1,7 @@
-package de.fabiankeller.palladio.analysis.result.metric;
+package de.fabiankeller.performance.analysis.result.metric;
 
-import de.fabiankeller.palladio.analysis.result.valueobject.AbstractValueObject;
-import de.fabiankeller.palladio.analysis.result.valueobject.ValueObject;
+import de.fabiankeller.performance.analysis.result.valueobject.AbstractValueObject;
+import de.fabiankeller.performance.analysis.result.valueobject.ValueObject;
 
 /**
  * Used as base class for implementing {@link PerformanceMetric}s.

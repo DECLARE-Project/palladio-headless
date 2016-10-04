@@ -1,6 +1,6 @@
-package de.fabiankeller.palladio.analysis.result.metric;
+package de.fabiankeller.performance.analysis.result.metric;
 
-import de.fabiankeller.palladio.analysis.result.valueobject.Duration;
+import de.fabiankeller.performance.analysis.result.valueobject.Duration;
 
 /**
  * The time it takes for a single operation to complete.

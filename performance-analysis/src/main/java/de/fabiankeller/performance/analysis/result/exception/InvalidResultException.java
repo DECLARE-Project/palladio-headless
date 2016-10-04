@@ -1,4 +1,4 @@
-package de.fabiankeller.palladio.analysis.result.exception;
+package de.fabiankeller.performance.analysis.result.exception;
 
 /**
  * To be thrown in case the analysis result is invalid.
