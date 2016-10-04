@@ -1,9 +1,9 @@
 package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
-import de.fabiankeller.palladio.analysis.AnalysisContext;
+import de.fabiankeller.performance.analysis.AnalysisContext;
 import de.fabiankeller.palladio.analysis.pcm2lqn.results.Pcm2LqnResult;
 import de.fabiankeller.palladio.analysis.pcm2lqn.results.Pcm2LqnResultsParser;
-import de.fabiankeller.palladio.analysis.result.PerformanceResult;
+import de.fabiankeller.performance.analysis.result.PerformanceResult;
 import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowConfigurationBuilder;
 import org.eclipse.core.runtime.CoreException;
