@@ -1,8 +1,5 @@
 package de.fabiankeller.performance.analysis;
 
-import de.fabiankeller.performance.analysis.AnalysisCapability;
-import de.fabiankeller.performance.analysis.AnalysisContext;
-
 import java.util.Set;
 
 /**

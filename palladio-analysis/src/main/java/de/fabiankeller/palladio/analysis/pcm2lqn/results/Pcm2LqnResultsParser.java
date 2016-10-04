@@ -1,9 +1,9 @@
 package de.fabiankeller.palladio.analysis.pcm2lqn.results;
 
+import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
 import de.fabiankeller.performance.analysis.result.PerformanceResultWriter;
 import de.fabiankeller.performance.analysis.result.exception.InvalidResultException;
 import de.fabiankeller.performance.analysis.result.valueobject.Duration;
-import de.fabiankeller.palladio.analysis.tracing.PcmModelTrace;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
