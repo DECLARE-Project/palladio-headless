@@ -7,6 +7,11 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+## v0.5.1 - 2016-10-04 [Maintenance Release]
+
+### Changed
+- Update Travis build process to release `performance-analysis` module.
+
 
 ## v0.5.0 - 2016-10-04
 
