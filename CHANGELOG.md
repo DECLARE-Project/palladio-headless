@@ -7,6 +7,9 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+
+## v0.5.0 - 2016-10-04
+
 ### Changed
 - The performance abstraction has been refactored to the separate module `performance-analysis` under the namespace `de.fabiankeller.performance.analysis`.
 
