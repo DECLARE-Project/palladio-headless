@@ -1,6 +1,6 @@
 package de.fabiankeller.palladio.analysis.pcm2lqn.results;
 
-import de.fabiankeller.performance.analysis.result.AbstractPerformanceResult;
+import de.fakeller.performance.analysis.result.AbstractPerformanceResult;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.solver.models.PCMInstance;
 

@@ -1,7 +1,7 @@
 package de.fabiankeller.palladio.analysis.pcm2lqn.runner;
 
-import de.fabiankeller.performance.analysis.AnalysisCapability;
-import de.fabiankeller.performance.analysis.PerformanceAnalyzer;
+import de.fakeller.performance.analysis.AnalysisCapability;
+import de.fakeller.performance.analysis.PerformanceAnalyzer;
 import org.palladiosimulator.solver.models.PCMInstance;
 import org.palladiosimulator.solver.transformations.pcm2lqn.Pcm2LqnStrategy;
 

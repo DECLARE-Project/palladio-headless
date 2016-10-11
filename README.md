@@ -5,12 +5,14 @@
 [![Coverage](https://img.shields.io/codecov/c/github/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://codecov.io/gh/SQuAT-Team/palladio-headless)
 [![license](https://img.shields.io/github/license/SQuAT-Team/palladio-headless.svg?maxAge=30)](LICENSE)
 
-Run Palladio headless (i.e. without Eclipse) and integrate it into your application. The project currently features:
+Run the Palladio performance analyses headless (i.e. without Eclipse) and integrate them into your application. This project currently features:
 
-- Running the Palladio LQNS solver for a `PcmInstance`
+- Running the Palladio LQNS solver for a `PcmInstance`.
 - Building `PcmInstances` on the fly with a fluent builder API.
 - Programmatically extracting the performance analysis results of the LQNS analysis.
-- A nice and strongly-typed API for performance analysis results.
+- A nice and strongly-typed API for model-agnostic performance analysis results.
+
+This project implements a performance analysis based on the `PerformanceAnalyzer` abstraction of [FaKeller/performance](https://github.com/FaKeller/performance).
 
 > **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime. For recent changes refer to the change log.
 

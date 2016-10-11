@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.fabiankeller.palladio-headless</groupId>
@@ -19,7 +20,6 @@
         <module>palladio-builder</module>
         <module>palladio-analysis</module>
         <module>palladio-environment</module>
-        <module>performance-analysis</module>
     </modules>
 
     <properties>
@@ -53,13 +53,13 @@
             </dependency>
             <dependency>
                 <groupId>de.fabiankeller.palladio-headless</groupId>
-                <artifactId>performance-analysis</artifactId>
-                <version>0.5.2-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>de.fabiankeller.palladio-headless</groupId>
                 <artifactId>palladio-bridge</artifactId>
                 <version>0.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>de.fakeller.performance</groupId>
+                <artifactId>performance-analysis</artifactId>
+                <version>0.0.2</version>
             </dependency>
 
 
