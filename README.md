@@ -35,7 +35,7 @@ You may export the palladio-headless project as standalone JAR library including
 
 ## Running
 
-The `de.fabiankeller.palladio.RunLqnsWithBuilder` class offers a main method that invokes the PCM2LQN solver and prints the performance analysis results to the logger for demonstration purposes.
+The `de.fakeller.palladio.RunLqnsWithBuilder` class offers a main method that invokes the PCM2LQN solver and prints the performance analysis results to the logger for demonstration purposes.
 
 By default, the actual output of the LQNS CLI tool will be stored in a temporary directory. A custom output path can be set by setting the appropriate value in the `PcmLqnsAnalyzerConfig`.
 
@@ -65,7 +65,7 @@ for (final Result<? extends NamedElement> r : result.getResults(component)) {
 }
 ```
 
-The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at `de.fabiankeller.palladio.analysis.result` package to see what else is available.
+The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at `de.fakeller.palladio.analysis.result` package to see what else is available.
 
 
 
