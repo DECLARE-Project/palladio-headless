@@ -13,12 +13,10 @@ before_deploy:
 - export PH_ENV_FILE=$(ls palladio-environment/target/*-jar-with-dependencies.jar)
 - export PH_BUILDER_FILE=$(ls palladio-builder/target/*.jar)
 - export PH_ANALYSIS_FILE=$(ls palladio-analysis/target/*.jar)
-- export PERF_ANALYSIS_FILE=$(ls performance-analysis/target/*.jar)
 - echo "Deploying the following files to GitHub releases "
 - echo "- $PH_ENV_FILE"
 - echo "- $PH_BUILDER_FILE"
 - echo "- $PH_ANALYSIS_FILE"
-- echo "- $PERF_ANALYSIS_FILE"
 deploy:
   provider: releases
   api_key:
@@ -27,7 +25,6 @@ deploy:
     - "${PH_ENV_FILE}"
     - "${PH_BUILDER_FILE}"
     - "${PH_ANALYSIS_FILE}"
-    - "${PERF_ANALYSIS_FILE}"
   skip_cleanup: true
   on:
     repo: SQuAT-Team/palladio-headless

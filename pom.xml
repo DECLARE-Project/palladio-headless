@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.fabiankeller.palladio-headless</groupId>
+    <groupId>de.fakeller.palladio-headless</groupId>
     <artifactId>palladio-headless</artifactId>
     <version>0.5.2-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -32,22 +32,22 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-headless</artifactId>
                 <version>0.5.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-builder</artifactId>
                 <version>0.5.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-analysis</artifactId>
                 <version>0.5.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>de.fabiankeller.palladio-headless</groupId>
+                <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-environment</artifactId>
                 <version>0.5.2-SNAPSHOT</version>
             </dependency>

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.fabiankeller.palladio-headless</groupId>
+        <groupId>de.fakeller.palladio-headless</groupId>
         <artifactId>palladio-headless</artifactId>
         <version>0.5.2-SNAPSHOT</version>
     </parent>
@@ -22,11 +22,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.fabiankeller.palladio-headless</groupId>
+            <groupId>de.fakeller.palladio-headless</groupId>
             <artifactId>palladio-environment</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.fabiankeller.palladio-headless</groupId>
+            <groupId>de.fakeller.palladio-headless</groupId>
             <artifactId>palladio-builder</artifactId>
         </dependency>
         <dependency>

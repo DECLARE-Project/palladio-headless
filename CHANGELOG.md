@@ -9,6 +9,8 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ### Changed
 - The `performance-analysis` module has been extracted to its own project: https://github.com/FaKeller/performance.
+- The package namespaces have been changed from `de.fabiankeller.*` to `de.fakeller.*` to comply with Java naming conventions.
+- The maven groupId has been changed from `de.fabiankeller.palladio-headless` to `de.fakeller.palladio-headless` to comply with naming conventions. 
 
 
 ## v0.5.1 - 2016-10-04 [Maintenance Release]
