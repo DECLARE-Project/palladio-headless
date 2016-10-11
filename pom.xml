@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.fakeller.palladio-headless</groupId>
     <artifactId>palladio-headless</artifactId>
-    <version>0.5.2-SNAPSHOT</version>
+    <version>0.6.0</version>
     <packaging>pom</packaging>
 
     <name>Palladio Headless</name>
@@ -13,7 +12,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:SQuAT-Team/palladio-headless.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v0.6.0</tag>
     </scm>
 
     <modules>
@@ -34,22 +33,22 @@
             <dependency>
                 <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-headless</artifactId>
-                <version>0.5.2-SNAPSHOT</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-builder</artifactId>
-                <version>0.5.2-SNAPSHOT</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-analysis</artifactId>
-                <version>0.5.2-SNAPSHOT</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>de.fakeller.palladio-headless</groupId>
                 <artifactId>palladio-environment</artifactId>
-                <version>0.5.2-SNAPSHOT</version>
+                <version>0.6.0</version>
             </dependency>
             <dependency>
                 <groupId>de.fabiankeller.palladio-headless</groupId>
