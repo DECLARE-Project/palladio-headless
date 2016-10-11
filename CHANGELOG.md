@@ -7,6 +7,9 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+
+## v0.6.0 - 2016-10-11
+
 ### Changed
 - The `performance-analysis` module has been extracted to its own project: https://github.com/FaKeller/performance.
 - The package namespaces have been changed from `de.fabiankeller.*` to `de.fakeller.*` to comply with Java naming conventions.
