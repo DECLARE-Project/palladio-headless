@@ -13,6 +13,13 @@
     <name>Palladio Headless Analysis</name>
     <description>Runs performance predictions.</description>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>de.fabiankeller.palladio-headless</groupId>
@@ -26,9 +33,16 @@
             <groupId>de.fabiankeller.palladio-headless</groupId>
             <artifactId>palladio-bridge</artifactId>
         </dependency>
+
+        <!-- todo: as long as the performance analysis project is not published, we use jitpack to serve the dependency -->
+        <!--<dependency>-->
+        <!--<groupId>de.fakeller.performance</groupId>-->
+        <!--<artifactId>performance-analysis</artifactId>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>de.fakeller.performance</groupId>
-            <artifactId>performance-analysis</artifactId>
+            <groupId>com.github.FaKeller</groupId>
+            <artifactId>performance</artifactId>
+            <version>v0.0.2</version>
         </dependency>
 
         <!-- test dependencies -->
