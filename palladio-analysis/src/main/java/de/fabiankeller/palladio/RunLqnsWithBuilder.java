@@ -5,8 +5,8 @@ import de.fabiankeller.palladio.analysis.pcm2lqn.runner.PcmLqnsAnalyzerContext;
 import de.fabiankeller.palladio.analysis.provider.SimpleTacticsProvider;
 import de.fabiankeller.palladio.builder.PcmBuilder;
 import de.fabiankeller.palladio.environment.PalladioEclipseEnvironment;
-import de.fabiankeller.performance.analysis.result.PerformanceResult;
-import de.fabiankeller.performance.analysis.result.Result;
+import de.fakeller.performance.analysis.result.PerformanceResult;
+import de.fakeller.performance.analysis.result.Result;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.solver.models.PCMInstance;
 
