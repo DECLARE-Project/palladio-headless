@@ -65,7 +65,7 @@ for (final Result<? extends NamedElement> r : result.getResults(component)) {
 }
 ```
 
-The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at `de.fakeller.palladio.analysis.result` package to see what else is available.
+The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at the [FaKeller/performance](https://github.com/FaKeller/performance) project to see what else is available.
 
 
 
