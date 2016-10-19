@@ -2,16 +2,19 @@
 
 This file keeps track of all changes to this project. This project follows [semantic versioning](http://semver.org/) and [keeps a change log](http://keepachangelog.com/).
 
-> Please [view this change log on the master branch](https://github.com/SQuAT-Team/palladio-headless/blob/master/CHANGELOG.md), as otherwise it is probably outdated.
+> Please [view this change log on the master branch](https://github.com/DECLARE-Project/palladio-headless/blob/master/CHANGELOG.md), as otherwise it is probably outdated.
 
 
 ## [UNRELEASED]
+
+### Changed
+- Updated to fastpan v0.2.0
 
 
 ## v0.6.0 - 2016-10-11
 
 ### Changed
-- The `performance-analysis` module has been extracted to its own project: https://github.com/FaKeller/performance.
+- The `performance-analysis` module has been extracted to its own project: https://github.com/DECLARE-Project/fastpan.
 - The package namespaces have been changed from `de.fabiankeller.*` to `de.fakeller.*` to comply with Java naming conventions.
 - The maven groupId has been changed from `de.fabiankeller.palladio-headless` to `de.fakeller.palladio-headless` to comply with naming conventions. 
 
@@ -90,7 +93,7 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ### Added
 - Major refactoring to split prototype to several classes.
-- Builder API to construct PCM instances using an API (see [PR #3](https://github.com/SQuAT-Team/palladio-lqns-headless/pull/3))
+- Builder API to construct PCM instances using an API (see [PR #3](https://github.com/DECLARE-Project/palladio-headless/pull/3))
 - Improved dependency management with maven
 
 
