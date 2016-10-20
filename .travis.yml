@@ -27,5 +27,5 @@ deploy:
     - "${PH_ANALYSIS_FILE}"
   skip_cleanup: true
   on:
-    repo: SQuAT-Team/palladio-headless
+    repo: DECLARE-Project/palladio-headless
     tags: true

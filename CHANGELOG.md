@@ -8,6 +8,12 @@ This file keeps track of all changes to this project. This project follows [sema
 ## [UNRELEASED]
 
 
+## v0.6.2 - 2016-10-20 [Maintenance Release]
+
+### Changed
+- Update Travis build process to release project to `DECLARE-Project` GitHub organization.
+
+
 ## v0.6.1 - 2016-10-20
 
 ### Changed
