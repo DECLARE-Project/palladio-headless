@@ -1,9 +1,9 @@
 # Palladio Headless
 
-[![GitHub tag](https://img.shields.io/github/tag/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://github.com/SQuAT-Team/palladio-headless/releases)
-[![Travis](https://img.shields.io/travis/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://travis-ci.org/SQuAT-Team/palladio-headless)
-[![Coverage](https://img.shields.io/codecov/c/github/SQuAT-Team/palladio-headless.svg?maxAge=30)](https://codecov.io/gh/SQuAT-Team/palladio-headless)
-[![license](https://img.shields.io/github/license/SQuAT-Team/palladio-headless.svg?maxAge=30)](LICENSE)
+[![GitHub tag](https://img.shields.io/github/tag/DECLARE-Project/palladio-headless.svg?maxAge=30)](https://github.com/DECLARE-Project/palladio-headless/releases)
+[![Travis](https://img.shields.io/travis/DECLARE-Project/palladio-headless.svg?maxAge=30)](https://travis-ci.org/DECLARE-Project/palladio-headless)
+[![Coverage](https://img.shields.io/codecov/c/github/DECLARE-Project/palladio-headless.svg?maxAge=30)](https://codecov.io/gh/DECLARE-Project/palladio-headless)
+[![license](https://img.shields.io/github/license/DECLARE-Project/palladio-headless.svg?maxAge=30)](LICENSE)
 
 Run the Palladio performance analyses headless (i.e. without Eclipse) and integrate them into your application. This project currently features:
 
@@ -12,7 +12,7 @@ Run the Palladio performance analyses headless (i.e. without Eclipse) and integr
 - Programmatically extracting the performance analysis results of the LQNS analysis.
 - A nice and strongly-typed API for model-agnostic performance analysis results.
 
-This project implements a performance analysis based on the `PerformanceAnalyzer` abstraction of [FaKeller/performance](https://github.com/FaKeller/performance).
+This project implements a fastpan performance analysis based on the `PerformanceAnalyzer` abstraction of [FaKeller/performance](https://github.com/DECLARE-Project/fastpan).
 
 > **Attention:** This project is a work in progress and as such, the API is unstable and may change anytime. For recent changes refer to the change log.
 
@@ -65,13 +65,13 @@ for (final Result<? extends NamedElement> r : result.getResults(component)) {
 }
 ```
 
-The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at the [FaKeller/performance](https://github.com/FaKeller/performance) project to see what else is available.
+The retrieved result objects are mapped to a `NamedElement` of the PCM instance. The result objects are strongly typed with the help of appropriate value objects to retain their semantic meaning. For example, there are `ServiceTime`, `Throughput` and `Utilization` objects to store the analysis results. Have a look at the [FaKeller/performance](https://github.com/DECLARE-Project/fastpan) project to see what else is available.
 
 
 
 ## Builder API
 
-The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like. You may see the full example by [viewing the SimpleTacticsProvider](https://github.com/SQuAT-Team/palladio-headless/blob/master/palladio-analysis/src/main/java/de/fabiankeller/palladio/analysis/provider/SimpleTacticsProvider.java) class.
+The project features a fluent Java builder API to build `PcmInstance`s on the fly. Here is a preview of how the builder API looks like. You may see the full example by [viewing the SimpleTacticsProvider](https://github.com/DECLARE-Project/palladio-headless/blob/master/palladio-analysis/src/main/java/de/fabiankeller/palladio/analysis/provider/SimpleTacticsProvider.java) class.
 
 ```java
     final PcmBuilder builder = new PcmBuilder();
@@ -112,7 +112,7 @@ The project features a fluent Java builder API to build `PcmInstance`s on the fl
     // ...
 ```
 
-**Limitations:** The builder does not yet support all PCM features. You may have a look at [issue #7](https://github.com/SQuAT-Team/palladio-lqns-headless/issues/7) to see what is still missing.
+**Limitations:** The builder does not yet support all PCM features. You may have a look at [issue #7](https://github.com/DECLARE-Project/palladio-headless/issues/7) to see what is still missing.
 
 
 ## Roadmap
@@ -123,7 +123,7 @@ The project features a fluent Java builder API to build `PcmInstance`s on the fl
 
 ## Wiki
 
-For more information [check out the wiki](https://github.com/SQuAT-Team/palladio-lqns-headless/wiki) of this project. It contains behind the scenes information how the headless approach works.
+For more information [check out the wiki](https://github.com/DECLARE-Project/palladio-headless/wiki) of this project. It contains behind the scenes information how the headless approach works.
 
 
 ## Release
