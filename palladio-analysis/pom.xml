@@ -34,11 +34,11 @@
             <artifactId>palladio-bridge</artifactId>
         </dependency>
 
-        <!-- todo: as long as the performance analysis project is not published, we use jitpack to serve the dependency -->
+        <!-- todo: as long as the fastpan project is not published, we use jitpack to serve the dependency -->
         <dependency>
             <groupId>com.github.DECLARE-Project</groupId>
             <artifactId>fastpan</artifactId>
-            <version>v0.2.0</version>
+            <version>v0.2.1</version>
         </dependency>
 
         <!-- test dependencies -->

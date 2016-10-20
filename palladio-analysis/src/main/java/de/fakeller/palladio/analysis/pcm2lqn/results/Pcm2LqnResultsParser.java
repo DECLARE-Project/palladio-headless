@@ -1,9 +1,12 @@
 package de.fakeller.palladio.analysis.pcm2lqn.results;
 
 import de.fakeller.palladio.analysis.tracing.PcmModelTrace;
+import de.fakeller.performance.analysis.result.Attach;
 import de.fakeller.performance.analysis.result.PerformanceResultWriter;
 import de.fakeller.performance.analysis.result.exception.InvalidResultException;
 import de.fakeller.performance.analysis.result.valueobject.Duration;
+import de.fakeller.performance.analysis.result.valueobject.Percentage;
+import de.fakeller.performance.analysis.result.valueobject.statistics.Variance;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
@@ -55,6 +58,9 @@ public class Pcm2LqnResultsParser {
         new Pcm2LqnResultsParser(trace, resultWriter, resultsFile);
     }
 
+    /**
+     * Sanity checks for results file
+     */
     private void extractSolverParams(final SolverParamsType solverParams) {
         if (null == solverParams.getResultGeneral()) {
             throw new InvalidResultException("Missing <result-general/> tag in results file.");
@@ -72,7 +78,7 @@ public class Pcm2LqnResultsParser {
         if (proc.getResultProcessor().size() == 1) {
             this.<ResourceContainer>traceElement(proc.getName(), ResourceContainer.class).ifPresent(resourceContainer -> {
                 final OutputResultType result = proc.getResultProcessor().get(0);
-                this.rw.attachUtilization(resourceContainer, result.getUtilization());
+                this.rw.attach(Attach.<NamedElement>to(resourceContainer).utilization(Percentage.of(result.getUtilization())).mean());
             });
         }
 
@@ -113,18 +119,23 @@ public class Pcm2LqnResultsParser {
 
         // extract utilization
         if (result.isSetUtilization()) {
-            this.rw.attachUtilization(action, result.getUtilization());
+            this.rw.attach(Attach.<NamedElement>to(action).utilization(Percentage.of(result.getUtilization())).mean());
         }
 
         // extract service time
         if (result.isSetServiceTime()) {
-            this.rw.attachServiceTime(action, Duration.ofMilliseconds(result.getServiceTime()));
+            final Duration serviceTime = Duration.ofMilliseconds(result.getServiceTime());
+            if (result.isSetServiceTimeVariance()) {
+                final Variance serviceTimeVariance = new Variance(result.getServiceTimeVariance());
+                this.rw.attach(Attach.<NamedElement>to(action).serviceTime(serviceTime).normalDistribution(serviceTimeVariance));
+            } else {
+                this.rw.attach(Attach.<NamedElement>to(action).serviceTime(serviceTime).mean());
+            }
         }
 
         /*
             TODO: extract the following result types:
             - proc-waiting
-            - service-time-variance
             - throughput
             - throughput-bound
             - proc-utilization
