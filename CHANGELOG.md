@@ -7,8 +7,11 @@ This file keeps track of all changes to this project. This project follows [sema
 
 ## [UNRELEASED]
 
+
+## v0.6.1 - 2016-10-20
+
 ### Changed
-- Updated to fastpan v0.2.0
+- Updated to fastpan v0.2.1
 
 
 ## v0.6.0 - 2016-10-11
