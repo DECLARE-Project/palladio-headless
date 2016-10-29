@@ -6,7 +6,8 @@ import de.fakeller.palladio.builder.system.SystemBuilder;
 import de.fakeller.palladio.builder.usage.BehaviourBuilder;
 import de.fakeller.palladio.builder.usage.ScenarioBuilder;
 import de.fakeller.palladio.builder.usage.UsageBuilder;
-import de.fakeller.palladio.builder.util.RandomVariableFactory;
+import de.fakeller.palladio.builder.util.random.RandomVariable;
+import de.fakeller.palladio.builder.util.random.RandomVariableFactory;
 import org.palladiosimulator.pcm.usagemodel.OpenWorkload;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
@@ -45,7 +46,7 @@ public class ScenarioBuilderImpl extends AbstractHierarchicalBuilder<ScenarioBui
     public ScenarioBuilder withOpenWorkload(final double interArrivalTime) {
         // create model
         final OpenWorkload wl = UsagemodelFactory.eINSTANCE.createOpenWorkload();
-        wl.setInterArrivalTime_OpenWorkload(RandomVariableFactory.exp(interArrivalTime));
+        wl.setInterArrivalTime_OpenWorkload(RandomVariableFactory.factory().exp(interArrivalTime).get());
 
         // link model
         this.eModel.setWorkload_UsageScenario(wl);

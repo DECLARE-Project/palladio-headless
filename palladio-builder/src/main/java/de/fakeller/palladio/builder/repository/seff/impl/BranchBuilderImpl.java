@@ -2,7 +2,7 @@ package de.fakeller.palladio.builder.repository.seff.impl;
 
 import de.fakeller.palladio.builder.repository.seff.BranchBuilder;
 import de.fakeller.palladio.builder.repository.seff.ResourceDemandBuilder;
-import de.fakeller.palladio.builder.util.RandomVariableFactory;
+import de.fakeller.palladio.builder.util.random.RandomVariableFactory;
 import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
 import org.palladiosimulator.pcm.seff.SeffFactory;
@@ -22,7 +22,7 @@ public class BranchBuilderImpl<PARENT extends ResourceDemandBuilder<?>> implemen
         // create branch object for new branch
         final GuardedBranchTransition curBranch = SeffFactory.eINSTANCE.createGuardedBranchTransition();
         curBranch.setEntityName(name);
-        curBranch.setBranchCondition_GuardedBranchTransition(RandomVariableFactory.expression(branchConditionExpression));
+        curBranch.setBranchCondition_GuardedBranchTransition(RandomVariableFactory.factory().expression(branchConditionExpression).get());
         // link model
         curBranch.setBranchAction_AbstractBranchTransition(this.eModel);
         this.eModel.getBranches_Branch().add(curBranch);

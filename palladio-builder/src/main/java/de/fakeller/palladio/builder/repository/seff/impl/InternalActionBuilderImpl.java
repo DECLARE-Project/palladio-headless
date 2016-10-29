@@ -3,7 +3,7 @@ package de.fakeller.palladio.builder.repository.seff.impl;
 import de.fakeller.palladio.builder.repository.failure.SoftwareInducedFailureBuilder;
 import de.fakeller.palladio.builder.repository.seff.InternalActionBuilder;
 import de.fakeller.palladio.builder.repository.seff.ResourceDemandBuilder;
-import de.fakeller.palladio.builder.util.RandomVariableFactory;
+import de.fakeller.palladio.builder.util.random.RandomVariableFactory;
 import de.fakeller.palladio.environment.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.reliability.InternalFailureOccurrenceDescription;
 import org.palladiosimulator.pcm.reliability.ReliabilityFactory;
@@ -44,7 +44,7 @@ public class InternalActionBuilderImpl<PARENT extends ResourceDemandBuilder<?>> 
         // create model
         final ParametricResourceDemand prd = SeffPerformanceFactory.eINSTANCE.createParametricResourceDemand();
         prd.setRequiredResource_ParametricResourceDemand(resourceType);
-        prd.setSpecification_ParametericResourceDemand(RandomVariableFactory.expression(demandSpecification));
+        prd.setSpecification_ParametericResourceDemand(RandomVariableFactory.factory().expression(demandSpecification).get());
 
         // link model
         prd.setAction_ParametricResourceDemand(this.eModel);
