@@ -1,10 +1,7 @@
 package de.fakeller.palladio.builder.repository.impl;
 
 import de.fakeller.palladio.builder.AbstractHierarchicalBuilder;
-import de.fakeller.palladio.builder.repository.ComponentBuilder;
-import de.fakeller.palladio.builder.repository.InterfaceBuilder;
-import de.fakeller.palladio.builder.repository.RepositoryBuilder;
-import de.fakeller.palladio.builder.repository.SignatureBuilder;
+import de.fakeller.palladio.builder.repository.*;
 import de.fakeller.palladio.builder.repository.seff.ResourceDemandBuilder;
 import de.fakeller.palladio.builder.repository.seff.impl.ResourceDemandBuilderImpl;
 import org.palladiosimulator.pcm.repository.BasicComponent;
@@ -63,5 +60,10 @@ public class ComponentBuilderImpl extends AbstractHierarchicalBuilder<ComponentB
     public ResourceDemandBuilder<ComponentBuilder> withServiceEffectSpecification(final SignatureBuilder affectedOperation) {
         // todo: assert that affected operation is provided by an interface of this component
         return ResourceDemandBuilderImpl.rootResourceDemand(this, affectedOperation);
+    }
+
+    @Override
+    public PassiveResourceBuilder withPassiveResource(final String name) {
+        return new PassiveResourceBuilderImpl(this).withEntityName(name);
     }
 }
