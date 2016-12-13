@@ -1,7 +1,7 @@
 package de.fakeller.palladio.builder.util.impl;
 
-import de.fakeller.palladio.builder.util.RandomVariableFactory;
 import de.fakeller.palladio.builder.util.VariableUsageFactory;
+import de.fakeller.palladio.builder.util.random.RandomVariableFactory;
 import de.uka.ipd.sdq.stoex.StoexFactory;
 import de.uka.ipd.sdq.stoex.VariableReference;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
@@ -20,7 +20,7 @@ public class VariableUsageFactoryImpl implements VariableUsageFactory {
         // create characterisation
         characterisation.setType(VariableCharacterisationType.VALUE);
         characterisation.setVariableUsage_VariableCharacterisation(varusg);
-        characterisation.setSpecification_VariableCharacterisation(RandomVariableFactory.expression(specification));
+        characterisation.setSpecification_VariableCharacterisation(RandomVariableFactory.factory().expression(specification).get());
 
         // create var reference
         final VariableReference varref = StoexFactory.eINSTANCE.createVariableReference();

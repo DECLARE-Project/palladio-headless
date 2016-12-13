@@ -4,10 +4,7 @@ import de.fakeller.palladio.builder.BaseBuilder;
 import de.fakeller.palladio.builder.BuilderException;
 import de.fakeller.palladio.builder.repository.ComponentBuilder;
 import de.fakeller.palladio.builder.repository.SignatureBuilder;
-import de.fakeller.palladio.builder.repository.seff.BranchBuilder;
-import de.fakeller.palladio.builder.repository.seff.ExternalCallBuilder;
-import de.fakeller.palladio.builder.repository.seff.InternalActionBuilder;
-import de.fakeller.palladio.builder.repository.seff.ResourceDemandBuilder;
+import de.fakeller.palladio.builder.repository.seff.*;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
@@ -119,6 +116,14 @@ public class ResourceDemandBuilderImpl<PARENT extends BaseBuilder<?>> implements
     public BranchBuilder<ResourceDemandBuilder<PARENT>> branch() {
         assertPredecessor();
         final BranchBuilderImpl<ResourceDemandBuilder<PARENT>> builder = new BranchBuilderImpl<>(this);
+        enqueueAction(builder.getReference());
+        return builder;
+    }
+
+    @Override
+    public LoopBuilder<ResourceDemandBuilder<PARENT>> loop() {
+        assertPredecessor();
+        final LoopBuilderImpl<ResourceDemandBuilder<PARENT>> builder = new LoopBuilderImpl<>(this);
         enqueueAction(builder.getReference());
         return builder;
     }

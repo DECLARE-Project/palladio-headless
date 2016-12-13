@@ -2,7 +2,7 @@ package de.fakeller.palladio.builder.resourceenvironment.impl;
 
 import de.fakeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fakeller.palladio.builder.resourceenvironment.ProcessingResourceBuilder;
-import de.fakeller.palladio.builder.util.RandomVariableFactory;
+import de.fakeller.palladio.builder.util.random.RandomVariableFactory;
 import de.fakeller.palladio.environment.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.resourceenvironment.ProcessingResourceSpecification;
@@ -30,7 +30,7 @@ public class ProcessingResourceBuilderImpl implements ProcessingResourceBuilder 
 
     @Override
     public ProcessingResourceBuilder withProcessingRate(final double processingRate) {
-        final PCMRandomVariable rnd = RandomVariableFactory.fromDouble(processingRate);
+        final PCMRandomVariable rnd = RandomVariableFactory.factory().fromDouble(processingRate).get();
         this.eModel.setProcessingRate_ProcessingResourceSpecification(rnd);
         return this;
     }

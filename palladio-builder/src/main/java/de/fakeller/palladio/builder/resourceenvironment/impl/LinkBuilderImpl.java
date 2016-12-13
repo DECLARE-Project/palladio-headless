@@ -4,7 +4,7 @@ import de.fakeller.palladio.builder.AbstractHierarchicalBuilder;
 import de.fakeller.palladio.builder.resourceenvironment.ContainerBuilder;
 import de.fakeller.palladio.builder.resourceenvironment.LinkBuilder;
 import de.fakeller.palladio.builder.resourceenvironment.ResourceEnvironmentBuilder;
-import de.fakeller.palladio.builder.util.RandomVariableFactory;
+import de.fakeller.palladio.builder.util.random.RandomVariableFactory;
 import de.fakeller.palladio.environment.util.PalladioResourceRepository;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.resourceenvironment.CommunicationLinkResourceSpecification;
@@ -51,14 +51,14 @@ public class LinkBuilderImpl extends AbstractHierarchicalBuilder<LinkBuilder, Li
 
     @Override
     public LinkBuilder withLatency(final double latency) {
-        final PCMRandomVariable rnd = RandomVariableFactory.fromDouble(latency);
+        final PCMRandomVariable rnd = RandomVariableFactory.factory().fromDouble(latency).get();
         this.spec.setLatency_CommunicationLinkResourceSpecification(rnd);
         return this;
     }
 
     @Override
     public LinkBuilder withThroughput(final double throughput) {
-        final PCMRandomVariable rnd = RandomVariableFactory.fromDouble(throughput);
+        final PCMRandomVariable rnd = RandomVariableFactory.factory().fromDouble(throughput).get();
         this.spec.setThroughput_CommunicationLinkResourceSpecification(rnd);
         return this;
     }

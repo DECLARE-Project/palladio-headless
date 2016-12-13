@@ -41,6 +41,11 @@ public interface ResourceDemandBuilder<PARENT extends BaseBuilder<?>> extends Ba
         return branch().withEntityName(name);
     }
 
+    LoopBuilder<ResourceDemandBuilder<PARENT>> loop();
+
+    default LoopBuilder<ResourceDemandBuilder<PARENT>> loop(final String name) {
+        return loop().withEntityName(name);
+    }
 
     ResourceDemandBuilder<PARENT> stop();
 }

@@ -1,6 +1,7 @@
 package de.fakeller.palladio.builder.usage;
 
 import de.fakeller.palladio.builder.EntityHierarchicalBuilder;
+import de.fakeller.palladio.builder.util.random.RandomVariable;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 /**
@@ -11,4 +12,6 @@ public interface ScenarioBuilder extends EntityHierarchicalBuilder<ScenarioBuild
     BehaviourBuilder withBehaviour();
 
     ScenarioBuilder withOpenWorkload(double interArrivalTime);
+
+    ScenarioBuilder withClosedWorkload(final int population, final RandomVariable thinkTime);
 }
